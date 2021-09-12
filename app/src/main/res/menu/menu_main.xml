@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.atimi.dadjoke.MainActivity">
+
+    <item
+        android:id="@+id/action_add"
+        app:showAsAction="ifRoom"
+        android:visible="false"
+        android:icon="@drawable/baseline_bookmark_add_24"
+        android:title="@string/action_add" />
+
+    <item
+        android:id="@+id/action_remove"
+        app:showAsAction="ifRoom"
+        android:visible="false"
+        android:icon="@drawable/baseline_bookmark_remove_24"
+        android:title="@string/action_remove" />
+
+    <item
+        android:id="@+id/action_share"
+        app:showAsAction="ifRoom"
+        android:visible="false"
+        android:icon="@drawable/outline_ios_share_24"
+        android:title="@string/action_share" />
+
+</menu>

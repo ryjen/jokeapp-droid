@@ -1,0 +1,121 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-parcelize'
+}
+
+android {
+    compileSdk 30
+    compileSdkVersion rootProject.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.atimi.jokeapp"
+        minSdk 21
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary true
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        testInstrumentationRunner "com.atimi.jokeapp.MainTestRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["dagger.hilt.disableModulesHaveInstallInCheck"] = "true"
+            }
+        }
+    }
+    buildFeatures {
+        dataBinding true
+    }
+    signingConfigs {
+        release {
+            storeFile file("release.keystore")
+            storePassword System.getenv("ANDROID_RELEASE_STORE_PWD")
+            keyPassword System.getenv("ANDROID_RELEASE_KEY_PWD")
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    packagingOptions {
+        // Multiple dependency bring these files in. Exclude them to enable
+        // our test APK to build (has no effect on our AARs)
+        excludes += "/META-INF/AL2.0"
+        excludes += "/META-INF/LGPL2.1"
+    }
+}
+
+dependencies {
+    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+
+    implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
+    implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+    implementation "androidx.viewpager2:viewpager2:$rootProject.viewPagerVersion"
+    implementation "androidx.work:work-runtime-ktx:$rootProject.workVersion"
+
+    implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpLoggingVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+
+    // Testing dependencies
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
+
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$rootProject.espressoVersion"
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunit"
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:$rootProject.uiAutomatorVersion"
+    androidTestImplementation "androidx.work:work-testing:$rootProject.workVersion"
+    androidTestImplementation "androidx.navigation:navigation-testing:$rootProject.navigationVersion"
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$rootProject.okhttpMockServerVersion"
+
+    androidTestImplementation "com.google.truth:truth:$rootProject.truthVersion"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$rootProject.hiltVersion"
+
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.coroutinesVersion"
+
+    testImplementation "junit:junit:$rootProject.junitVersion"
+}
+
+kapt {
+    correctErrorTypes true
+}
+
+configurations {
+    all {
+        exclude group: 'org.checkerframework', module: 'checker'
+    }
+}
