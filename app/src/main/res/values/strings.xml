@@ -3,11 +3,11 @@
     <string name="action_refresh">Refresh Joke</string>
     <string name="action_add">Add Favourite</string>
     <string name="action_remove">Remove Favourite</string>
-    <string name="action_favourites">Favourite Jokes</string>
+    <string name="action_favorites">Favourite Jokes</string>
     <string name="joke_removed">Joke removed.</string>
     <string name="label_undo">Undo</string>
-    <string name="favourite_added">Favourite added.</string>
-    <string name="favourite_removed">Favourite removed</string>
-    <string name="no_favourites">No favourites added yet.</string>
+    <string name="favorite_added">Favourite added.</string>
+    <string name="favorite_removed">Favourite removed</string>
+    <string name="no_favorites">No favourites added yet.</string>
     <string name="action_share">Share Joke</string>
 </resources>

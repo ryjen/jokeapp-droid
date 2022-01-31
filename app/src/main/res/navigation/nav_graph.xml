@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@id/jokeFragment"
-        android:name="com.atimi.jokeapp.ui.joke.JokeFragment"
+        android:name="com.github.ryjen.jokeapp.ui.jokes.random.JokeFragment"
         tools:layout="@layout/fragment_joke">
 
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@id/jokesFragment"
-        android:name="com.atimi.jokeapp.ui.jokes.JokesFragment"
+        android:name="com.github.ryjen.jokeapp.ui.jokes.favourites.JokesFragment"
         tools:layout="@layout/fragment_jokes">
 
         <action
