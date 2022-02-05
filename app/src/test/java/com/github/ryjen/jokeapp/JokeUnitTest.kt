@@ -14,7 +14,7 @@ class JokeUnitTest {
 
     @Before
     fun setUp() {
-        joke = Joke("123", "testing 123", 200)
+        joke = Joke("123", "testing 123")
     }
 
     @Test

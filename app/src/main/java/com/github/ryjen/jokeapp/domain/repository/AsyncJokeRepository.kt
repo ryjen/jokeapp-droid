@@ -6,6 +6,8 @@ interface AsyncJokeRepository {
 
     suspend fun getJoke(jokeId: String): Joke?
 
+    suspend fun getRandomJoke(): Joke?
+
     suspend fun addFavorite(joke: Joke)
 
     suspend fun removeFavorite(joke: Joke)

@@ -2,38 +2,50 @@ package com.github.ryjen.jokeapp.ui.jokes.random
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.data.repository.JokeRepository
-import com.github.ryjen.jokeapp.domain.State
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.github.ryjen.jokeapp.domain.arch.redux.ErrorReducer
+import com.github.ryjen.jokeapp.domain.arch.redux.ReduxReducer
+import com.github.ryjen.jokeapp.domain.arch.redux.ReduxStore
+import com.github.ryjen.jokeapp.domain.arch.redux.combineReducers
+import com.github.ryjen.jokeapp.domain.model.Joke
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class JokeViewModel @Inject constructor(
+class JokeViewModel(
     private val repo: JokeRepository,
 ) : ViewModel() {
 
-    // the current data
-    private val data = MutableStateFlow<State<Joke>>(State.Loading)
-    val state: StateFlow<State<Joke>> = data
+    private val reducer: ReduxReducer<JokeState, JokeActions> = { state, action ->
+        when (action) {
+            is JokeActions.Refresh -> state.copy(
+                joke = action.data
+            )
+        }
+    }
+
+    private val errorHandler: ErrorReducer<JokeState> = { state, action ->
+        state.copy(error = action.error)
+    }
+
+    private val store = ReduxStore(JokeState(), combineReducers(reducer, errorHandler))
+
+    val state = store.stateAsStateFlow()
 
     init {
-        // fetch a random one
+        // fetch a random jokes
         viewModelScope.launch {
-            repo.getRandomJoke()
+            repo.observeRandomJoke()
                 .catch {
-                    data.value = State.Failure(it)
+                    store.dispatch(JokeActions.Error(it))
                 }
                 .collect {
-                    data.value = State.Success(it)
+                    store.dispatch(JokeActions.Refresh(it))
                 }
         }
     }
 
     val currentJoke: Joke?
-       get() = (data.value as? State.Success)?.data
+        get() = store.currentState.joke
 
     // add the current data to favourites
     fun addJokeToFavorites(joke: Joke) {
@@ -52,10 +64,9 @@ class JokeViewModel @Inject constructor(
     // fetch new random data
     fun refreshJoke() {
         viewModelScope.launch {
-            repo.getRandomJoke()
-                .collect {
-                    data.value = State.Success(it)
-                }
+            repo.getRandomJoke()?.let {
+                store.dispatch(JokeActions.Refresh(it))
+            }
         }
     }
 }

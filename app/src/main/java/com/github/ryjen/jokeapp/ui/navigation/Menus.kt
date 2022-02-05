@@ -5,6 +5,6 @@ import com.github.ryjen.jokeapp.ui.jokes.favourites.FavoritesMenu
 import com.github.ryjen.jokeapp.ui.jokes.random.JokeMenu
 
 val Menus: Map<String, @Composable () -> Unit> = mapOf(
-    Pair(Routes.RANDOM_JOKE, { JokeMenu() }),
-    Pair(Routes.FAVORITE_JOKES, { FavoritesMenu() })
+    Pair(Routes.RANDOM_JOKE) { JokeMenu() },
+    Pair(Routes.FAVORITE_JOKES) { FavoritesMenu() }
 )

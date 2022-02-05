@@ -1,28 +1,18 @@
 package com.github.ryjen.jokeapp.meta.modules
 
-import android.content.Context
-import androidx.room.Room
-import com.github.ryjen.jokeapp.data.storage.JokeDao
-import com.github.ryjen.jokeapp.data.storage.JokeDatabase
-import com.github.ryjen.jokeapp.domain.usecase.GetNetworkAvailability
-import com.github.ryjen.jokeapp.domain.usecase.GetUserLocale
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
+import com.github.ryjen.jokeapp.domain.usecase.*
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 
-@InstallIn(SingletonComponent::class)
-@Module
-class UseCaseModule {
+internal val useCaseModule = module {
 
-    @Provides
-    fun provideNetworkAvailability(@ApplicationContext context: Context): GetNetworkAvailability {
-        return GetNetworkAvailability(context)
-    }
+    factory { GetNetworkAvailability(androidContext()) }
 
-    @Provides
-    fun provideUserLocale(): GetUserLocale {
-        return GetUserLocale()
-    }
+    factory { GetUserLocale() }
+
+    factory { GetFavoriteJokes(get(), get()) }
+
+    factory { AddFavoriteJoke(get(), get())}
+
+    factory { RemoveFavoriteJoke(get(), get()) }
 }

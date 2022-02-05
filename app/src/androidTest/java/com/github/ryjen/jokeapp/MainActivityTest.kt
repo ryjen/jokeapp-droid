@@ -1,31 +1,38 @@
 package com.github.ryjen.jokeapp
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.platform.app.InstrumentationRegistry
+import com.github.ryjen.jokeapp.meta.modules.fakeAppModules
 import com.github.ryjen.jokeapp.ui.MainActivity
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
+import com.github.ryjen.jokeapp.ui.MainScreen
+import com.github.ryjen.jokeapp.ui.theme.BlueTheme
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
+import org.koin.test.KoinTest
+import org.koin.test.KoinTestRule
 
 /**
  * Test the main activity
  */
-@HiltAndroidTest
-class MainActivityTest {
-    private val hiltRule = HiltAndroidRule(this)
+class MainActivityTest : KoinTest {
     private val activityTestRule = ActivityScenarioRule(MainActivity::class.java)
 
+    private val koinTestRule = KoinTestRule.create {
+        printLogger()
+        modules(fakeAppModules)
+    }
+
+    private val composeTestRule = createComposeRule()
+
     @get:Rule
-    val rule = RuleChain
-        .outerRule(hiltRule)
+    val rule: RuleChain = RuleChain
+        .outerRule(koinTestRule)
         .around(activityTestRule)
 
     @Test
@@ -37,8 +44,14 @@ class MainActivityTest {
 
     @Test
     fun testOpensFavouriteList() {
-        onView(withId(R.id.action_favourites)).perform(click())
 
-        onView(withId(R.id.listLayout)).check(matches(isDisplayed()))
+        composeTestRule.setContent {
+            BlueTheme {
+                MainScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("favorites").performClick()
+
+        composeTestRule.onNodeWithTag("favoritesList").assertIsDisplayed()
     }
 }

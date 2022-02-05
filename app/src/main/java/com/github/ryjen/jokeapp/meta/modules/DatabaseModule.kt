@@ -1,33 +1,32 @@
 package com.github.ryjen.jokeapp.meta.modules
 
-import android.content.Context
 import androidx.room.Room
-import com.github.ryjen.jokeapp.data.storage.JokeDao
+import com.github.ryjen.jokeapp.data.repository.JokeRepository
+import com.github.ryjen.jokeapp.data.repository.LocalDataSource
+import com.github.ryjen.jokeapp.data.repository.RemoteDataSource
 import com.github.ryjen.jokeapp.data.storage.JokeDatabase
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.dsl.module
 
-@InstallIn(SingletonComponent::class)
-@Module
-class DatabaseModule {
+internal val databaseModule = module {
 
-    companion object {
-        private const val NAME = "jokeapp-db"
-    }
-
-    @Singleton
-    @Provides
-    fun provideJokeDatabase(@ApplicationContext context: Context): JokeDatabase {
-        return Room.databaseBuilder(context, JokeDatabase::class.java, NAME)
+    single {
+        Room.databaseBuilder(get(), JokeDatabase::class.java, "joke-app-db")
             .build()
     }
 
-    @Provides
-    fun provideJokeDao(db: JokeDatabase): JokeDao {
-        return db.jokeDao()
+    factory {
+        get<JokeDatabase>().jokeDao()
+    }
+
+    factory {
+        LocalDataSource(get())
+    }
+
+    factory {
+        RemoteDataSource(get())
+    }
+
+    factory {
+        JokeRepository(get(), get(), get())
     }
 }

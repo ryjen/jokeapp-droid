@@ -4,21 +4,21 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.github.ryjen.jokeapp.domain.State
+import com.github.ryjen.jokeapp.domain.model.Failure
 import com.github.ryjen.jokeapp.domain.model.Joke
 
 @Composable
-fun JokeScreen (
+fun JokeScreen(
     viewModel: JokeViewModel = viewModel(),
 ) {
 
     val state = viewModel.state.collectAsState()
 
-    when(val s = state.value) {
-        is State.Loading -> LoadingContent()
-        is State.Failure -> ErrorContent(s.error)
-        is State.Success -> JokeContent(s.data)
-    }
+    state.value.error?.let {
+        ErrorContent(it)
+    } ?: state.value.joke?.let {
+        JokeContent(it)
+    } ?: LoadingContent()
 }
 
 @Composable
@@ -32,6 +32,6 @@ fun LoadingContent() {
 }
 
 @Composable
-fun ErrorContent(err: Throwable) {
+fun ErrorContent(err: Failure) {
     Text(text = err.toString())
 }

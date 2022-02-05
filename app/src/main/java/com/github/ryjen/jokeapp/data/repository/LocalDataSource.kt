@@ -2,11 +2,9 @@ package com.github.ryjen.jokeapp.data.repository
 
 import com.github.ryjen.jokeapp.data.storage.JokeDao
 import com.github.ryjen.jokeapp.domain.model.Joke
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
-class LocalDataSource @Inject constructor(
+class LocalDataSource(
     private val jokeDao: JokeDao
 ) {
 
@@ -16,8 +14,7 @@ class LocalDataSource @Inject constructor(
         }
     }
 
-    val favouriteJokes: Flow<Joke>
-       get() = jokeDao.getJokes()
+    fun getFavoriteJokes() = jokeDao.getFavoriteJokes()
 
     suspend fun getJoke(id: String) = flow {
         jokeDao.getJoke(id)?.let {

@@ -9,5 +9,5 @@ data class Tab(@StringRes val title: Int,
 
 val Tabs = mapOf(
     Pair( Routes.RANDOM_JOKE, Tab(R.string.action_refresh, R.drawable.sync)),
-    Pair(Routes.FAVORITE_JOKES, Tab(R.string.action_favorites, R.drawable.bookmarks)),
+    Pair( Routes.FAVORITE_JOKES, Tab(R.string.action_favorites, R.drawable.bookmarks)),
 )

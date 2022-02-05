@@ -1,34 +1,10 @@
 package com.github.ryjen.jokeapp.meta.modules
 
 import com.github.ryjen.jokeapp.meta.coroutines.DispatcherProvider
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import javax.inject.Qualifier
-import javax.inject.Singleton
+import org.koin.dsl.module
 
-@Retention(AnnotationRetention.RUNTIME)
-@Qualifier
-annotation class ApplicationScope
-
-@InstallIn(SingletonComponent::class)
-@Module
-class DispatcherModule {
-
-    @Singleton
-    @Provides
-    fun providesDispatchers(): DispatcherProvider {
-        return object : DispatcherProvider {}
-    }
-
-    @Singleton
-    @ApplicationScope
-    @Provides
-    fun providesCoroutineScope(dispatchers: DispatcherProvider): CoroutineScope {
-        // Run this code when providing an instance of CoroutineScope
-        return CoroutineScope(SupervisorJob() + dispatchers.default())
+internal val dispatcherModule = module {
+    single<DispatcherProvider> {
+        object : DispatcherProvider {}
     }
 }

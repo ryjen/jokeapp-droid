@@ -1,5 +1,6 @@
 package com.github.ryjen.jokeapp.data.api
 
+import com.github.ryjen.jokeapp.data.storage.FakeJokeData
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.google.gson.Gson
 import okhttp3.OkHttpClient

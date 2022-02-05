@@ -7,10 +7,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.github.ryjen.jokeapp.domain.usecase.GetUserLocale
 import com.github.ryjen.jokeapp.ui.navigation.Menus
 import com.github.ryjen.jokeapp.ui.navigation.NavGraph
 import com.github.ryjen.jokeapp.ui.navigation.Routes
@@ -19,6 +19,7 @@ import com.github.ryjen.jokeapp.ui.theme.BlueTheme
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
+import org.koin.androidx.compose.get
 
 @Composable
 fun MainScreen() {
@@ -55,9 +56,9 @@ fun AppTopBar(
 
 @Composable
 fun AppBottomBar(
-    viewModel: MainViewModel = viewModel(),
     navController: NavController
 ) {
+    val getUserLocale: GetUserLocale by get()
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -72,7 +73,7 @@ fun AppBottomBar(
                     Icon(painterResource(tab.icon), contentDescription = null)
                 },
                 label = {
-                    Text(stringResource(tab.title).uppercase(viewModel.userLocale))
+                    Text(stringResource(tab.title).uppercase(getUserLocale()))
                 },
                 selected = currentRoute == route,
                 onClick = {

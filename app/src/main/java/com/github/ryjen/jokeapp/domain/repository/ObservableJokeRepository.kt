@@ -4,6 +4,6 @@ import com.github.ryjen.jokeapp.domain.model.Joke
 import kotlinx.coroutines.flow.Flow
 
 interface ObservableJokeRepository {
-    suspend fun getFavouriteJokes(): Flow<Joke>
-    suspend fun getRandomJoke(): Flow<Joke>
+    fun getFavoriteJokes(): Flow<List<Joke>>
+    fun observeRandomJoke(): Flow<Joke>
 }

@@ -8,14 +8,20 @@ import kotlinx.coroutines.flow.toList
 @Dao
 interface JokeDao {
     @Query("SELECT * FROM jokes ORDER BY created")
-    fun getJokes(): Flow<Joke>
+    fun observeJokes(): Flow<Joke>
 
-    suspend fun listJokes() = getJokes().toList()
+    @Query("SELECT * FROM jokes ORDER BY created")
+    fun getJokes(): Flow<List<Joke>>
+
+    suspend fun listJokes() = observeJokes().toList()
 
     @Query("SELECT * FROM jokes WHERE isFavorite = 1 ORDER BY created")
-    fun getFavoriteJokes(): Flow<Joke>
+    fun observeFavoriteJokes(): Flow<Joke>
 
-    suspend fun listFavoriteJokes() = getFavoriteJokes().toList()
+    @Query("SELECT * FROM jokes WHERE isFavorite = 1 ORDER BY created")
+    fun getFavoriteJokes(): Flow<List<Joke>>
+
+    suspend fun listFavoriteJokes() = observeFavoriteJokes().toList()
 
     @Query("SELECT * FROM jokes WHERE id = :jokeId")
     suspend fun getJoke(jokeId: String): Joke?

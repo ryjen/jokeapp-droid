@@ -1,27 +1,16 @@
 package com.github.ryjen.jokeapp.meta.modules
 
 import com.github.ryjen.jokeapp.data.api.JokeService
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
-@Module
-class NetworkModule {
+internal val networkModule = module {
 
-    companion object {
-        private const val BASE_URL = "https://icanhazdadjoke.com"
-    }
+    single {
 
-    @Singleton
-    @Provides
-    fun provideJokeService(): JokeService {
         val logger =
             HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
 
@@ -29,8 +18,8 @@ class NetworkModule {
             .addInterceptor(logger)
             .build()
 
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+        Retrofit.Builder()
+            .baseUrl("https://icanhazdadjoke.com")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
