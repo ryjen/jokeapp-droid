@@ -8,6 +8,6 @@ buildscript {
     dependencies {
         classpath (Dependencies.Gradle.Android)
         classpath (Dependencies.Gradle.Kotlin)
-        classpath (Dependencies.Gradle.Ktor)
+        classpath (Dependencies.Gradle.Serialization)
     }
 }

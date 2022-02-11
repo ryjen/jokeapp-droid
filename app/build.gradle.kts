@@ -5,6 +5,7 @@ plugins {
     id ("kotlin-android")
     id ("kotlin-kapt")
     id ("kotlin-parcelize")
+    id ("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -93,30 +94,39 @@ dependencies {
     kapt (Dependencies.RoomX.Compiler)
 
     implementation (Dependencies.AppCompat)
+
     implementation (Dependencies.AndroidX.Core)
+    implementation (Dependencies.AndroidX.Activity)
+
     implementation (Dependencies.LifeCycleX.ViewModel)
+    implementation (Dependencies.LifeCycleX.Compose)
+
     implementation (Dependencies.RoomX.Runtime)
-    implementation (Dependencies.RoomX.Compiler)
+    implementation (Dependencies.RoomX.Kotlin)
+
     implementation (Dependencies.WorkX.Runtime)
     implementation (Dependencies.Material)
     implementation (Dependencies.Gson)
     implementation (Dependencies.Timber)
-    implementation (Dependencies.OkHttp.Log)
-    implementation (Dependencies.Retrofit.Converter)
-    implementation (Dependencies.Retrofit.Core)
+    implementation (Dependencies.NavigationX.Compose)
+    implementation (Dependencies.Accompanist)
+
+    implementation (Dependencies.Ktor.Android)
+    implementation (Dependencies.Ktor.Client)
+    implementation (Dependencies.Ktor.Logging)
+    implementation (Dependencies.Ktor.Serialize)
+    implementation (Dependencies.Ktor.Json)
+
+
     implementation (Dependencies.CoroutinesX.Android)
     implementation (Dependencies.CoroutinesX.Core)
 
-    implementation (Dependencies.AndroidX.Activity)
-    implementation (Dependencies.NavigationX.Compose)
-    implementation (Dependencies.Accompanist)
     implementation (Dependencies.ComposeX.Material)
     implementation (Dependencies.ComposeX.Animation)
     implementation (Dependencies.ComposeX.Ui)
     implementation (Dependencies.ComposeX.Tooling)
     implementation (Dependencies.ComposeX.Foundation)
 
-    implementation (Dependencies.LifeCycleX.Compose)
     implementation (Dependencies.Koin.Android)
     implementation (Dependencies.Koin.Compat)
     implementation (Dependencies.Koin.Compose)
@@ -135,7 +145,6 @@ dependencies {
     androidTestImplementation (Dependencies.TestX.UIAutomator)
     androidTestImplementation (Dependencies.WorkX.Test)
     androidTestImplementation (Dependencies.NavigationX.Test)
-    androidTestImplementation (Dependencies.OkHttp.Mockserver)
     androidTestImplementation (Dependencies.Truth)
     androidTestImplementation (Dependencies.CoroutinesX.Test)
     androidTestImplementation (Dependencies.Koin.Test)

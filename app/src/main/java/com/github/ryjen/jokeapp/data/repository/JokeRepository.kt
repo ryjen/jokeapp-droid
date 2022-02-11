@@ -18,7 +18,7 @@ class JokeRepository(
     private val networkAvailable: GetNetworkAvailability,
 ) : ObservableJokeRepository, AsyncJokeRepository, SyncJokeRepository {
 
-    private val randomJokeDelayTime: Long = 10000L
+    private val randomJokeDelayTime: Long = 60000L
 
     override fun getFavoriteJokes(): Flow<List<Joke>> =
         localDataSource.getFavoriteJokes()

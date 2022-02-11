@@ -19,7 +19,7 @@ import com.github.ryjen.jokeapp.ui.theme.BlueTheme
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
-import org.koin.androidx.compose.get
+import org.koin.androidx.compose.inject
 
 @Composable
 fun MainScreen() {
@@ -58,7 +58,7 @@ fun AppTopBar(
 fun AppBottomBar(
     navController: NavController
 ) {
-    val getUserLocale: GetUserLocale by get()
+    val getUserLocale: GetUserLocale by inject()
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route

@@ -14,7 +14,7 @@ object Dependencies {
     object Gradle {
         const val Kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
         const val Android = "com.android.tools.build:gradle:7.1.0"
-        const val Ktor = "org.jetbrains.kotlin:kotlin-serialization:1.5.31"
+        const val Serialization = "org.jetbrains.kotlin:kotlin-serialization:1.5.31"
     }
 
     const val AppCompat = "androidx.appcompat:appcompat:1.4.1"
@@ -39,35 +39,32 @@ object Dependencies {
 
     object RoomX {
         const val Runtime = "androidx.room:room-runtime:2.4.1"
-        const val Compiler = "androidx.room:room-ktx:2.4.1"
+        const val Kotlin = "androidx.room:room-ktx:2.4.1"
+        const val Compiler = "androidx.room:room-compiler:2.4.1"
     }
 
     object Koin {
         const val version = "3.1.5"
         const val Android = "io.insert-koin:koin-android:$version"
 
-        // Java Compatibility
         const val Compat = "io.insert-koin:koin-android-compat:$version"
-        // Jetpack WorkManager
         const val WorkManager = "io.insert-koin:koin-androidx-workmanager:$version"
-        // Navigation Graph
         const val Navigation = "io.insert-koin:koin-androidx-navigation:$version"
-        // Jetpack Compose
         const val Compose = "io.insert-koin:koin-androidx-compose:$version"
 
         const val Test = "io.insert-koin:koin-test:$version"
-        // Needed JUnit version
         const val JUnit = "io.insert-koin:koin-test-junit4:$version"
 
     }
 
     object Ktor {
-        const val version = "1.5.0"
+        private const val version = "1.5.0"
 
         const val Android = "io.ktor:ktor-client-android:$version"
-        const val Client = "io.ktor:ktor-client-serialization:$version"
-        const val Serialize = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+        const val Serialize = "io.ktor:ktor-client-serialization:$version"
+        const val Json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
         const val Logging = "io.ktor:ktor-client-logging-jvm:1.5.0"
+        const val Client = "io.ktor:ktor-client-core:1.6.7"
     }
 
     const val Material = "com.google.android.material:material:1.5.0"
@@ -75,16 +72,6 @@ object Dependencies {
     const val Gson = "com.google.code.gson:gson:2.8.9"
 
     const val Timber = "com.jakewharton.timber:timber:5.0.1"
-
-    object OkHttp {
-        const val Log = "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3"
-        const val Mockserver = "com.squareup.okhttp3:mockwebserver:5.0.0-alpha.3"
-    }
-
-    object Retrofit {
-        const val Converter = "com.squareup.retrofit2:converter-gson:2.9.0"
-        const val Core = "com.squareup.retrofit2:retrofit:2.9.0"
-    }
 
     object CoroutinesX {
         const val Android =
