@@ -24,7 +24,7 @@ fun shareText(context: Context, content: String) {
 }
 
 @Composable
-fun JokeMenu(viewModel: JokeViewModel = viewModel()) {
+fun JokeMenu(viewModel: RandomViewModel = viewModel()) {
     var showMenu by remember { mutableStateOf(false) }
     val context = LocalContext.current
 

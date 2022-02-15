@@ -10,4 +10,5 @@
     <string name="favorite_removed">Favourite removed</string>
     <string name="no_favorites">No favourites added yet.</string>
     <string name="action_share">Share Joke</string>
+    <string name="loading">Loading…</string>
 </resources>

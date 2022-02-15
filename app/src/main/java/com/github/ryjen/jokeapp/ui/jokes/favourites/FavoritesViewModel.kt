@@ -8,6 +8,8 @@ import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.domain.usecase.AddFavoriteJoke
 import com.github.ryjen.jokeapp.domain.usecase.GetFavoriteJokes
 import com.github.ryjen.jokeapp.domain.usecase.RemoveFavoriteJoke
+import com.github.ryjen.jokeapp.ui.arch.redux.ReduxActionWithError
+import com.github.ryjen.jokeapp.ui.arch.redux.ReduxReducerWithError
 import kotlinx.coroutines.launch
 
 class FavoritesViewModel(
@@ -31,7 +33,7 @@ class FavoritesViewModel(
         }
     }
 
-    private val errorHandler: ErrorReducer<FavoritesState> = { state, action ->
+    private val errorHandler: ReduxReducerWithError<FavoritesState> = { state, action ->
         state.copy(error = action.error)
     }
 
@@ -45,7 +47,7 @@ class FavoritesViewModel(
                 when (it) {
                     is Outcome.Success -> store.dispatch(FavoritesActions.Init(it.data))
                     is Outcome.Failure -> store.dispatch(FavoritesActions.Error(it.error))
-                    else -> Unit
+                    is Outcome.Loading -> {}
                 }
             }
         }

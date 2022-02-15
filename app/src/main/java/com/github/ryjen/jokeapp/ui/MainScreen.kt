@@ -1,20 +1,17 @@
 package com.github.ryjen.jokeapp.ui
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.ryjen.jokeapp.domain.usecase.GetUserLocale
-import com.github.ryjen.jokeapp.ui.navigation.Menus
-import com.github.ryjen.jokeapp.ui.navigation.NavGraph
-import com.github.ryjen.jokeapp.ui.navigation.Routes
-import com.github.ryjen.jokeapp.ui.navigation.Tabs
+import com.github.ryjen.jokeapp.ui.components.NotificationHost
+import com.github.ryjen.jokeapp.ui.navigation.*
 import com.github.ryjen.jokeapp.ui.theme.BlueTheme
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.navigationBarsHeight
@@ -27,17 +24,26 @@ fun MainScreen() {
         BlueTheme {
 
             val navController = rememberNavController()
+            val scaffold = rememberScaffoldState()
+
+            val snackBar = scaffold.snackbarHostState
+            val router = Router(navController, snackBar)
 
             Scaffold(
+                scaffoldState = scaffold,
+                snackbarHost = { snackBar },
                 topBar = {
-                    AppTopBar(navController = navController)
+                    AppTopBar(router = router)
                 },
                 backgroundColor = MaterialTheme.colors.primarySurface,
                 bottomBar = {
-                    AppBottomBar(navController = navController)
+                    AppBottomBar(router = router)
                 }
-            ) {
-                NavGraph(navController = navController)
+            ) { innerPadding ->
+                Box(modifier = Modifier.padding(innerPadding)) {
+                    NavGraph(router = router)
+                    NotificationHost(host = snackBar)
+                }
             }
         }
     }
@@ -45,24 +51,20 @@ fun MainScreen() {
 
 @Composable
 fun AppTopBar(
-    navController: NavController
+    router: Router
 ) {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
-        ?: Routes.RANDOM_JOKE
+    val currentRoute = router.currentRoute() ?: Routes.RANDOM_JOKE
 
     Menus[currentRoute]
 }
 
 @Composable
 fun AppBottomBar(
-    navController: NavController
+    router: Router
 ) {
     val getUserLocale: GetUserLocale by inject()
 
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
-        ?: Routes.RANDOM_JOKE
+    val currentRoute = router.currentRoute() ?: Routes.RANDOM_JOKE
 
     BottomNavigation(
         Modifier.navigationBarsHeight(additional = 56.dp)
@@ -78,13 +80,7 @@ fun AppBottomBar(
                 selected = currentRoute == route,
                 onClick = {
                     if (route != currentRoute) {
-                        navController.navigate(route) {
-                            popUpTo(navController.graph.startDestinationId) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
+                        router.routeTo(route)
                     }
                 },
                 alwaysShowLabel = false,

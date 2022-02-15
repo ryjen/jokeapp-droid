@@ -1,5 +1,6 @@
 package com.github.ryjen.jokeapp.ui.navigation
 
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -9,11 +10,11 @@ import com.github.ryjen.jokeapp.ui.jokes.random.JokeScreen
 
 @Composable
 fun NavGraph(
-    navController: NavHostController,
+    router: Router,
     startDestination: String = Routes.RANDOM_JOKE
 ) {
     NavHost(
-        navController = navController,
+        navController = router.navController,
         startDestination = startDestination
     ) {
         composable(

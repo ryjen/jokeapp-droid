@@ -27,7 +27,8 @@ class JokeRepository(
         while (true) {
             try {
                 if (networkAvailable()) {
-                    remoteDataSource.randomJoke()
+
+c                    remoteDataSource.randomJoke()
                         .onEach {
                             localDataSource.cacheJoke(it)
                         }

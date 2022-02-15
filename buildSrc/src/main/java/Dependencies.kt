@@ -65,6 +65,7 @@ object Dependencies {
         const val Json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
         const val Logging = "io.ktor:ktor-client-logging-jvm:1.5.0"
         const val Client = "io.ktor:ktor-client-core:1.6.7"
+        const val Logback = "ch.qos.logback:logback-classic:1.2.10"
     }
 
     const val Material = "com.google.android.material:material:1.5.0"

@@ -4,7 +4,7 @@ import com.github.ryjen.jokeapp.data.repository.JokeRepository
 import com.github.ryjen.jokeapp.data.storage.randomJoke
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.meta.modules.fakeAppModules
-import com.github.ryjen.jokeapp.ui.jokes.random.JokeViewModel
+import com.github.ryjen.jokeapp.ui.jokes.random.RandomViewModel
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -16,7 +16,7 @@ import org.koin.test.KoinTestRule
 import org.koin.test.inject
 
 @ExperimentalCoroutinesApi
-class JokeViewModelTest : KoinTest {
+class RandomViewModelTest : KoinTest {
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
@@ -24,7 +24,7 @@ class JokeViewModelTest : KoinTest {
         modules(fakeAppModules)
     }
 
-    private val viewModel: JokeViewModel by inject()
+    private val viewModel: RandomViewModel by inject()
 
     private val repo: JokeRepository by inject()
 

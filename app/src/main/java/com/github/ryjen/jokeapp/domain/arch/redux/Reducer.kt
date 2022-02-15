@@ -11,5 +11,3 @@ fun <S> combineReducers(vararg values: ReduxReducer<S,*>):
         reducer(next, action)
     }
 }
-
-typealias ErrorReducer<State> = ReduxReducer<State, ErrorAction>

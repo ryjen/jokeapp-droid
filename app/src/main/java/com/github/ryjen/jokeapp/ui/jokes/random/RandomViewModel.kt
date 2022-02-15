@@ -3,15 +3,15 @@ package com.github.ryjen.jokeapp.ui.jokes.random
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.ryjen.jokeapp.data.repository.JokeRepository
-import com.github.ryjen.jokeapp.domain.arch.redux.ErrorReducer
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxReducer
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxStore
 import com.github.ryjen.jokeapp.domain.arch.redux.combineReducers
 import com.github.ryjen.jokeapp.domain.model.Joke
-import kotlinx.coroutines.flow.*
+import com.github.ryjen.jokeapp.ui.arch.redux.ReduxReducerWithError
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
-class JokeViewModel(
+class RandomViewModel(
     private val repo: JokeRepository,
 ) : ViewModel() {
 
@@ -23,7 +23,7 @@ class JokeViewModel(
         }
     }
 
-    private val errorHandler: ErrorReducer<JokeState> = { state, action ->
+    private val errorHandler: ReduxReducerWithError<JokeState> = { state, action ->
         state.copy(error = action.error)
     }
 
@@ -32,16 +32,7 @@ class JokeViewModel(
     val state = store.stateAsStateFlow()
 
     init {
-        // fetch a random jokes
-        viewModelScope.launch {
-            repo.observeRandomJoke()
-                .catch {
-                    store.dispatch(JokeActions.Error(it))
-                }
-                .collect {
-                    store.dispatch(JokeActions.Refresh(it))
-                }
-        }
+        startRandomizingJokes()
     }
 
     val currentJoke: Joke?
@@ -67,6 +58,19 @@ class JokeViewModel(
             repo.getRandomJoke()?.let {
                 store.dispatch(JokeActions.Refresh(it))
             }
+        }
+    }
+
+    private fun startRandomizingJokes() {
+        // fetch a random jokes
+        viewModelScope.launch {
+            repo.observeRandomJoke()
+                .catch {
+                    store.dispatch(JokeActions.Error(it))
+                }
+                .collect {
+                    store.dispatch(JokeActions.Refresh(it))
+                }
         }
     }
 }
