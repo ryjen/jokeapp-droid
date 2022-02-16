@@ -22,6 +22,7 @@ fun createJokeClient(): HttpClient {
         // Logging
         install(Logging) {
             level = LogLevel.ALL
+            logger = Logger.DEFAULT
         }
         // JSON
         install(JsonFeature) {
@@ -36,10 +37,9 @@ fun createJokeClient(): HttpClient {
         }
         // Apply to all requests
         defaultRequest {
-
-            // Parameter("api_key", "some_api_key")
-            // Content Type
-            if (method != HttpMethod.Get) contentType(ContentType.Application.Json)
+            if (method != HttpMethod.Get) {
+                contentType(ContentType.Application.Json)
+            }
             accept(ContentType.Application.Json)
         }
     }

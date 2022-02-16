@@ -109,7 +109,8 @@ dependencies {
     implementation (Dependencies.Gson)
     implementation (Dependencies.Timber)
     implementation (Dependencies.NavigationX.Compose)
-    implementation (Dependencies.Accompanist)
+    implementation (Dependencies.Accompanist.Insets)
+    implementation (Dependencies.Accompanist.Placeholder)
 
     implementation (Dependencies.Ktor.Android)
     implementation (Dependencies.Ktor.Client)

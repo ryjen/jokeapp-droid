@@ -8,9 +8,9 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.R
+import org.koin.androidx.compose.inject
 
 fun shareText(context: Context, content: String) {
     val sendIntent: Intent = Intent().apply {
@@ -24,34 +24,34 @@ fun shareText(context: Context, content: String) {
 }
 
 @Composable
-fun JokeMenu(viewModel: RandomViewModel = viewModel()) {
+fun JokeMenu() {
+    val viewModel: RandomViewModel by inject()
+    val state = viewModel.state.collectAsState()
     var showMenu by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     TopAppBar(
         title = { Text("Random Joke") },
+        elevation = 0.dp,
         actions = {
-            viewModel.currentJoke?.let { joke ->
+            state.value.joke?.let { joke ->
                 IconButton(onClick = {
                     shareText(context, joke.content)
                 }) {
                     Icon(painterResource(id = R.drawable.share), null)
-                    Text(text = stringResource(R.string.action_share))
                 }
 
                 if (joke.isFavorite) {
                     IconButton(onClick = {
-                        viewModel.addJokeToFavorites(joke)
+                        viewModel.removeJokeFromFavorites(joke)
                     }) {
                         Icon(painterResource(id = R.drawable.bookmark_remove), null)
-                        Text(text = stringResource(R.string.action_remove))
                     }
                 } else {
                     IconButton(onClick = {
-                        viewModel.removeJokeFromFavorites(joke)
+                        viewModel.addJokeToFavorites(joke)
                     }) {
                         Icon(painterResource(id = R.drawable.bookmark_add), null)
-                        Text(text = stringResource(R.string.action_add))
                     }
                 }
             }
@@ -61,7 +61,9 @@ fun JokeMenu(viewModel: RandomViewModel = viewModel()) {
             }
             DropdownMenu(
                 expanded = showMenu,
-                onDismissRequest = { showMenu = false }
+                onDismissRequest = {
+                    showMenu = false
+                }
             ) {
             }
         }

@@ -8,19 +8,11 @@ class LocalDataSource(
     private val jokeDao: JokeDao
 ) {
 
-    suspend fun randomJoke() = flow {
-        jokeDao.getRandomJoke()?.let {
-            emit(it)
-        }
-    }
+    suspend fun randomJoke() = jokeDao.getRandomJoke()
 
     fun getFavoriteJokes() = jokeDao.getFavoriteJokes()
 
-    suspend fun getJoke(id: String) = flow {
-        jokeDao.getJoke(id)?.let {
-            emit(it)
-        }
-    }
+    suspend fun getJoke(id: String) = jokeDao.getJoke(id)
 
     suspend fun cacheJoke(vararg jokes: Joke) {
         jokeDao.insertJokes(*jokes)

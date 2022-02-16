@@ -7,9 +7,7 @@ import com.github.ryjen.jokeapp.domain.repository.SyncJokeRepository
 import com.github.ryjen.jokeapp.domain.usecase.GetNetworkAvailability
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 class JokeRepository(
@@ -28,38 +26,33 @@ class JokeRepository(
             try {
                 if (networkAvailable()) {
 
-c                    remoteDataSource.randomJoke()
-                        .onEach {
-                            localDataSource.cacheJoke(it)
-                        }
-                        .firstOrNull()?.let {
-                            emit(it)
-                        }
+                    remoteDataSource.randomJoke()?.let {
+                        localDataSource.cacheJoke(it)
+                        emit(it)
+                    }
                 } else {
-                    localDataSource.randomJoke()
-                        .firstOrNull()?.let {
-                            emit(it)
-                        }
+                    localDataSource.randomJoke()?.let {
+                        emit(it)
+                    }
                 }
             } catch (e: Throwable) {
                 Timber.e("error fetching remote random joke", e)
-                localDataSource.randomJoke()
-                    .firstOrNull()?.let {
-                        emit(it)
-                    }
+                localDataSource.randomJoke()?.let {
+                    emit(it)
+                }
             }
             delay(randomJokeDelayTime)
         }
     }
 
     override suspend fun getRandomJoke(): Joke? = try {
-        remoteDataSource.randomJoke().firstOrNull()
+        remoteDataSource.randomJoke()
     } catch (e: Throwable) {
-        localDataSource.randomJoke().firstOrNull()
+        localDataSource.randomJoke()
     }
 
     override suspend fun getJoke(jokeId: String): Joke? = try {
-        localDataSource.getJoke(jokeId).firstOrNull()
+        localDataSource.getJoke(jokeId)
     } catch (e: Throwable) {
         Timber.e("error fetching local joke", e)
         remoteDataSource.getJoke(jokeId)

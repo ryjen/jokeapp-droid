@@ -55,7 +55,7 @@ fun AppTopBar(
 ) {
     val currentRoute = router.currentRoute() ?: Routes.RANDOM_JOKE
 
-    Menus[currentRoute]
+    Menus[currentRoute]?.let { it() }
 }
 
 @Composable
@@ -79,9 +79,7 @@ fun AppBottomBar(
                 },
                 selected = currentRoute == route,
                 onClick = {
-                    if (route != currentRoute) {
-                        router.routeTo(route)
-                    }
+                    router.routeTo(route)
                 },
                 alwaysShowLabel = false,
                 selectedContentColor = MaterialTheme.colors.secondary,

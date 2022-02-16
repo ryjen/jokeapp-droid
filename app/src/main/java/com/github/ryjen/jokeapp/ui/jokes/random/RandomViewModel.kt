@@ -5,9 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.github.ryjen.jokeapp.data.repository.JokeRepository
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxReducer
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxStore
-import com.github.ryjen.jokeapp.domain.arch.redux.combineReducers
 import com.github.ryjen.jokeapp.domain.model.Joke
-import com.github.ryjen.jokeapp.ui.arch.redux.ReduxReducerWithError
+import com.github.ryjen.jokeapp.ui.arch.Failure
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
@@ -20,14 +19,19 @@ class RandomViewModel(
             is JokeActions.Refresh -> state.copy(
                 joke = action.data
             )
+            is JokeActions.Error -> state.copy(
+                error = action.data
+            )
+            is JokeActions.Remove -> state.copy(
+                joke = action.data.copy(isFavorite = false)
+            )
+            is JokeActions.Add -> state.copy(
+                joke = action.data.copy(isFavorite = true)
+            )
         }
     }
 
-    private val errorHandler: ReduxReducerWithError<JokeState> = { state, action ->
-        state.copy(error = action.error)
-    }
-
-    private val store = ReduxStore(JokeState(), combineReducers(reducer, errorHandler))
+    private val store = ReduxStore(JokeState(), reducer)
 
     val state = store.stateAsStateFlow()
 
@@ -35,11 +39,9 @@ class RandomViewModel(
         startRandomizingJokes()
     }
 
-    val currentJoke: Joke?
-        get() = store.currentState.joke
-
     // add the current data to favourites
     fun addJokeToFavorites(joke: Joke) {
+        store.dispatch(JokeActions.Add(joke))
         viewModelScope.launch {
             repo.addFavorite(joke)
         }
@@ -47,6 +49,7 @@ class RandomViewModel(
 
     // remove the current data from favourites
     fun removeJokeFromFavorites(joke: Joke) {
+        store.dispatch(JokeActions.Remove(joke))
         viewModelScope.launch {
             repo.removeFavorite(joke)
         }

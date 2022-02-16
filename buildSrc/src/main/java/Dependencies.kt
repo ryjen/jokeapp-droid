@@ -63,7 +63,7 @@ object Dependencies {
         const val Android = "io.ktor:ktor-client-android:$version"
         const val Serialize = "io.ktor:ktor-client-serialization:$version"
         const val Json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
-        const val Logging = "io.ktor:ktor-client-logging-jvm:1.5.0"
+        const val Logging = "io.ktor:ktor-client-logging:$version"
         const val Client = "io.ktor:ktor-client-core:1.6.7"
         const val Logback = "ch.qos.logback:logback-classic:1.2.10"
     }
@@ -81,7 +81,10 @@ object Dependencies {
         const val Test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0-native-mt"
     }
 
-    const val Accompanist = "com.google.accompanist:accompanist-insets:0.20.3"
+    object Accompanist {
+        const val Insets = "com.google.accompanist:accompanist-insets:0.20.3"
+        const val Placeholder = "com.google.accompanist:accompanist-placeholder:0.20.3"
+    }
 
     object ComposeX {
         const val Ui = "androidx.compose.ui:ui:1.0.5"
