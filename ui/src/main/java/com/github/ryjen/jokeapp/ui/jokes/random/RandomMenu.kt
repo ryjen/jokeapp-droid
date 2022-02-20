@@ -51,7 +51,8 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                 Icon(
                     imageVector = AppTheme.images.refresh,
                     modifier = Modifier.size(AppTheme.dimens.navIcon),
-                    contentDescription = null)
+                    contentDescription = null
+                )
             }
 
             state.joke?.let { joke ->
@@ -63,7 +64,8 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                         Icon(
                             imageVector = AppTheme.images.bookmarkRemove,
                             modifier = Modifier.size(AppTheme.dimens.navIcon),
-                            contentDescription = null)
+                            contentDescription = null
+                        )
                     }
                 } else {
                     IconButton(onClick = {
@@ -72,34 +74,20 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                         Icon(
                             imageVector = AppTheme.images.bookmarkAdd,
                             modifier = Modifier.size(AppTheme.dimens.navIcon),
-                            contentDescription = null)
+                            contentDescription = null
+                        )
                     }
                 }
-                IconButton(onClick = { showMenu = !showMenu }) {
+                IconButton(onClick = {
+                    shareText(context, joke.content)
+                }) {
                     Icon(
-                        imageVector = AppTheme.images.more,
+                        imageVector = AppTheme.images.share,
                         modifier = Modifier.size(AppTheme.dimens.navIcon),
-                        contentDescription = null)
+                        contentDescription = null
+                    )
                 }
 
-                DropdownMenu(
-                    expanded = showMenu,
-                    onDismissRequest = {
-                        showMenu = false
-                    }
-                ) {
-
-                    IconButton(onClick = {
-                        shareText(context, joke.content)
-                    }) {
-                        Icon(
-                            imageVector = AppTheme.images.share,
-                            modifier = Modifier.size(AppTheme.dimens.navIcon),
-                            contentDescription = null)
-                        Text(text = stringResource(R.string.action_share))
-                    }
-
-                }
             }
         }
     )

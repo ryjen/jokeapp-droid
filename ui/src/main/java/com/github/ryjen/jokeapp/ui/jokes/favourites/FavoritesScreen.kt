@@ -9,13 +9,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.domain.model.Joke
+import com.github.ryjen.jokeapp.ui.components.Notifications
+import com.github.ryjen.jokeapp.ui.components.PopUpDialog
 import com.github.ryjen.jokeapp.ui.theme.AppTheme
 
 @Composable
@@ -28,6 +33,7 @@ fun FavoritesScreen(viewModel: FavoritesViewModel) {
 
 @Composable
 fun FavoritesContent(state: FavoritesState, onAction: (FavoritesActions) -> Unit) {
+    val (showDialog, setShowDialog) =  remember { mutableStateOf<Joke?>(null) }
 
     LazyColumn {
         items(state.jokes) { joke ->
@@ -37,7 +43,7 @@ fun FavoritesContent(state: FavoritesState, onAction: (FavoritesActions) -> Unit
                     .pointerInput(Unit) {
                         detectTapGestures(
                             onLongPress = {
-                                onAction(FavoritesActions.Remove(joke))
+                                setShowDialog(joke)
                             }
                         )
                     }
@@ -60,6 +66,15 @@ fun FavoritesContent(state: FavoritesState, onAction: (FavoritesActions) -> Unit
                     )
                 }
             }
+        }
+    }
+    showDialog?.let { joke ->
+        PopUpDialog(
+            message = "Ok to remove?",
+            title = "Remove Favorite",
+            dismiss = { setShowDialog(null) },
+        ) {
+            onAction(FavoritesActions.Remove(joke))
         }
     }
 }

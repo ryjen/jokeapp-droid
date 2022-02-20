@@ -41,7 +41,7 @@ fun NavBottomBar(
                 onClick = {
                     router.routeTo(route)
                 },
-                alwaysShowLabel = false,
+                alwaysShowLabel = true,
                 selectedContentColor = AppTheme.colors.secondary,
                 unselectedContentColor = LocalContentColor.current,
                 modifier = Modifier.navigationBarsPadding()

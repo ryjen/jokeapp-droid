@@ -9,9 +9,7 @@ import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.regular.Bookmark
-import compose.icons.fontawesomeicons.solid.Bookmark
-import compose.icons.fontawesomeicons.solid.ShareAlt
-import compose.icons.fontawesomeicons.solid.Sync
+import compose.icons.fontawesomeicons.solid.*
 
 
 /**
@@ -23,6 +21,7 @@ data class Images(
     val bookmarkAdd: ImageVector,
     val bookmarkRemove: ImageVector,
     val refresh: ImageVector,
+    val random: ImageVector,
     val more: ImageVector,
     val share: ImageVector
 )
@@ -32,6 +31,7 @@ val LightImages = Images(
     bookmarkRemove = FontAwesomeIcons.Solid.Bookmark,
     bookmarks = FontAwesomeIcons.Solid.Bookmark,
     refresh = FontAwesomeIcons.Solid.Sync,
+    random = FontAwesomeIcons.Solid.LaughSquint,
     more = Icons.Default.MoreVert,
     share = FontAwesomeIcons.Solid.ShareAlt
 )

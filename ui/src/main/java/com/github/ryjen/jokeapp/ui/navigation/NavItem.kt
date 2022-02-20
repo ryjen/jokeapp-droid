@@ -37,7 +37,7 @@ data class NavItem<T : ViewModel>(
 
 fun randomJokeNavItem(): NavItem<RandomJokeViewModel> {
     return NavItem(
-        { Tab(R.string.action_random, AppTheme.images.refresh) },
+        { Tab(R.string.action_random, AppTheme.images.random) },
         { getViewModel() },
         { viewModel -> RandomJokeMenu(viewModel) },
         { viewModel -> RandomJokeScreen(viewModel) },
