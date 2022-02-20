@@ -3,8 +3,8 @@ package com.github.ryjen.jokeapp.data.storage
 import com.github.ryjen.jokeapp.data.api.FakeJokeService
 import com.github.ryjen.jokeapp.data.repository.JokeRepository
 import com.github.ryjen.jokeapp.domain.model.Joke
-import com.github.ryjen.jokeapp.meta.modules.fakeDatabaseModule
-import com.github.ryjen.jokeapp.meta.modules.fakeNetworkModule
+import com.github.ryjen.jokeapp.meta.arch.modules.fakeDatabaseModule
+import com.github.ryjen.jokeapp.meta.arch.modules.fakeNetworkModule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList

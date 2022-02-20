@@ -5,5 +5,9 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Jester"
+rootProject.name = "Jiver"
 include (":app")
+include (":data")
+include (":domain")
+include(":meta")
+include(":ui")

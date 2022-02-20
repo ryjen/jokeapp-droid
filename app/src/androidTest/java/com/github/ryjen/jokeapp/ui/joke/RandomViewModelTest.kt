@@ -3,7 +3,7 @@ package com.github.ryjen.jokeapp.ui.joke
 import com.github.ryjen.jokeapp.data.repository.JokeRepository
 import com.github.ryjen.jokeapp.data.storage.randomJoke
 import com.github.ryjen.jokeapp.domain.model.Joke
-import com.github.ryjen.jokeapp.meta.modules.fakeAppModules
+import com.github.ryjen.jokeapp.meta.arch.modules.fakeAppModules
 import com.github.ryjen.jokeapp.ui.jokes.random.RandomViewModel
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi

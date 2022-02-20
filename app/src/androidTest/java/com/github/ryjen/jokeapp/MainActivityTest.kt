@@ -6,8 +6,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.platform.app.InstrumentationRegistry
-import com.github.ryjen.jokeapp.meta.modules.fakeAppModules
-import com.github.ryjen.jokeapp.ui.MainActivity
+import com.github.ryjen.jokeapp.meta.arch.modules.fakeAppModules
 import com.github.ryjen.jokeapp.ui.MainScreen
 import com.github.ryjen.jokeapp.ui.theme.BlueTheme
 import org.junit.Assert.assertEquals

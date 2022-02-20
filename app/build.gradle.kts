@@ -3,9 +3,6 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("kotlin-kapt")
-    id("kotlin-parcelize")
-    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -19,8 +16,8 @@ android {
         versionName = "1.0"
         vectorDrawables.useSupportLibrary = true
     }
+
     buildFeatures {
-        dataBinding = true
         compose = true
 
         // Disable unused AGP features
@@ -30,6 +27,7 @@ android {
         resValues = false
         shaders = false
     }
+
     signingConfigs {
         val props = gradleLocalProperties(rootDir)
         props.getProperty("signing.debug.file")?.let { keystore: String ->
@@ -49,6 +47,7 @@ android {
             }
         }
     }
+
     buildTypes {
         getByName("debug") {
             isDebuggable = true
@@ -70,6 +69,10 @@ android {
         }
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.ComposeX.Compiler
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -83,55 +86,18 @@ android {
         animationsDisabled = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.ComposeX.Compiler
-    }
-
     buildToolsVersion = "31.0.0"
 }
 
 dependencies {
-    kapt(Dependencies.RoomX.Compiler)
+    implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":ui"))
+    implementation(project(":meta"))
 
     implementation(Dependencies.AppCompat)
-
-    implementation(Dependencies.AndroidX.Core)
     implementation(Dependencies.AndroidX.Activity)
-
-    implementation(Dependencies.LifeCycleX.ViewModel)
-    implementation(Dependencies.LifeCycleX.Compose)
-
-    implementation(Dependencies.RoomX.Runtime)
-    implementation(Dependencies.RoomX.Kotlin)
-
-    implementation(Dependencies.WorkX.Runtime)
-    implementation(Dependencies.Material)
-    implementation(Dependencies.Gson)
-    implementation(Dependencies.Timber)
-    implementation(Dependencies.NavigationX.Compose)
-    implementation(Dependencies.Accompanist.Insets)
-    implementation(Dependencies.Accompanist.Placeholder)
-
-    implementation(Dependencies.Ktor.Android)
-    implementation(Dependencies.Ktor.Client)
-    implementation(Dependencies.Ktor.Logging)
-    implementation(Dependencies.Ktor.Serialize)
-    implementation(Dependencies.Ktor.Json)
-    implementation(Dependencies.Ktor.Logback)
-
-    implementation(Dependencies.CoroutinesX.Android)
-    implementation(Dependencies.CoroutinesX.Core)
-
-    implementation(Dependencies.ComposeX.Material)
-    implementation(Dependencies.ComposeX.Animation)
-    implementation(Dependencies.ComposeX.Ui)
-    implementation(Dependencies.ComposeX.Tooling)
-    implementation(Dependencies.ComposeX.Foundation)
-
     implementation(Dependencies.Koin.Android)
-    implementation(Dependencies.Koin.Compat)
-    implementation(Dependencies.Koin.Compose)
-
 
     // UI Tests
     androidTestImplementation(Dependencies.ComposeX.Test)
@@ -151,14 +117,4 @@ dependencies {
     androidTestImplementation(Dependencies.Koin.JUnit)
 
     testImplementation(Dependencies.JUnit)
-}
-
-kapt {
-    correctErrorTypes = true
-}
-
-configurations {
-    all {
-        exclude(group = "org.checkerframework", module = "checker")
-    }
 }

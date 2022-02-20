@@ -3,8 +3,8 @@ package com.github.ryjen.jokeapp.domain.usecases
 import com.github.ryjen.jokeapp.data.repository.JokeRepository
 import com.github.ryjen.jokeapp.data.storage.randomJoke
 import com.github.ryjen.jokeapp.domain.usecase.AddFavoriteJoke
-import com.github.ryjen.jokeapp.meta.modules.fakeDatabaseModule
-import com.github.ryjen.jokeapp.meta.modules.fakeNetworkModule
+import com.github.ryjen.jokeapp.meta.arch.modules.fakeDatabaseModule
+import com.github.ryjen.jokeapp.meta.arch.modules.fakeNetworkModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest

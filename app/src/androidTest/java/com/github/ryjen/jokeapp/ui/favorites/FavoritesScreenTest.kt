@@ -9,7 +9,7 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.github.ryjen.jokeapp.data.repository.JokeRepository
 import com.github.ryjen.jokeapp.data.storage.randomJoke
-import com.github.ryjen.jokeapp.meta.modules.fakeAppModules
+import com.github.ryjen.jokeapp.meta.arch.modules.fakeAppModules
 import com.github.ryjen.jokeapp.ui.MainActivity
 import com.github.ryjen.jokeapp.ui.jokes.favourites.FavoritesScreen
 import com.github.ryjen.jokeapp.ui.jokes.favourites.FavoritesViewModel

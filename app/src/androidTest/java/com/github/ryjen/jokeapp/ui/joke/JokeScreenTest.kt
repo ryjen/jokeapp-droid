@@ -14,7 +14,7 @@ import com.github.ryjen.jokeapp.data.api.FakeJokeService
 import com.github.ryjen.jokeapp.data.repository.JokeRepository
 import com.github.ryjen.jokeapp.data.storage.randomJoke
 import com.github.ryjen.jokeapp.domain.model.Joke
-import com.github.ryjen.jokeapp.meta.modules.fakeAppModules
+import com.github.ryjen.jokeapp.meta.arch.modules.fakeAppModules
 import com.github.ryjen.jokeapp.ui.MainActivity
 import com.github.ryjen.jokeapp.ui.jokes.random.JokeScreen
 import com.github.ryjen.jokeapp.ui.theme.BlueTheme

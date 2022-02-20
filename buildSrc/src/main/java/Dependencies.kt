@@ -25,13 +25,6 @@ object Dependencies {
         const val Test = "androidx.arch.core:core-testing:2.1.0"
     }
 
-    object LifeCycleX {
-        const val ViewModel =
-            "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
-        const val Compose =
-            "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0"
-    }
-
     object NavigationX {
         const val Compose = "androidx.navigation:navigation-compose:2.4.0"
         const val Test = "androidx.navigation:navigation-testing:2.4.0"
@@ -44,13 +37,12 @@ object Dependencies {
     }
 
     object Koin {
-        const val version = "3.1.5"
+        private const val version = "3.1.5"
         const val Android = "io.insert-koin:koin-android:$version"
 
         const val Compat = "io.insert-koin:koin-android-compat:$version"
-        const val WorkManager = "io.insert-koin:koin-androidx-workmanager:$version"
-        const val Navigation = "io.insert-koin:koin-androidx-navigation:$version"
         const val Compose = "io.insert-koin:koin-androidx-compose:$version"
+        const val Ktor = "io.insert-koin:koin-ktor:$version"
 
         const val Test = "io.insert-koin:koin-test:$version"
         const val JUnit = "io.insert-koin:koin-test-junit4:$version"
@@ -62,15 +54,16 @@ object Dependencies {
 
         const val Android = "io.ktor:ktor-client-android:$version"
         const val Serialize = "io.ktor:ktor-client-serialization:$version"
-        const val Json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
         const val Logging = "io.ktor:ktor-client-logging:$version"
         const val Client = "io.ktor:ktor-client-core:1.6.7"
         const val Logback = "ch.qos.logback:logback-classic:1.2.10"
     }
 
-    const val Material = "com.google.android.material:material:1.5.0"
+    object Serialization {
+        const val Json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+    }
 
-    const val Gson = "com.google.code.gson:gson:2.8.9"
+    const val Material = "com.google.android.material:material:1.5.0"
 
     const val Timber = "com.jakewharton.timber:timber:5.0.1"
 
@@ -114,5 +107,8 @@ object Dependencies {
     const val Truth = "com.google.truth:truth:1.1.3"
 
     const val JUnit = "junit:junit:4.13.2"
+
+    const val Icons = "br.com.devsrsouza.compose.icons.android:font-awesome:1.0.0"
+
 }
 
