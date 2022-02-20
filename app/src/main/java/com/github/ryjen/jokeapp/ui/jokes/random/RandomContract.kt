@@ -13,8 +13,8 @@ data class JokeState(
 sealed class JokeActions : ReduxAction {
     data class Refresh(val data: Joke) : JokeActions()
     data class Error(val data: Failure) : JokeActions()
-    data class Remove(val data: Joke): JokeActions()
-    data class Add(val data: Joke): JokeActions()
+    data class Remove(val data: Joke) : JokeActions()
+    data class Add(val data: Joke) : JokeActions()
 
     companion object {
         fun Error(throwable: Throwable) = Error(Failure.Error(throwable))

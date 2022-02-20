@@ -4,7 +4,6 @@ import com.github.ryjen.jokeapp.data.repository.JokeRepository
 import com.github.ryjen.jokeapp.domain.arch.CoroutineUseCase
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.meta.coroutines.DispatcherProvider
-import kotlinx.coroutines.CoroutineDispatcher
 
 class AddFavoriteJoke(
     dispatcher: DispatcherProvider,

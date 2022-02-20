@@ -1,7 +1,7 @@
 package com.github.ryjen.jokeapp.domain.arch
 
 sealed class Outcome<out O> {
-    data class Success<out T>(val data: T): Outcome<T>()
+    data class Success<out T>(val data: T) : Outcome<T>()
 
     data class Failure(val error: Throwable) : Outcome<Nothing>()
 

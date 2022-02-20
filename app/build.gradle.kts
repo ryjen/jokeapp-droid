@@ -1,11 +1,11 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
-    id ("com.android.application")
-    id ("kotlin-android")
-    id ("kotlin-kapt")
-    id ("kotlin-parcelize")
-    id ("org.jetbrains.kotlin.plugin.serialization")
+    id("com.android.application")
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -63,7 +63,7 @@ android {
             }
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles (
+            proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
@@ -91,67 +91,66 @@ android {
 }
 
 dependencies {
-    kapt (Dependencies.RoomX.Compiler)
+    kapt(Dependencies.RoomX.Compiler)
 
-    implementation (Dependencies.AppCompat)
+    implementation(Dependencies.AppCompat)
 
-    implementation (Dependencies.AndroidX.Core)
-    implementation (Dependencies.AndroidX.Activity)
+    implementation(Dependencies.AndroidX.Core)
+    implementation(Dependencies.AndroidX.Activity)
 
-    implementation (Dependencies.LifeCycleX.ViewModel)
-    implementation (Dependencies.LifeCycleX.Compose)
+    implementation(Dependencies.LifeCycleX.ViewModel)
+    implementation(Dependencies.LifeCycleX.Compose)
 
-    implementation (Dependencies.RoomX.Runtime)
-    implementation (Dependencies.RoomX.Kotlin)
+    implementation(Dependencies.RoomX.Runtime)
+    implementation(Dependencies.RoomX.Kotlin)
 
-    implementation (Dependencies.WorkX.Runtime)
-    implementation (Dependencies.Material)
-    implementation (Dependencies.Gson)
-    implementation (Dependencies.Timber)
-    implementation (Dependencies.NavigationX.Compose)
-    implementation (Dependencies.Accompanist.Insets)
-    implementation (Dependencies.Accompanist.Placeholder)
+    implementation(Dependencies.WorkX.Runtime)
+    implementation(Dependencies.Material)
+    implementation(Dependencies.Gson)
+    implementation(Dependencies.Timber)
+    implementation(Dependencies.NavigationX.Compose)
+    implementation(Dependencies.Accompanist.Insets)
+    implementation(Dependencies.Accompanist.Placeholder)
 
-    implementation (Dependencies.Ktor.Android)
-    implementation (Dependencies.Ktor.Client)
-    implementation (Dependencies.Ktor.Logging)
-    implementation (Dependencies.Ktor.Serialize)
-    implementation (Dependencies.Ktor.Json)
-    implementation (Dependencies.Ktor.Logback)
+    implementation(Dependencies.Ktor.Android)
+    implementation(Dependencies.Ktor.Client)
+    implementation(Dependencies.Ktor.Logging)
+    implementation(Dependencies.Ktor.Serialize)
+    implementation(Dependencies.Ktor.Json)
+    implementation(Dependencies.Ktor.Logback)
 
-    implementation (Dependencies.CoroutinesX.Android)
-    implementation (Dependencies.CoroutinesX.Core)
+    implementation(Dependencies.CoroutinesX.Android)
+    implementation(Dependencies.CoroutinesX.Core)
 
-    implementation (Dependencies.ComposeX.Material)
-    implementation (Dependencies.ComposeX.Animation)
-    implementation (Dependencies.ComposeX.Ui)
-    implementation (Dependencies.ComposeX.Tooling)
-    implementation (Dependencies.ComposeX.Foundation)
+    implementation(Dependencies.ComposeX.Material)
+    implementation(Dependencies.ComposeX.Animation)
+    implementation(Dependencies.ComposeX.Ui)
+    implementation(Dependencies.ComposeX.Tooling)
+    implementation(Dependencies.ComposeX.Foundation)
 
-    implementation (Dependencies.Koin.Android)
-    implementation (Dependencies.Koin.Compat)
-    implementation (Dependencies.Koin.Compose)
-
+    implementation(Dependencies.Koin.Android)
+    implementation(Dependencies.Koin.Compat)
+    implementation(Dependencies.Koin.Compose)
 
 
     // UI Tests
-    androidTestImplementation (Dependencies.ComposeX.Test)
+    androidTestImplementation(Dependencies.ComposeX.Test)
 
     // Testing dependencies
-    androidTestImplementation (Dependencies.AndroidX.Test)
-    androidTestImplementation (Dependencies.Espresso.Contrib)
-    androidTestImplementation (Dependencies.Espresso.Core)
-    androidTestImplementation (Dependencies.Espresso.Intents)
-    androidTestImplementation (Dependencies.TestX.JUnit)
-    androidTestImplementation (Dependencies.TestX.UIAutomator)
-    androidTestImplementation (Dependencies.WorkX.Test)
-    androidTestImplementation (Dependencies.NavigationX.Test)
-    androidTestImplementation (Dependencies.Truth)
-    androidTestImplementation (Dependencies.CoroutinesX.Test)
-    androidTestImplementation (Dependencies.Koin.Test)
-    androidTestImplementation (Dependencies.Koin.JUnit)
+    androidTestImplementation(Dependencies.AndroidX.Test)
+    androidTestImplementation(Dependencies.Espresso.Contrib)
+    androidTestImplementation(Dependencies.Espresso.Core)
+    androidTestImplementation(Dependencies.Espresso.Intents)
+    androidTestImplementation(Dependencies.TestX.JUnit)
+    androidTestImplementation(Dependencies.TestX.UIAutomator)
+    androidTestImplementation(Dependencies.WorkX.Test)
+    androidTestImplementation(Dependencies.NavigationX.Test)
+    androidTestImplementation(Dependencies.Truth)
+    androidTestImplementation(Dependencies.CoroutinesX.Test)
+    androidTestImplementation(Dependencies.Koin.Test)
+    androidTestImplementation(Dependencies.Koin.JUnit)
 
-    testImplementation (Dependencies.JUnit)
+    testImplementation(Dependencies.JUnit)
 }
 
 kapt {
@@ -160,6 +159,6 @@ kapt {
 
 configurations {
     all {
-        exclude (group = "org.checkerframework", module = "checker")
+        exclude(group = "org.checkerframework", module = "checker")
     }
 }

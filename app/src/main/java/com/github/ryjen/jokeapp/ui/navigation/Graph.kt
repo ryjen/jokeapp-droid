@@ -1,8 +1,6 @@
 package com.github.ryjen.jokeapp.ui.navigation
 
-import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.github.ryjen.jokeapp.ui.jokes.favourites.FavoritesScreen

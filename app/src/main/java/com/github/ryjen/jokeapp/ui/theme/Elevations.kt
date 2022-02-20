@@ -1,4 +1,5 @@
 package com.github.ryjen.jokeapp.ui.theme
+
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp

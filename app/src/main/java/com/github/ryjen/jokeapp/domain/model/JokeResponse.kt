@@ -10,7 +10,7 @@ data class JokeResponse(
     val id: String,
     val joke: String,
     val status: Int
-): Parcelable {
+) : Parcelable {
     fun asJoke(): Joke = Joke(
         id = id,
         content = joke

@@ -1,10 +1,8 @@
 package com.github.ryjen.jokeapp.data.api
 
-import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.domain.model.JokeResponse
 import io.ktor.client.*
 import io.ktor.client.request.*
-import io.ktor.http.*
 import timber.log.Timber
 
 class JokeService(
@@ -13,6 +11,7 @@ class JokeService(
     companion object {
         const val BASE_URL = "https://icanhazdadjoke.com"
     }
+
     suspend fun getRandomJoke(): JokeResponse? = try {
         client.get<JokeResponse> {
             url(BASE_URL)

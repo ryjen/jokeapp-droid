@@ -6,6 +6,7 @@ import org.koin.test.KoinTest
 class RemoveFavoriteJokeTest : KoinTest {
 
     @Test
-    fun canRemoveFavoriteJoke() {}
+    fun canRemoveFavoriteJoke() {
+    }
 
 }

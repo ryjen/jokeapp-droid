@@ -2,7 +2,6 @@ package com.github.ryjen.jokeapp.data.repository
 
 import com.github.ryjen.jokeapp.data.storage.JokeDao
 import com.github.ryjen.jokeapp.domain.model.Joke
-import kotlinx.coroutines.flow.flow
 
 class LocalDataSource(
     private val jokeDao: JokeDao

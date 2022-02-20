@@ -1,6 +1,5 @@
 package com.github.ryjen.jokeapp.ui.theme
 
-import com.github.ryjen.jokeapp.R
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -8,6 +7,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.github.ryjen.jokeapp.R
 
 private val fonts = FontFamily(
     Font(R.font.noto_sans_regular),

@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.ryjen.jokeapp">
 
-    <application
-        android:usesCleartextTraffic="true"/>
+    <application android:usesCleartextTraffic="true" />
 
 </manifest>

@@ -2,8 +2,8 @@ package com.github.ryjen.jokeapp.domain.arch.redux
 
 typealias ReduxReducer<State, Action> = (State, Action) -> State
 
-fun <S> combineReducers(vararg values: ReduxReducer<S,*>):
-        ReduxReducer<S,ReduxAction> where S: ReduxState = { state, action ->
+fun <S> combineReducers(vararg values: ReduxReducer<S, *>):
+        ReduxReducer<S, ReduxAction> where S : ReduxState = { state, action ->
 
     val reducers = values.filterIsInstance<ReduxReducer<S, ReduxAction>>()
 

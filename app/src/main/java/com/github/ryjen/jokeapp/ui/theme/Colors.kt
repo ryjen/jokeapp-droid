@@ -1,10 +1,7 @@
 package com.github.ryjen.jokeapp.ui.theme
 
 
-import androidx.compose.material.Colors
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.compositeOver
 
 val yellow200 = Color(0xffffeb46)
 val yellow400 = Color(0xffffc000)

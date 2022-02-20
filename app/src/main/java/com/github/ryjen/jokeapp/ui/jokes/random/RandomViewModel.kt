@@ -6,7 +6,6 @@ import com.github.ryjen.jokeapp.data.repository.JokeRepository
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxReducer
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxStore
 import com.github.ryjen.jokeapp.domain.model.Joke
-import com.github.ryjen.jokeapp.ui.arch.Failure
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 

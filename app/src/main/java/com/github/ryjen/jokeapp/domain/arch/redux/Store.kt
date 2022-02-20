@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.update
 class ReduxStore<S, A>(
     initialState: S,
     private val reducer: ReduxReducer<S, A>,
-) where S : ReduxState, A: ReduxAction {
+) where S : ReduxState, A : ReduxAction {
     private val state = MutableStateFlow(initialState)
 
     val currentState get() = state.value

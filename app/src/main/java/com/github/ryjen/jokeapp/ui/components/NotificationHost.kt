@@ -16,7 +16,9 @@ fun NotificationHost(
 ) {
     SnackbarHost(
         hostState = host,
-        modifier = modifier.fillMaxWidth().wrapContentHeight(Alignment.Bottom),
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentHeight(Alignment.Bottom),
         snackbar = { data ->
             Notification(data.message, data.actionLabel) {
                 data.dismiss()

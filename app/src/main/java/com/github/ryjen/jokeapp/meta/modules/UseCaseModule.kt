@@ -12,7 +12,7 @@ internal val useCaseModule = module {
 
     factory { GetFavoriteJokes(get(), get()) }
 
-    factory { AddFavoriteJoke(get(), get())}
+    factory { AddFavoriteJoke(get(), get()) }
 
     factory { RemoveFavoriteJoke(get(), get()) }
 }
