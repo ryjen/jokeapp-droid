@@ -1,6 +1,8 @@
 package com.github.ryjen.jokeapp.ui.theme
 
 import androidx.compose.material.Typography
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -15,7 +17,7 @@ private val fonts = FontFamily(
     Font(R.font.noto_sans_bold, FontWeight.Bold)
 )
 
-val typography = typographyFromDefaults(
+private val typography = typographyFromDefaults(
     h1 = TextStyle(
         fontFamily = fonts,
         fontWeight = FontWeight.Bold
@@ -73,7 +75,7 @@ val typography = typographyFromDefaults(
     )
 )
 
-fun typographyFromDefaults(
+private fun typographyFromDefaults(
     h1: TextStyle?,
     h2: TextStyle?,
     h3: TextStyle?,
@@ -105,3 +107,16 @@ fun typographyFromDefaults(
         overline = defaults.overline.merge(overline)
     )
 }
+
+@Immutable
+data class TypographyTheme(
+    val material: Typography = typography,
+    val title: TextStyle = TextStyle(
+        fontSize = 18.sp,
+        fontFamily = fonts,
+        fontWeight = FontWeight.Bold,
+        lineHeight = 40.sp
+    ),
+)
+
+internal val LocalTypography = staticCompositionLocalOf { TypographyTheme() }

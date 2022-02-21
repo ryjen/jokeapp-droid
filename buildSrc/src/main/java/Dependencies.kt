@@ -77,8 +77,10 @@ object Dependencies {
     }
 
     object Accompanist {
-        const val Insets = "com.google.accompanist:accompanist-insets:0.20.3"
-        const val Placeholder = "com.google.accompanist:accompanist-placeholder:0.20.3"
+        private const val version = "0.20.3"
+        const val Insets = "com.google.accompanist:accompanist-insets:$version"
+        const val Placeholder = "com.google.accompanist:accompanist-placeholder:$version"
+        const val SystemUI = "com.google.accompanist:accompanist-systemuicontroller:$version"
     }
 
     object ComposeX {

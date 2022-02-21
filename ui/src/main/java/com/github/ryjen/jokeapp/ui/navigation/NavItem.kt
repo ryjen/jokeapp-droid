@@ -11,7 +11,7 @@ import com.github.ryjen.jokeapp.ui.jokes.favourites.FavoritesViewModel
 import com.github.ryjen.jokeapp.ui.jokes.random.RandomJokeMenu
 import com.github.ryjen.jokeapp.ui.jokes.random.RandomJokeScreen
 import com.github.ryjen.jokeapp.ui.jokes.random.RandomJokeViewModel
-import com.github.ryjen.jokeapp.ui.theme.AppTheme
+import com.github.ryjen.jokeapp.ui.theme.ThemeImages
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -34,7 +34,7 @@ data class NavItem<T : ViewModel>(
 
 fun randomJokeNavItem(router: Router): NavItem<RandomJokeViewModel> {
     return NavItem(
-        { Tab(R.string.action_random, AppTheme.images.random) },
+        { Tab(R.string.action_random, ThemeImages.random) },
         {
             getViewModel {
                 parametersOf(router)
@@ -47,9 +47,9 @@ fun randomJokeNavItem(router: Router): NavItem<RandomJokeViewModel> {
 
 fun favoritesNavItem(): NavItem<FavoritesViewModel> {
     return NavItem(
-        { Tab(R.string.action_favorites, AppTheme.images.bookmarks) },
+        { Tab(R.string.action_favorites, ThemeImages.bookmarks) },
         { getViewModel() },
-        { viewModel -> FavoritesMenu(viewModel) },
+        { FavoritesMenu() },
         { viewModel -> FavoritesScreen(viewModel) }
     )
 }

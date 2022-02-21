@@ -13,9 +13,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.ui.R
-import com.github.ryjen.jokeapp.ui.theme.AppTheme
+import com.github.ryjen.jokeapp.ui.theme.ThemeColors
+import com.github.ryjen.jokeapp.ui.theme.ThemeDimensions
+import com.github.ryjen.jokeapp.ui.theme.ThemeImages
 
 fun shareText(context: Context, content: String) {
     val sendIntent: Intent = Intent().apply {
@@ -34,15 +37,17 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
     val context = LocalContext.current
 
     TopAppBar(
-        title = { Text("Random Joke") },
+        title = { Text(stringResource(id = R.string.app_name)) },
+        backgroundColor = ThemeColors.topBar,
+        contentColor = ThemeColors.onTopBar,
         elevation = 0.dp,
         actions = {
             IconButton(onClick = {
                 viewModel.refreshJoke()
             }) {
                 Icon(
-                    imageVector = AppTheme.images.refresh,
-                    modifier = Modifier.size(AppTheme.dimens.navIcon),
+                    imageVector = ThemeImages.refresh,
+                    modifier = Modifier.size(ThemeDimensions.icons.small),
                     contentDescription = null
                 )
             }
@@ -56,8 +61,8 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                             viewModel.removeJokeFromFavorites(joke)
                         }) {
                         Icon(
-                            imageVector = AppTheme.images.bookmarkRemove,
-                            modifier = Modifier.size(AppTheme.dimens.navIcon),
+                            imageVector = ThemeImages.bookmarkRemove,
+                            modifier = Modifier.size(ThemeDimensions.icons.small),
                             contentDescription = null
                         )
                     }
@@ -68,8 +73,8 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                             viewModel.addJokeToFavorites(joke)
                         }) {
                         Icon(
-                            imageVector = AppTheme.images.bookmarkAdd,
-                            modifier = Modifier.size(AppTheme.dimens.navIcon),
+                            imageVector = ThemeImages.bookmarkAdd,
+                            modifier = Modifier.size(ThemeDimensions.icons.small),
                             contentDescription = null
                         )
                     }
@@ -80,8 +85,8 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                         shareText(context, joke.content)
                     }) {
                     Icon(
-                        imageVector = AppTheme.images.share,
-                        modifier = Modifier.size(AppTheme.dimens.navIcon),
+                        imageVector = ThemeImages.share,
+                        modifier = Modifier.size(ThemeDimensions.icons.small),
                         contentDescription = null
                     )
                 }

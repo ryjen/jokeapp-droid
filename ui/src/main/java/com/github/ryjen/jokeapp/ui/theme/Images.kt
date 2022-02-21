@@ -16,7 +16,7 @@ import compose.icons.fontawesomeicons.solid.*
  * Images that can vary by theme.
  */
 @Immutable
-data class Images(
+data class ImageTheme(
     val bookmarks: ImageVector,
     val bookmarkAdd: ImageVector,
     val bookmarkRemove: ImageVector,
@@ -27,7 +27,7 @@ data class Images(
     val delete: ImageVector
 )
 
-val LightImages = Images(
+internal val DefaultImages = ImageTheme(
     bookmarkAdd = FontAwesomeIcons.Regular.Bookmark,
     bookmarkRemove = FontAwesomeIcons.Solid.Bookmark,
     bookmarks = FontAwesomeIcons.Solid.Bookmark,
@@ -38,8 +38,6 @@ val LightImages = Images(
     delete = FontAwesomeIcons.Solid.TimesCircle
 )
 
-val DarkImages = LightImages
-
 internal val LocalImages = staticCompositionLocalOf {
-    LightImages
+    DefaultImages
 }

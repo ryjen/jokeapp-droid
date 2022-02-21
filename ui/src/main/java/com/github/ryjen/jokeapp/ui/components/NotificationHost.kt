@@ -16,7 +16,7 @@ fun NotificationHost(
     router: Router,
     modifier: Modifier = Modifier
 ) {
-    val notificationState = router.notifications().collectAsState(initial = null)
+    val notificationState = router.notifications().collectAsState()
 
     val notification = notificationState.value ?: return
 

@@ -1,10 +1,8 @@
 package com.github.ryjen.jokeapp.ui.jokes.random
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -16,7 +14,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.domain.model.Joke
-import com.github.ryjen.jokeapp.ui.theme.AppTheme
+import com.github.ryjen.jokeapp.ui.arch.Failure
+import com.github.ryjen.jokeapp.ui.theme.*
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.placeholder
 import com.google.accompanist.placeholder.shimmer
@@ -37,51 +36,68 @@ fun RandomJokeScreen(viewModel: RandomJokeViewModel) {
 fun RandomJokeContent(joke: Joke?) {
     val scrollState = rememberScrollState()
 
-    Text(
-        text = joke?.content ?: "",
-        style = AppTheme.typography.h4,
-        textAlign = TextAlign.Center,
-        modifier = Modifier
-            .fillMaxSize()
-            .placeholder(
-                visible = joke == null,
-                highlight = PlaceholderHighlight.shimmer(Color.Gray),
-                color = Color.Transparent
-            )
-            .verticalScroll(scrollState)
-            .wrapContentSize(Alignment.Center)
-            .padding(vertical = 16.dp, horizontal = 40.dp)
-    )
-}
-
-@Composable
-fun RandomJokeErrorContent(err: com.github.ryjen.jokeapp.ui.arch.Failure) {
     Column(
         modifier = Modifier
+            .verticalScroll(scrollState)
             .fillMaxSize()
-            .padding(16.dp)
             .wrapContentSize(Alignment.Center)
+            .padding(ThemeDimensions.padding.large)
     ) {
-        Box(
+        Card(
+            backgroundColor = ThemeColors.card,
+            contentColor = ThemeColors.onCard,
+            shape = ThemeShapes.bubble,
             modifier = Modifier
-                .padding(16.dp)
-                .background(
-                    color = Color.Red,
-                    shape = RoundedCornerShape(16.dp)
-                )
+                .padding(ThemeDimensions.padding.small),
+            elevation = ThemeDimensions.elevations.card
         ) {
             Text(
-                modifier = Modifier.padding(16.dp),
-                text = err.message(),
-                style = AppTheme.typography.body1,
-                color = Color.White
+                text = joke?.content ?: "",
+                color = ThemeColors.onCard,
+                style = ThemeTypography.material.h4,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .padding(ThemeDimensions.padding.medium)
+                    .placeholder(
+                        visible = joke == null,
+                        highlight = PlaceholderHighlight.shimmer(ThemeColors.material.secondary),
+                        color = Color.Transparent
+                    )
             )
         }
     }
 }
 
 @Composable
-@Preview
+fun RandomJokeErrorContent(err: Failure) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(ThemeDimensions.padding.large)
+            .wrapContentSize(Alignment.Center)
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(ThemeDimensions.padding.medium)
+                .background(
+                    color = ThemeColors.material.error,
+                    shape = ThemeShapes.bubble
+                )
+        ) {
+            Text(
+                text = err.message(),
+                style = ThemeTypography.material.body1,
+                color = ThemeColors.material.onError
+            )
+        }
+    }
+}
+
+@Composable
+@Preview(
+    showBackground = true,
+    backgroundColor = previewBackground
+)
 fun RandomJokeScreenPreview() {
     RandomJokeContent(
         Joke(
@@ -91,8 +107,13 @@ fun RandomJokeScreenPreview() {
     )
 }
 
-@Preview
+@Preview(
+    showBackground = true,
+    backgroundColor = previewBackground
+)
 @Composable
 fun ErrorScreenPreview() {
-    RandomJokeErrorContent(err = com.github.ryjen.jokeapp.ui.arch.Failure.Message("Error Testing"))
+    MainTheme {
+        RandomJokeErrorContent(err = Failure.Message("Error Testing"))
+    }
 }

@@ -29,6 +29,7 @@ dependencies {
 
     implementation(Dependencies.Accompanist.Placeholder)
     implementation(Dependencies.Accompanist.Insets)
+    implementation(Dependencies.Accompanist.SystemUI)
 
     implementation(Dependencies.Icons)
 }

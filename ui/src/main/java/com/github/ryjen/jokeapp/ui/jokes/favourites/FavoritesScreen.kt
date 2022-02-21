@@ -17,11 +17,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.domain.model.Joke
+import com.github.ryjen.jokeapp.ui.R
 import com.github.ryjen.jokeapp.ui.components.PopUpDialog
-import com.github.ryjen.jokeapp.ui.theme.AppTheme
+import com.github.ryjen.jokeapp.ui.theme.ThemeDimensions
+import com.github.ryjen.jokeapp.ui.theme.ThemeImages
+import com.github.ryjen.jokeapp.ui.theme.ThemeTypography
 
 @Composable
 fun FavoritesScreen(viewModel: FavoritesViewModel) {
@@ -35,45 +39,51 @@ fun FavoritesScreen(viewModel: FavoritesViewModel) {
 fun FavoritesContent(state: FavoritesState, onAction: (FavoritesActions) -> Unit) {
     val (showDialog, setShowDialog) = remember { mutableStateOf<Joke?>(null) }
 
-    LazyColumn {
-        items(state.jokes) { joke ->
-            Row(
-                modifier = Modifier
-                    .wrapContentSize(Alignment.Center)
-                    .pointerInput(Unit) {
-                        detectTapGestures(
-                            onLongPress = {
-                                setShowDialog(joke)
-                            }
+    Column {
+        Text(
+            text = stringResource(id = R.string.action_favorites),
+            modifier = Modifier.padding(ThemeDimensions.padding.medium)
+        )
+        LazyColumn {
+            items(state.jokes) { joke ->
+                Row(
+                    modifier = Modifier
+                        .wrapContentSize(Alignment.Center)
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onLongPress = {
+                                    setShowDialog(joke)
+                                }
+                            )
+                        }
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth()
+                            .defaultMinSize(minHeight = 50.dp)
+                            .background(
+                                color = Color.White,
+                                shape = RoundedCornerShape(8.dp)
+                            )
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(16.dp),
+                            text = joke.content,
+                            color = Color.Black,
+                            style = ThemeTypography.material.body1
                         )
                     }
-            ) {
-                Box(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
-                        .defaultMinSize(minHeight = 50.dp)
-                        .background(
-                            color = Color.White,
-                            shape = RoundedCornerShape(8.dp)
+                    IconButton(
+                        onClick = {
+                            setShowDialog(joke)
+                        }) {
+                        Icon(
+                            imageVector = ThemeImages.delete,
+                            modifier = Modifier.size(ThemeDimensions.icons.small),
+                            contentDescription = null
                         )
-                ) {
-                    Text(
-                        modifier = Modifier.padding(16.dp),
-                        text = joke.content,
-                        color = Color.Black,
-                        style = AppTheme.typography.body1
-                    )
-                }
-                IconButton(
-                    onClick = {
-                        setShowDialog(joke)
-                    }) {
-                    Icon(
-                        imageVector = AppTheme.images.delete,
-                        modifier = Modifier.size(AppTheme.dimens.navIcon),
-                        contentDescription = null
-                    )
+                    }
                 }
             }
         }

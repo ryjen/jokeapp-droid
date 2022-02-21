@@ -8,10 +8,10 @@ import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.ui.R
 
 @Composable
-fun FavoritesMenu(viewModel: FavoritesViewModel) {
+fun FavoritesMenu() {
     TopAppBar(
         title = {
-            Text(text = stringResource(R.string.action_favorites))
+            Text(text = stringResource(R.string.app_name))
         },
         elevation = 0.dp,
     )

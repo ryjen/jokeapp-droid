@@ -9,7 +9,8 @@ import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.domain.usecase.GetUserLocale
 import com.github.ryjen.jokeapp.ui.navigation.Router
 import com.github.ryjen.jokeapp.ui.navigation.Routes
-import com.github.ryjen.jokeapp.ui.theme.AppTheme
+import com.github.ryjen.jokeapp.ui.theme.ThemeColors
+import com.github.ryjen.jokeapp.ui.theme.ThemeDimensions
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
 import org.koin.androidx.compose.inject
@@ -23,14 +24,16 @@ fun NavBottomBar(
     val currentRoute = router.currentRoute() ?: Routes.RANDOM_JOKE
 
     BottomNavigation(
-        Modifier.navigationBarsHeight(additional = 56.dp)
+        Modifier.navigationBarsHeight(additional = 56.dp),
+        backgroundColor = ThemeColors.bottomBar,
+        contentColor = ThemeColors.onBottomBar
     ) {
         router.navItems.forEach { (route, nav) ->
             BottomNavigationItem(
                 icon = {
                     Icon(
                         imageVector = nav.tab.icon,
-                        modifier = Modifier.size(AppTheme.dimens.navIcon),
+                        modifier = Modifier.size(ThemeDimensions.icons.small),
                         contentDescription = null
                     )
                 },
@@ -42,7 +45,7 @@ fun NavBottomBar(
                     router.routeTo(route)
                 },
                 alwaysShowLabel = true,
-                selectedContentColor = AppTheme.colors.secondary,
+                selectedContentColor = ThemeColors.material.secondary,
                 unselectedContentColor = LocalContentColor.current,
                 modifier = Modifier.navigationBarsPadding()
             )
