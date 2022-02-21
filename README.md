@@ -12,17 +12,6 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 - bottom buttons to sync and view favourites
 - favourites a card list
 
-### user requirements
-
-- simple to use
-- functional
-- tested and reliable
-
-### architecture
-
-- easy to make changes
-- show off
-
 ## design
 
 ### architecture
