@@ -9,5 +9,6 @@ rootProject.name = "Jiver"
 include (":app")
 include (":data")
 include (":domain")
-include(":meta")
-include(":ui")
+include (":meta")
+include (":ui")
+include (":test")

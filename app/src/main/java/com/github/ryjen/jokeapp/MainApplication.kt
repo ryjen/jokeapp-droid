@@ -3,7 +3,7 @@ package com.github.ryjen.jokeapp
 import android.app.Application
 import com.github.ryjen.jokeapp.data.arch.module.dataModules
 import com.github.ryjen.jokeapp.domain.arch.module.domainModules
-import com.github.ryjen.jokeapp.meta.arch.modules.metaModules
+import com.github.ryjen.jokeapp.meta.arch.module.metaModules
 import com.github.ryjen.jokeapp.ui.arch.module.uiModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -17,7 +17,7 @@ class MainApplication : Application() {
             androidContext(this@MainApplication)
             modules(
                 metaModules +
-                dataModules +
+                        dataModules +
                         domainModules +
                         uiModules
 

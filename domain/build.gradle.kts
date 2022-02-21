@@ -18,5 +18,4 @@ dependencies {
     implementation(Dependencies.CoroutinesX.Core)
     implementation(Dependencies.Timber)
     implementation(Dependencies.Serialization.Json)
-
 }

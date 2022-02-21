@@ -6,6 +6,10 @@ plugins {
 
 android {
     compileSdk = Versions.Sdk.Compile
+
+    defaultConfig {
+        minSdk = Versions.Sdk.Min
+    }
 }
 
 dependencies {
@@ -26,6 +30,4 @@ dependencies {
     implementation(Dependencies.RoomX.Runtime)
     implementation(Dependencies.RoomX.Kotlin)
     implementation(Dependencies.Timber)
-
-    testImplementation(Dependencies.JUnit)
 }

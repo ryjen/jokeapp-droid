@@ -16,7 +16,7 @@ fun NavGraph(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        for (navItem in navItems) {
+        for (navItem in router.navItems) {
             composable(
                 route = navItem.key,
             ) {

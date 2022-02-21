@@ -9,7 +9,6 @@ import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.domain.usecase.GetUserLocale
 import com.github.ryjen.jokeapp.ui.navigation.Router
 import com.github.ryjen.jokeapp.ui.navigation.Routes
-import com.github.ryjen.jokeapp.ui.navigation.navItems
 import com.github.ryjen.jokeapp.ui.theme.AppTheme
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
@@ -26,13 +25,14 @@ fun NavBottomBar(
     BottomNavigation(
         Modifier.navigationBarsHeight(additional = 56.dp)
     ) {
-        navItems.forEach { (route, nav) ->
+        router.navItems.forEach { (route, nav) ->
             BottomNavigationItem(
                 icon = {
                     Icon(
                         imageVector = nav.tab.icon,
                         modifier = Modifier.size(AppTheme.dimens.navIcon),
-                        contentDescription = null)
+                        contentDescription = null
+                    )
                 },
                 label = {
                     Text(stringResource(nav.tab.title).uppercase(getUserLocale()))

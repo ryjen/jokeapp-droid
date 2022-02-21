@@ -57,6 +57,8 @@ object Dependencies {
         const val Logging = "io.ktor:ktor-client-logging:$version"
         const val Client = "io.ktor:ktor-client-core:1.6.7"
         const val Logback = "ch.qos.logback:logback-classic:1.2.10"
+        const val test = "io.ktor:ktor-server-test-host:$version"
+
     }
 
     object Serialization {
@@ -103,6 +105,16 @@ object Dependencies {
         const val Runtime = "androidx.work:work-runtime-ktx:2.7.1"
         const val Test = "androidx.work:work-testing:2.7.1"
     }
+
+    object Mockk {
+        private const val version = "1.12.2"
+        const val Android = "io.mockk:mockk-android:$version"
+        const val Agent = "io.mockk:mockk-agent-jvm:$version"
+
+    }
+
+    const val Fake = "com.github.javafaker:javafaker:1.0.2"
+
 
     const val Truth = "com.google.truth:truth:1.1.3"
 

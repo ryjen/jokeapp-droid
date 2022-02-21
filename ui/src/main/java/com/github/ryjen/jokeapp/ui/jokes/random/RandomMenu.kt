@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -38,7 +39,6 @@ fun shareText(context: Context, content: String) {
 @Composable
 fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
     val state by viewModel.state.collectAsState()
-    var showMenu by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     TopAppBar(
@@ -58,7 +58,9 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
             state.joke?.let { joke ->
 
                 if (joke.isFavorite) {
-                    IconButton(onClick = {
+                    IconButton(
+                        modifier = Modifier.testTag("remove"),
+                        onClick = {
                         viewModel.removeJokeFromFavorites(joke)
                     }) {
                         Icon(
@@ -68,7 +70,9 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                         )
                     }
                 } else {
-                    IconButton(onClick = {
+                    IconButton(
+                        modifier = Modifier.testTag("add"),
+                        onClick = {
                         viewModel.addJokeToFavorites(joke)
                     }) {
                         Icon(
@@ -78,7 +82,9 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                         )
                     }
                 }
-                IconButton(onClick = {
+                IconButton(
+                    modifier = Modifier.testTag("share"),
+                    onClick = {
                     shareText(context, joke.content)
                 }) {
                     Icon(

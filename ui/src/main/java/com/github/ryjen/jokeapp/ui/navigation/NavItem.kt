@@ -17,6 +17,7 @@ import com.github.ryjen.jokeapp.ui.jokes.random.RandomJokeScreen
 import com.github.ryjen.jokeapp.ui.jokes.random.RandomJokeViewModel
 import com.github.ryjen.jokeapp.ui.theme.AppTheme
 import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
 
 data class Tab(
     @StringRes val title: Int,
@@ -35,10 +36,12 @@ data class NavItem<T : ViewModel>(
     val tab @Composable get() = onTab()
 }
 
-fun randomJokeNavItem(): NavItem<RandomJokeViewModel> {
+fun randomJokeNavItem(router: Router): NavItem<RandomJokeViewModel> {
     return NavItem(
         { Tab(R.string.action_random, AppTheme.images.random) },
-        { getViewModel() },
+        { getViewModel {
+            parametersOf(router)
+        } },
         { viewModel -> RandomJokeMenu(viewModel) },
         { viewModel -> RandomJokeScreen(viewModel) },
     )
@@ -66,8 +69,3 @@ class CachedComposable<T : ViewModel>(
         return item!!
     }
 }
-
-val navItems = mapOf(
-    Pair(Routes.RANDOM_JOKE, randomJokeNavItem()),
-    Pair(Routes.FAVORITE_JOKES, favoritesNavItem()),
-)

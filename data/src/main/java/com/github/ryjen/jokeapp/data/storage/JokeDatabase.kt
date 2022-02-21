@@ -8,5 +8,7 @@ import com.github.ryjen.jokeapp.data.model.Joke
 @Database(entities = [Joke::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class JokeDatabase : RoomDatabase() {
-    abstract fun jokeDao(): JokeDao
+    abstract fun observableJokeDao(): ObservableJokeDao
+    abstract fun asyncJokeDao(): AsyncJokeDao
+    abstract fun syncJokeDao(): SyncJokeDao
 }

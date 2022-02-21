@@ -1,7 +1,10 @@
 package com.github.ryjen.jokeapp.ui.navigation
 
+import android.content.Context
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.github.ryjen.jokeapp.ui.components.Notifications
@@ -15,7 +18,12 @@ object Routes {
 
 private val sharedNotifications = MutableSharedFlow<Notifications>()
 
-class Router(val navController: NavHostController) {
+class Router(private val context: Context, val navController: NavHostController) {
+
+    val navItems = mapOf(
+        Pair(Routes.RANDOM_JOKE, randomJokeNavItem(this)),
+        Pair(Routes.FAVORITE_JOKES, favoritesNavItem()),
+    )
 
     @Composable
     fun currentRoute(): String? {
@@ -35,7 +43,21 @@ class Router(val navController: NavHostController) {
 
     fun notifications() = sharedNotifications.asSharedFlow()
 
-    suspend fun showNotification(value: Notifications) {
+    suspend fun show(value: Notifications) {
         sharedNotifications.emit(value)
+    }
+
+    suspend fun showSuccess(@StringRes value: Int, vararg args: Any) {
+        val notification = Notifications.Success(
+            context.getString(value, *args)
+        )
+        sharedNotifications.emit(notification)
+    }
+
+    suspend fun showDanger(@StringRes value: Int, vararg args: Any) {
+        val notification = Notifications.Danger(
+            context.getString(value, *args)
+        )
+        sharedNotifications.emit(notification)
     }
 }

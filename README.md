@@ -2,29 +2,38 @@
 
 a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 
-## design
+## analysis
 
-### architecture
-
-- main activity with navigation
-- joke data model and network service
-- injection modules for database, network service and dispatchers
-- a repository to coordinate local and remote data
-- view models to bridge the repository and fragments
-- fragments use data binding and live data to sync
-
-### tests
-
-- coroutine rule to replace the main thread
-- a fake network service and data
-- injection modules to use a memory database and fake data
-
-### ui
+### ui requirements
 
 - random joke in big font
 - action button to add/remove favourites
 - action button to share joke
 - bottom buttons to sync and view favourites
-- favourites a card list with back button
-- can swipe back or use remove button to remove a favourite
-- material vector icons
+- favourites a card list
+
+### user requirements
+
+- simple to use
+- functional
+- tested and reliable
+
+### architecture
+
+- easy to make changes
+- show off
+
+## design
+
+### architecture
+
+- uncle bob's clean architecture in modular android
+* separation of data, domain and presentation layers
+- compose and kotlin state flow
+- redux reducers for viewmodel state
+
+### tests
+
+- rules and/or injection to handle threading and coroutines
+- a fake network service and data
+- a memory database and fake data

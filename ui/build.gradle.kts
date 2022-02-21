@@ -31,5 +31,4 @@ dependencies {
     implementation(Dependencies.Accompanist.Insets)
 
     implementation(Dependencies.Icons)
-
 }

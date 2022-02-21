@@ -23,7 +23,8 @@ data class Images(
     val refresh: ImageVector,
     val random: ImageVector,
     val more: ImageVector,
-    val share: ImageVector
+    val share: ImageVector,
+    val delete: ImageVector
 )
 
 val LightImages = Images(
@@ -33,7 +34,8 @@ val LightImages = Images(
     refresh = FontAwesomeIcons.Solid.Sync,
     random = FontAwesomeIcons.Solid.LaughSquint,
     more = Icons.Default.MoreVert,
-    share = FontAwesomeIcons.Solid.ShareAlt
+    share = FontAwesomeIcons.Solid.ShareAlt,
+    delete = FontAwesomeIcons.Solid.TimesCircle
 )
 
 val DarkImages = LightImages

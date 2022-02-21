@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -63,6 +65,16 @@ fun FavoritesContent(state: FavoritesState, onAction: (FavoritesActions) -> Unit
                         text = joke.content,
                         color = Color.Black,
                         style = AppTheme.typography.body1
+                    )
+                }
+                IconButton(
+                    onClick = {
+                    setShowDialog(joke)
+                }) {
+                    Icon(
+                        imageVector = AppTheme.images.delete,
+                        modifier = Modifier.size(AppTheme.dimens.navIcon),
+                        contentDescription = null
                     )
                 }
             }

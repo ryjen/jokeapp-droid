@@ -4,7 +4,7 @@ import com.github.ryjen.jokeapp.domain.arch.FlowUseCase
 import com.github.ryjen.jokeapp.domain.arch.Outcome
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.domain.repository.joke.JokeRepository
-import com.github.ryjen.jokeapp.meta.coroutines.DispatcherProvider
+import com.github.ryjen.jokeapp.meta.coroutine.DispatcherProvider
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged

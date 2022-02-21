@@ -2,9 +2,9 @@ package com.github.ryjen.jokeapp.data.arch.module
 
 import androidx.room.Room
 import com.github.ryjen.jokeapp.domain.repository.joke.JokeRepository as DomainJokeRespository
-import com.github.ryjen.jokeapp.data.repository.JokeRepository
-import com.github.ryjen.jokeapp.data.repository.LocalDataSource
-import com.github.ryjen.jokeapp.data.repository.RemoteDataSource
+import com.github.ryjen.jokeapp.data.repository.joke.JokeRepository
+import com.github.ryjen.jokeapp.data.repository.joke.LocalDataSource
+import com.github.ryjen.jokeapp.data.repository.joke.RemoteDataSource
 import com.github.ryjen.jokeapp.data.storage.JokeDatabase
 import org.koin.dsl.module
 
@@ -16,11 +16,16 @@ internal val localSourceModule = module {
     }
 
     factory {
-        get<JokeDatabase>().jokeDao()
+
     }
 
     factory {
-        LocalDataSource(get())
+        val db = get<JokeDatabase>()
+        LocalDataSource(
+            db.observableJokeDao(),
+            db.asyncJokeDao(),
+            db.syncJokeDao()
+        )
     }
 
     factory {

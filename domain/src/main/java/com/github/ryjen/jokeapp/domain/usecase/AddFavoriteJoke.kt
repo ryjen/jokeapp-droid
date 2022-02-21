@@ -3,7 +3,7 @@ package com.github.ryjen.jokeapp.domain.usecase
 import com.github.ryjen.jokeapp.domain.arch.CoroutineUseCase
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.domain.repository.joke.JokeRepository
-import com.github.ryjen.jokeapp.meta.coroutines.DispatcherProvider
+import com.github.ryjen.jokeapp.meta.coroutine.DispatcherProvider
 
 class AddFavoriteJoke(
     dispatcher: DispatcherProvider,

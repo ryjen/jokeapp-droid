@@ -1,4 +1,4 @@
-package com.github.ryjen.jokeapp.meta.arch.modules
+package com.github.ryjen.jokeapp.meta.arch.module
 
 import com.github.ryjen.jokeapp.domain.usecase.*
 import org.koin.android.ext.koin.androidContext

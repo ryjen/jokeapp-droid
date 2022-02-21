@@ -99,22 +99,6 @@ dependencies {
     implementation(Dependencies.AndroidX.Activity)
     implementation(Dependencies.Koin.Android)
 
-    // UI Tests
-    androidTestImplementation(Dependencies.ComposeX.Test)
-
-    // Testing dependencies
-    androidTestImplementation(Dependencies.AndroidX.Test)
-    androidTestImplementation(Dependencies.Espresso.Contrib)
-    androidTestImplementation(Dependencies.Espresso.Core)
-    androidTestImplementation(Dependencies.Espresso.Intents)
-    androidTestImplementation(Dependencies.TestX.JUnit)
-    androidTestImplementation(Dependencies.TestX.UIAutomator)
-    androidTestImplementation(Dependencies.WorkX.Test)
-    androidTestImplementation(Dependencies.NavigationX.Test)
-    androidTestImplementation(Dependencies.Truth)
-    androidTestImplementation(Dependencies.CoroutinesX.Test)
-    androidTestImplementation(Dependencies.Koin.Test)
-    androidTestImplementation(Dependencies.Koin.JUnit)
-
-    testImplementation(Dependencies.JUnit)
+    androidTestImplementation(project(":test"))
+    testImplementation(project(":test"))
 }

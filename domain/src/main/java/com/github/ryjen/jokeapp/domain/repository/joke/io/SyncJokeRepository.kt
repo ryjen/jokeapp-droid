@@ -1,3 +1,7 @@
 package com.github.ryjen.jokeapp.domain.repository.joke.io
 
-interface SyncJokeRepository
+import com.github.ryjen.jokeapp.domain.model.Joke
+
+interface SyncJokeRepository {
+    fun getJoke(jokeId: String): Joke?
+}
