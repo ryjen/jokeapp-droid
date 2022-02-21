@@ -6,14 +6,12 @@ import com.github.ryjen.jokeapp.test.data.arch.module.fakeDatabaseModule
 import com.github.ryjen.jokeapp.test.randomJoke
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
-import kotlin.test.assertTrue
 
 class AddFavoriteJokeTest : KoinTest {
 

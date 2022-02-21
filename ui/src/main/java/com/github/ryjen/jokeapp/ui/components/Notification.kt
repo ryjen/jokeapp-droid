@@ -1,8 +1,5 @@
 package com.github.ryjen.jokeapp.ui.components
 
-import android.content.Context
-import androidx.annotation.StringRes
-
 data class NotificationAction(
     val label: String,
     val onAction: (() -> Unit)? = null

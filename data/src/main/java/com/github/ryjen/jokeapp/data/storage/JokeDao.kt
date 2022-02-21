@@ -3,34 +3,28 @@ package com.github.ryjen.jokeapp.data.storage
 import androidx.room.*
 import com.github.ryjen.jokeapp.data.model.Joke
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.toList
 
 private const val getJokeQuery = "SELECT * FROM jokes WHERE id = :jokeId"
-
+private const val listJokesQuery = "SELECT * FROM jokes ORDER BY created"
+private const val favoriteJokesQuery = "SELECT * FROM jokes WHERE isFavorite = 1 ORDER BY created"
 
 @Dao
 interface ObservableJokeDao {
-    @Query("SELECT * FROM jokes ORDER BY created")
+    @Query(listJokesQuery)
     fun observeJokes(): Flow<Joke>
 
-    @Query("SELECT * FROM jokes ORDER BY created")
+    @Query(listJokesQuery)
     fun getJokes(): Flow<List<Joke>>
 
-    @Query("SELECT * FROM jokes WHERE isFavorite = 1 ORDER BY created")
+    @Query(favoriteJokesQuery)
     fun observeFavoriteJokes(): Flow<Joke>
 
-    @Query("SELECT * FROM jokes WHERE isFavorite = 1 ORDER BY created")
+    @Query(favoriteJokesQuery)
     fun getFavoriteJokes(): Flow<List<Joke>>
 }
 
 @Dao
 interface AsyncJokeDao {
-    @Query("SELECT * FROM jokes ORDER BY created")
-    fun listJokes(): List<Joke>
-
-    @Query("SELECT * FROM jokes WHERE isFavorite = 1 ORDER BY created")
-    fun getFavoriteJokes(): List<Joke>
-
     @Query(getJokeQuery)
     suspend fun getJoke(jokeId: String): Joke?
 
@@ -48,4 +42,11 @@ interface AsyncJokeDao {
 interface SyncJokeDao {
     @Query(getJokeQuery)
     fun getJoke(jokeId: String): Joke?
+
+    @Query(listJokesQuery)
+    fun listJokes(): List<Joke>
+
+    @Query(favoriteJokesQuery)
+    fun getFavoriteJokes(): List<Joke>
+
 }

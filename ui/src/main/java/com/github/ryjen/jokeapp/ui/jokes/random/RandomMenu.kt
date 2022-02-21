@@ -2,28 +2,20 @@ package com.github.ryjen.jokeapp.ui.jokes.random
 
 import android.content.Context
 import android.content.Intent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.ui.R
 import com.github.ryjen.jokeapp.ui.theme.AppTheme
-import com.github.ryjen.jokeapp.ui.theme.Images
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Solid
-import compose.icons.fontawesomeicons.solid.Share
 
 fun shareText(context: Context, content: String) {
     val sendIntent: Intent = Intent().apply {
@@ -61,8 +53,8 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                     IconButton(
                         modifier = Modifier.testTag("remove"),
                         onClick = {
-                        viewModel.removeJokeFromFavorites(joke)
-                    }) {
+                            viewModel.removeJokeFromFavorites(joke)
+                        }) {
                         Icon(
                             imageVector = AppTheme.images.bookmarkRemove,
                             modifier = Modifier.size(AppTheme.dimens.navIcon),
@@ -73,8 +65,8 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                     IconButton(
                         modifier = Modifier.testTag("add"),
                         onClick = {
-                        viewModel.addJokeToFavorites(joke)
-                    }) {
+                            viewModel.addJokeToFavorites(joke)
+                        }) {
                         Icon(
                             imageVector = AppTheme.images.bookmarkAdd,
                             modifier = Modifier.size(AppTheme.dimens.navIcon),
@@ -85,8 +77,8 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                 IconButton(
                     modifier = Modifier.testTag("share"),
                     onClick = {
-                    shareText(context, joke.content)
-                }) {
+                        shareText(context, joke.content)
+                    }) {
                     Icon(
                         imageVector = AppTheme.images.share,
                         modifier = Modifier.size(AppTheme.dimens.navIcon),

@@ -28,7 +28,8 @@ fun PopUpDialog(
                 },
             ) {
                 Text(stringResource(id = android.R.string.ok))
-            } },
+            }
+        },
         dismissButton = {
             Button(
                 onClick = {

@@ -17,11 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.domain.model.Joke
-import com.github.ryjen.jokeapp.ui.components.Notifications
 import com.github.ryjen.jokeapp.ui.components.PopUpDialog
 import com.github.ryjen.jokeapp.ui.theme.AppTheme
 
@@ -35,7 +33,7 @@ fun FavoritesScreen(viewModel: FavoritesViewModel) {
 
 @Composable
 fun FavoritesContent(state: FavoritesState, onAction: (FavoritesActions) -> Unit) {
-    val (showDialog, setShowDialog) =  remember { mutableStateOf<Joke?>(null) }
+    val (showDialog, setShowDialog) = remember { mutableStateOf<Joke?>(null) }
 
     LazyColumn {
         items(state.jokes) { joke ->
@@ -69,8 +67,8 @@ fun FavoritesContent(state: FavoritesState, onAction: (FavoritesActions) -> Unit
                 }
                 IconButton(
                     onClick = {
-                    setShowDialog(joke)
-                }) {
+                        setShowDialog(joke)
+                    }) {
                     Icon(
                         imageVector = AppTheme.images.delete,
                         modifier = Modifier.size(AppTheme.dimens.navIcon),

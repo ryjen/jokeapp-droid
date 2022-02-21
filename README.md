@@ -20,6 +20,7 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 - separation of data, domain and presentation layers
 - compose and material ui frameworks
 - kotlin state flow and coroutines
+- navigation with per-screen app bars, notifications and viewmodel sharing
 - redux reducers for viewmodel state
 - data IO is categorized: `asyncronous`, `syncronous`, `observable`, `local`, and `remote`
 
@@ -52,6 +53,7 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 - [ ] generalize and add new remote sources, like quotes
 - [ ] export to photo for sharing
 - [ ] analytics
+- [ ] fix snackbar
 - [ ] allow user to add content
 - [ ] home screen widget
 - [ ] multiplatform (pending kotlin multiplatform release)

@@ -1,8 +1,8 @@
 package com.github.ryjen.jokeapp.test.data.storage
 
-import com.github.ryjen.jokeapp.test.data.arch.module.fakeDatabaseModule
 import com.github.ryjen.jokeapp.data.model.Joke
 import com.github.ryjen.jokeapp.data.storage.JokeDao
+import com.github.ryjen.jokeapp.test.data.arch.module.fakeDatabaseModule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

@@ -21,11 +21,11 @@ class GetRandomJoke(
         while (true) {
             if (networkAvailable()) {
                 repository.remote.getRandomJoke()?.let {
-                    repository.local.saveJoke(it)
+                    repository.local.cacheJoke(it)
                     emit(Outcome.Success(it))
                 }
             } else {
-                repository.local.getRandomJoke()?.let {
+                repository.async.getRandomJoke()?.let {
                     emit(Outcome.Success(it))
                 }
             }

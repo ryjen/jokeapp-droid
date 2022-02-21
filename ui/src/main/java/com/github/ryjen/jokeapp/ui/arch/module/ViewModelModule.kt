@@ -9,7 +9,7 @@ internal val viewModelModule = module {
     viewModel {
         FavoritesViewModel(get(), get())
     }
-    viewModel {
-        params -> RandomJokeViewModel(get(), get(), get(), params.get())
+    viewModel { params ->
+        RandomJokeViewModel(get(), get(), get(), params.get())
     }
 }

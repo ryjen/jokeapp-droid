@@ -3,7 +3,6 @@ package com.github.ryjen.jokeapp.ui.jokes.random
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxAction
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxState
 import com.github.ryjen.jokeapp.domain.model.Joke
-import com.github.ryjen.jokeapp.ui.arch.Failure
 
 data class JokeState(
     val joke: Joke? = null,
@@ -17,6 +16,7 @@ sealed class JokeActions : ReduxAction {
     data class Favorite(val data: Joke) : JokeActions()
 
     companion object {
-        fun Error(throwable: Throwable) = Error(com.github.ryjen.jokeapp.ui.arch.Failure.Error(throwable))
+        fun Error(throwable: Throwable) =
+            Error(com.github.ryjen.jokeapp.ui.arch.Failure.Error(throwable))
     }
 }

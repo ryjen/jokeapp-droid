@@ -2,7 +2,8 @@ package com.github.ryjen.jokeapp.test
 
 import com.github.ryjen.jokeapp.meta.coroutine.DispatcherProvider
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.asCoroutineDispatcher
 import org.junit.Test
 import java.util.concurrent.Executors
 

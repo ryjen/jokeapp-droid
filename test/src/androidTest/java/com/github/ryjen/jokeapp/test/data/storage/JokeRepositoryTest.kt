@@ -1,14 +1,13 @@
 package com.github.ryjen.jokeapp.test.data.storage
 
-import com.github.ryjen.jokeapp.test.data.arch.module.fakeDatabaseModule
 import com.github.ryjen.jokeapp.data.repository.joke.JokeRepository
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.test.FakeJokeData
+import com.github.ryjen.jokeapp.test.data.arch.module.fakeDatabaseModule
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Before

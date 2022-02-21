@@ -18,28 +18,30 @@ class JokeRepository(
     private val remoteDataSource: RemoteDataSource,
 ) : DomainRepository, AsyncJokeRepository {
 
-    // concurrency variations can be remote, local or both
+    // asynchronous io only
     override val async: AsyncJokeRepository = this
 
-    override val observable = object: ObservableJokeRepository {
+    // observable cold flows only
+    override val observable = object : ObservableJokeRepository {
         override fun getFavoriteJokes(): Flow<List<DomainJoke>> =
             localDataSource.observable.getFavoriteJokes().map { list ->
                 list.map { joke -> joke.toDomain() }
             }
     }
 
-    override val sync = object: SyncJokeRepository {
+    // synchronous io only
+    override val sync = object : SyncJokeRepository {
         override fun getJoke(jokeId: String): DomainJoke? =
             localDataSource.sync.getJoke(jokeId)?.toDomain()
     }
 
-    // network only calls
+    // network only calls only
     override val remote: RemoteJokeRepository = object : RemoteJokeRepository {
         override suspend fun getJoke(jokeId: String) = remoteDataSource.getJoke(jokeId)
         override suspend fun getRandomJoke() = remoteDataSource.randomJoke()
     }
 
-    // local only calls
+    // local only calls only
     override val local: LocalJokeRepository = object : LocalJokeRepository {
         override suspend fun addFavorite(joke: DomainJoke) =
             localDataSource.updateFavorite(joke.toData())
@@ -47,31 +49,20 @@ class JokeRepository(
         override suspend fun removeFavorite(joke: DomainJoke) =
             localDataSource.async.deleteJokes(joke.toData())
 
-        override suspend fun saveJoke(joke: DomainJoke) =
+        override suspend fun cacheJoke(joke: DomainJoke) =
             localDataSource.async.insertJokes(joke.toData())
-
-        override suspend fun getJoke(jokeId: String) =
-            localDataSource.async.getJoke(jokeId)?.toDomain()
-
-        override suspend fun getRandomJoke() =
-            localDataSource.async.getRandomJoke()?.toDomain()
-
-        override fun getFavoriteJokes() =
-            localDataSource.observable.getFavoriteJokes().map { list ->
-                list.map { joke -> joke.toDomain() }
-            }
     }
 
     // random joke attempts remote and defaults to local cache
     override suspend fun getRandomJoke(): DomainJoke? = try {
         remote.getRandomJoke()
     } catch (e: Throwable) {
-        local.getRandomJoke()
+        async.getRandomJoke()
     }
 
     // get joke attempts local and defaults to remote source
     override suspend fun getJoke(jokeId: String): DomainJoke? = try {
-        local.getJoke(jokeId)
+        async.getJoke(jokeId)
     } catch (e: Throwable) {
         Timber.e("error fetching local joke", e)
         remote.getJoke(jokeId)
@@ -96,7 +87,7 @@ class JokeRepository(
     }
 
     // save a local cache of a joke
-    override suspend fun saveJoke(joke: DomainJoke) {
-        local.saveJoke(joke)
+    override suspend fun cacheJoke(joke: DomainJoke) {
+        local.cacheJoke(joke)
     }
 }

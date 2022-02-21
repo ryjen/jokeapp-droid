@@ -10,4 +10,4 @@ private val loadUiModules by lazy {
     loadKoinModules(uiModules)
 }
 
-fun injectUiModules() =  loadUiModules
+fun injectUiModules() = loadUiModules
