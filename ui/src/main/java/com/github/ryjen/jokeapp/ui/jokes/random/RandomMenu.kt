@@ -1,7 +1,5 @@
 package com.github.ryjen.jokeapp.ui.jokes.random
 
-import android.content.Context
-import android.content.Intent
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -16,20 +14,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.ui.R
+import com.github.ryjen.jokeapp.ui.components.Share
 import com.github.ryjen.jokeapp.ui.theme.ThemeColors
 import com.github.ryjen.jokeapp.ui.theme.ThemeDimensions
 import com.github.ryjen.jokeapp.ui.theme.ThemeImages
-
-fun shareText(context: Context, content: String) {
-    val sendIntent: Intent = Intent().apply {
-        action = Intent.ACTION_SEND
-        putExtra(Intent.EXTRA_TEXT, content)
-        type = "text/plain"
-    }
-
-    val shareIntent = Intent.createChooser(sendIntent, context.getString(R.string.action_share))
-    context.startActivity(shareIntent)
-}
 
 @Composable
 fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
@@ -82,7 +70,7 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                 IconButton(
                     modifier = Modifier.testTag("share"),
                     onClick = {
-                        shareText(context, joke.content)
+                        Share.text(context, joke.content)
                     }) {
                     Icon(
                         imageVector = ThemeImages.share,

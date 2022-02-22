@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Path
 /**
  * Create path for arrow either aligned left or right side of the bubble
  */
-fun createHorizontalArrowPath(
+internal fun createHorizontalArrowPath(
     path: Path,
     contentRect: BubbleRect,
     state: BubbleState,
@@ -222,7 +222,7 @@ private fun calculateArrowTopPosition(
 /**
  * Create path for arrow that is at the bottom of the bubble
  */
-fun createVerticalArrowPath(
+internal fun createVerticalArrowPath(
     path: Path,
     contentRect: BubbleRect,
     state: BubbleState,

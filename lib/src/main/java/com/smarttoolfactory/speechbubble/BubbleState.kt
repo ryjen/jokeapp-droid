@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun rememberBubbleState(
-    backgroundColor: Color = DefaultBubbleColor,
+    backgroundColor: Color,
     cornerRadius: Dp = 8.dp,
     alignment: ArrowAlignment = ArrowAlignment.None,
     arrowShape: ArrowShape = ArrowShape.TRIANGLE_RIGHT,
@@ -96,7 +96,7 @@ fun rememberBubbleState(
  */
 @Composable
 fun rememberBubbleState(
-    backgroundColor: Color = DefaultBubbleColor,
+    backgroundColor: Color,
     cornerRadius: BubbleCornerRadius = BubbleCornerRadius(
         topLeft = 8.dp,
         topRight = 8.dp,
@@ -113,7 +113,7 @@ fun rememberBubbleState(
     drawArrow: Boolean = true,
     shadow: BubbleShadow? = null,
     padding: BubblePadding? = null,
-    clickable:Boolean = false
+    clickable: Boolean = false
 ): BubbleState {
 
     return remember {
@@ -159,7 +159,7 @@ fun rememberBubbleState(
  * to set padding.
  */
 class BubbleState internal constructor(
-    var backgroundColor: Color = DefaultBubbleColor,
+    var backgroundColor: Color,
     var cornerRadius: BubbleCornerRadius = BubbleCornerRadius(
         topLeft = 8.dp,
         topRight = 8.dp,

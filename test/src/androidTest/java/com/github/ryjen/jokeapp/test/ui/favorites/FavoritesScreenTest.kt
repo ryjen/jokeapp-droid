@@ -13,7 +13,7 @@ import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.test.module.fakeAppModules
 import com.github.ryjen.jokeapp.ui.jokes.favourites.FavoritesScreen
 import com.github.ryjen.jokeapp.ui.jokes.favourites.FavoritesViewModel
-import com.github.ryjen.jokeapp.ui.theme.BlueTheme
+import com.github.ryjen.jokeapp.ui.theme.MainTheme
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
@@ -61,7 +61,7 @@ class FavoritesScreenTest : KoinTest {
         }
 
         composeTestRule.setContent {
-            BlueTheme {
+            MainTheme {
                 FavoritesScreen(viewModel)
             }
         }

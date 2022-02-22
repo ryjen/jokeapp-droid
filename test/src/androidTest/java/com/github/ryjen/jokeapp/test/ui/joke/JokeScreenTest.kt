@@ -17,7 +17,7 @@ import com.github.ryjen.jokeapp.test.module.fakeAppModules
 import com.github.ryjen.jokeapp.test.randomJoke
 import com.github.ryjen.jokeapp.ui.jokes.random.RandomJokeScreen
 import com.github.ryjen.jokeapp.ui.jokes.random.RandomJokeViewModel
-import com.github.ryjen.jokeapp.ui.theme.BlueTheme
+import com.github.ryjen.jokeapp.ui.theme.MainTheme
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.BeforeClass
@@ -44,8 +44,6 @@ class JokeScreenTest : KoinTest {
         .around(activityTestRule)
         .around(composeTestRule)
 
-    private val data = FakeJokeData()
-
     private val repo: JokeRepository by inject()
 
     private val viewModel: RandomJokeViewModel by inject()
@@ -67,7 +65,7 @@ class JokeScreenTest : KoinTest {
             repo.addFavorite(joke)
         }
         composeTestRule.setContent {
-            BlueTheme {
+            MainTheme {
                 RandomJokeScreen(viewModel)
             }
         }

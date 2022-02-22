@@ -8,6 +8,7 @@ import com.google.common.truth.Truth.assertThat
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -66,7 +67,7 @@ class JokeRepositoryTest : KoinTest {
 
     @Test
     fun testGetFavouriteJokes() = runTest {
-        val jokes = repo.getFavoriteJokes().toList()
+        val jokes = repo.observable.getFavoriteJokes().toList()
         assertThat(jokes.isEmpty()).isFalse()
     }
 
@@ -81,7 +82,7 @@ class JokeRepositoryTest : KoinTest {
     fun testGetJokeNegative() = runTest {
         val r = mockk<JokeRepository>(relaxed = true)
         r.getJoke("arst1234")
-        coVerify(exactly = 1) { r.local.getJoke(any()) }
+        coVerify(exactly = 1) { r.async.getJoke(any()) }
         coVerify(exactly = 1) { r.remote.getJoke(any()) }
     }
 }

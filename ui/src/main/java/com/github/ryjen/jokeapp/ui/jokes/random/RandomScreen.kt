@@ -1,5 +1,6 @@
 package com.github.ryjen.jokeapp.ui.jokes.random
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -13,34 +14,31 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.ui.arch.Failure
 import com.github.ryjen.jokeapp.ui.components.DotsPulsing
 import com.github.ryjen.jokeapp.ui.theme.*
-import com.smarttoolfactory.speechbubble.*
+import com.smarttoolfactory.speechbubble.ArrowAlignment
+import com.smarttoolfactory.speechbubble.Bubble
+import com.smarttoolfactory.speechbubble.drawBubble
+import com.smarttoolfactory.speechbubble.rememberBubbleState
 
 @Composable
 fun RandomJokeScreen(viewModel: RandomJokeViewModel) {
 
     val state by viewModel.state.collectAsState()
 
-    state.error?.let {
-        RandomJokeErrorContent(it)
-    } ?: run {
-        state.joke?.let {
-            RandomJokeContent(it)
-        } ?: run {
-            LoadingContent()
-        }
-    }
+    RandomJokeContent(state)
 }
 
 @Composable
-fun RandomJokeContent(joke: Joke) {
+fun RandomJokeContent(state: JokeState) {
     val scrollState = rememberScrollState()
+
     val bubbleState = rememberBubbleState(
         backgroundColor = ThemeColors.card,
         alignment = ArrowAlignment.BottomRight,
@@ -48,30 +46,55 @@ fun RandomJokeContent(joke: Joke) {
         arrowHeight = ThemeDimensions.bubbleArrow,
         arrowOffsetX = -ThemeDimensions.padding.large,
         cornerRadius = ThemeDimensions.padding.medium,
-        shadow = BubbleShadow(
+        shadow = Bubble.shadow(
+            color = ThemeColors.shadow,
             elevation = ThemeDimensions.elevations.card
         ),
-        padding = Padding(8.dp)
+        padding = Bubble.padding(ThemeDimensions.padding.small)
     )
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .wrapContentSize(Alignment.Center)
             .padding(ThemeDimensions.padding.large)
     ) {
         Column(
-            modifier = Modifier.verticalScroll(scrollState)
+            modifier = Modifier
+                .fillMaxSize()
                 .padding(ThemeDimensions.padding.small),
-            ) {
-            Text(
-                text = joke.content,
-                color = ThemeColors.onCard,
-                style = ThemeTypography.material.h4,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.drawBubble(bubbleState)
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .weight(1f)
+                    .drawBubble(bubbleState)
                     .padding(ThemeDimensions.padding.medium)
-            )
+            ) {
+                Crossfade(targetState = state) { state ->
+
+                    state.error?.let {
+                        Text(
+                            text = it.message(),
+                            modifier = Modifier
+                                .verticalScroll(scrollState)
+                                .padding(ThemeDimensions.padding.medium),
+                            style = ThemeTypography.bubbleSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = ThemeColors.material.error
+                        )
+                    } ?: run {
+                        state.joke?.let {
+                            Text(
+                                modifier = Modifier
+                                    .verticalScroll(scrollState),
+                                text = it.content,
+                                color = ThemeColors.onCard,
+                                style = ThemeTypography.bubbleLarge,
+                            )
+                        } ?: DotsPulsing(modifier = Modifier.padding(ThemeDimensions.padding.large))
+                    }
+                }
+            }
             Icon(
                 imageVector = ThemeImages.speaker,
                 tint = ThemeColors.speaker,
@@ -88,53 +111,31 @@ fun RandomJokeContent(joke: Joke) {
 }
 
 @Composable
-fun LoadingContent() {
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(ThemeDimensions.padding.large)
-            .wrapContentSize(Alignment.Center)
-    ) {
-        DotsPulsing()
-    }
-}
-
-@Composable
-fun RandomJokeErrorContent(err: Failure) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(ThemeDimensions.padding.large)
-            .wrapContentSize(Alignment.Center)
-    ) {
-        Box(
-            modifier = Modifier
-                .padding(ThemeDimensions.padding.medium)
-                .background(
-                    color = ThemeColors.material.error,
-                    shape = ThemeShapes.bubble
-                )
-        ) {
-            Text(
-                text = err.message(),
-                style = ThemeTypography.material.body1,
-                color = ThemeColors.material.onError
-            )
-        }
-    }
-}
-
-@Composable
 @Preview(
     showBackground = true,
     backgroundColor = previewBackground
 )
 fun RandomJokeScreenPreview() {
     RandomJokeContent(
-        Joke(
-            id = "1234",
-            content = "why did the chicken cross the road?"
+        JokeState(
+            joke = Joke(
+                id = "1234",
+                content = LoremIpsum().values.joinToString("\n")
+            )
+        )
+    )
+}
+
+
+@Composable
+@Preview(
+    showBackground = true,
+    backgroundColor = previewBackground
+)
+fun RandomJokeErrorPreview() {
+    RandomJokeContent(
+        JokeState(
+            error = Failure.Message("Could not cross the road")
         )
     )
 }
@@ -144,17 +145,8 @@ fun RandomJokeScreenPreview() {
     showBackground = true,
     backgroundColor = previewBackground
 )
-fun LoadingPreview() {
-    LoadingContent()
-}
-
-@Preview(
-    showBackground = true,
-    backgroundColor = previewBackground
-)
-@Composable
-fun ErrorScreenPreview() {
-    MainTheme {
-        RandomJokeErrorContent(err = Failure.Message("Error Testing"))
-    }
+fun RandomJokeLoadingPreview() {
+    RandomJokeContent(
+        JokeState()
+    )
 }

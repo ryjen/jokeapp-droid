@@ -3,6 +3,7 @@ package com.github.ryjen.jokeapp.ui.jokes.random
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.ryjen.jokeapp.domain.arch.Outcome
+import com.github.ryjen.jokeapp.domain.arch.redux.ReduxActionHandler
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxReducer
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxStore
 import com.github.ryjen.jokeapp.domain.model.Joke
@@ -21,7 +22,7 @@ class RandomJokeViewModel(
     private val addFavoriteJoke: AddFavoriteJoke,
     private val removeFavoriteJoke: RemoveFavoriteJoke,
     private val router: Router
-) : ViewModel() {
+) : ViewModel(), ReduxActionHandler<JokeActions> {
 
     private val reducer: ReduxReducer<JokeState, JokeActions> = { state, action ->
         when (action) {
@@ -48,6 +49,10 @@ class RandomJokeViewModel(
 
     init {
         startRandomizingJokes()
+    }
+
+    override fun onAction(action: JokeActions) {
+        store.dispatch(action)
     }
 
     // add the current data to favourites

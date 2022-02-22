@@ -9,7 +9,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.github.ryjen.jokeapp.MainActivity
 import com.github.ryjen.jokeapp.test.module.fakeAppModules
 import com.github.ryjen.jokeapp.ui.MainScreen
-import com.github.ryjen.jokeapp.ui.theme.BlueTheme
+import com.github.ryjen.jokeapp.ui.theme.MainTheme
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -42,7 +42,7 @@ class MainActivityTest : KoinTest {
     fun testOpensFavouriteList() {
 
         composeTestRule.setContent {
-            BlueTheme {
+            MainTheme {
                 MainScreen()
             }
         }
