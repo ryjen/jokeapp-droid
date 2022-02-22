@@ -6,9 +6,10 @@ plugins {
 android {
     compileSdk = Versions.Sdk.Compile
 
-    kotlinOptions {
-        useIR = true
+    defaultConfig {
+        minSdk = Versions.Sdk.Min
     }
+
     buildFeatures {
         compose = true
     }

@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.domain.model.Joke
@@ -63,8 +64,7 @@ fun RandomJokeContent(state: JokeState, onAction: (JokeActions) -> Unit = {}) {
                 .verticalScroll(scrollState)
                 .padding(ThemeDimensions.padding.small),
         ) {
-            Surface(
-                color = Color.Transparent,
+            Box(
                 modifier = Modifier
                     .drawBubble(bubbleState)
                     .padding(ThemeDimensions.padding.medium)
@@ -72,17 +72,20 @@ fun RandomJokeContent(state: JokeState, onAction: (JokeActions) -> Unit = {}) {
                 state.error?.let {
                     Text(
                         text = it.message(),
+                        modifier = Modifier.padding(ThemeDimensions.padding.medium),
                         style = ThemeTypography.bubbleSmall,
+                        fontWeight = FontWeight.Bold,
                         color = ThemeColors.material.error
                     )
+                } ?: run {
+                    state.joke?.let {
+                        Text(
+                            text = it.content,
+                            color = ThemeColors.onCard,
+                            style = ThemeTypography.bubbleLarge,
+                        )
+                    } ?: DotsPulsing(modifier = Modifier.padding(ThemeDimensions.padding.large))
                 }
-                state.joke?.let {
-                    Text(
-                        text = it.content,
-                        color = ThemeColors.onCard,
-                        style = ThemeTypography.bubbleLarge,
-                    )
-                } ?: DotsPulsing()
             }
             Icon(
                 imageVector = ThemeImages.speaker,
@@ -128,7 +131,6 @@ fun RandomJokeErrorPreview() {
         )
     )
 }
-
 
 @Composable
 @Preview(

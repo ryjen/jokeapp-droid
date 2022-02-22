@@ -7,6 +7,10 @@ plugins {
 
 android {
     compileSdk = Versions.Sdk.Compile
+
+    defaultConfig {
+        minSdk = Versions.Sdk.Min
+    }
 }
 
 dependencies {

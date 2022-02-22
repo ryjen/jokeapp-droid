@@ -7,6 +7,8 @@ android {
     compileSdk = Versions.Sdk.Compile
 
     defaultConfig {
+        minSdk = Versions.Sdk.Min
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }

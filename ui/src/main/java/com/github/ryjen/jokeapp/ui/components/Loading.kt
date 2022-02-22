@@ -10,18 +10,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.ui.theme.ThemeColors
 import com.github.ryjen.jokeapp.ui.theme.previewBackground
 
-val dotSize = 24.dp // made it bigger for demo
-val delayUnit = 300 // you can change delay to change animation speed
-
 @Composable
-fun DotsPulsing() {
+fun DotsPulsing(
+    modifier: Modifier = Modifier,
+    dotSize: Dp = 24.dp, // made it bigger for demo
+    delayUnit: Int = 300, // you can change delay to change animation speed
+    spaceSize: Dp = 2.dp
+) {
 
     @Composable
     fun Dot(
@@ -57,10 +59,10 @@ fun DotsPulsing() {
     val scale3 by animateScaleWithDelay(delayUnit * 2)
 
     Row(
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        val spaceSize = 2.dp
 
         Dot(scale1)
         Spacer(Modifier.width(spaceSize))

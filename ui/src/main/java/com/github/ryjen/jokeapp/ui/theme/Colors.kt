@@ -37,6 +37,7 @@ private val whiteDark = Color(0xffC9CBC5)
 
 private val blackPrimary = Color(0xff161615)
 private val blackLight = Color(0xff2D2D2C)
+private val blackLighter = Color(0xff5b5b5b)
 private val blackDark = Color(0xff000000)
 
 const val previewBackground = 0xffF2F3F0
@@ -56,10 +57,11 @@ data class ColorTheme(
     val onWarn: Color = whitePrimary,
     val statusBar: Color,
     val card: Color,
+    val cardAction: Color,
     val onCard: Color,
     val cardBorder: Color,
     val speaker: Color,
-    val shadow: Color = blackLight
+    val shadow: Color = blackLighter,
 )
 
 
@@ -91,8 +93,10 @@ internal val BlueThemeLight = ColorTheme(
     statusBar = bluePrimary,
 
     card = yellowLight,
+    cardAction = blackLighter,
     onCard = blackLight,
     cardBorder = yellowPrimary,
+
     speaker = yellowPrimary
 )
 
@@ -124,8 +128,10 @@ internal val BlueThemeDark = ColorTheme(
     statusBar = blueDark,
 
     card = yellowDark,
+    cardAction = blackDark,
     onCard = whiteDark,
     cardBorder = yellowPrimary,
+
     speaker = blueDark
 )
 
