@@ -12,6 +12,8 @@ fun FavoritesMenu() {
     TopAppBar(
         title = {
             Text(text = stringResource(R.string.app_name))
+            Text(text = " - ")
+            Text(text = stringResource(R.string.action_favorites))
         },
         elevation = 0.dp,
     )

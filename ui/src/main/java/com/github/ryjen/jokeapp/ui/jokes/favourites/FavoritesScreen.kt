@@ -38,72 +38,68 @@ fun FavoritesContent(state: FavoritesState, onAction: (FavoritesActions) -> Unit
     val (showDeleteConfirm, setDeleteConfirm) = remember { mutableStateOf<Joke?>(null) }
     val context = LocalContext.current
 
-    Column {
-        Text(
-            text = stringResource(id = R.string.action_favorites),
-            modifier = Modifier.padding(ThemeDimensions.padding.medium)
-        )
-        LazyColumn {
-            items(state.jokes) { joke ->
-                Box(
-                    modifier = Modifier.fillMaxWidth()
+    LazyColumn(modifier = Modifier.padding(top = ThemeDimensions.padding.medium)) {
+        items(state.jokes) { joke ->
+            Box(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Card(
+                    elevation = ThemeDimensions.elevations.card,
+                    backgroundColor = ThemeColors.card,
+                    contentColor = ThemeColors.onCard,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(ThemeDimensions.padding.medium)
+                        .defaultMinSize(minHeight = 50.dp)
                 ) {
-                    Card(
-                        elevation = ThemeDimensions.elevations.card,
-                        backgroundColor = ThemeColors.card,
-                        contentColor = ThemeColors.onCard,
+                    Text(
                         modifier = Modifier
-                            .fillMaxWidth()
                             .padding(ThemeDimensions.padding.medium)
-                            .defaultMinSize(minHeight = 50.dp)
-                    ) {
-                        Text(
+                            .padding(top = ThemeDimensions.padding.small),
+                        text = joke.content,
+                        style = ThemeTypography.material.body1
+                    )
+                }
+
+                Row(
+                    horizontalArrangement = Arrangement.End,
+                    modifier = Modifier.align(Alignment.TopEnd)
+                        .padding(
+                            start = 0.dp, top = ThemeDimensions.padding.small,
+                            end = ThemeDimensions.padding.small, 0.dp
+                        )
+                ) {
+                    IconButton(
+                        modifier = Modifier
+                            .size(ThemeDimensions.icons.small),
+                        onClick = {
+                            Share.text(context, joke.content)
+                        }) {
+                        Icon(
+                            tint = ThemeColors.material.primary,
+                            imageVector = ThemeImages.share,
                             modifier = Modifier
-                                .padding(ThemeDimensions.padding.medium)
-                                .padding(top = ThemeDimensions.padding.small),
-                            text = joke.content,
-                            style = ThemeTypography.material.body1
+                                .size(ThemeDimensions.icons.small),
+                            contentDescription = null
                         )
                     }
 
-                    Row(
-                        horizontalArrangement = Arrangement.End,
-                        modifier = Modifier.align(Alignment.TopEnd)
-                            .padding(start = 0.dp, top = ThemeDimensions.padding.small,
-                            end = ThemeDimensions.padding.small, 0.dp)
-                    ) {
-                        IconButton(
-                            modifier = Modifier
-                                .size(ThemeDimensions.icons.small),
-                            onClick = {
-                                Share.text(context, joke.content)
-                            }) {
-                            Icon(
-                                tint = ThemeColors.material.primary,
-                                imageVector = ThemeImages.share,
-                                modifier = Modifier
-                                    .size(ThemeDimensions.icons.small),
-                                contentDescription = null
-                            )
-                        }
+                    Spacer(modifier = Modifier.width(ThemeDimensions.padding.medium))
 
-                        Spacer(modifier = Modifier.width(ThemeDimensions.padding.medium))
-
-                        IconButton(
+                    IconButton(
+                        modifier = Modifier
+                            .size(ThemeDimensions.icons.small),
+                        onClick = {
+                            setDeleteConfirm(joke)
+                        }) {
+                        Icon(
+                            tint = ThemeColors.cardAction,
+                            imageVector = ThemeImages.delete,
                             modifier = Modifier
-                                .size(ThemeDimensions.icons.small),
-                            onClick = {
-                                setDeleteConfirm(joke)
-                            }) {
-                            Icon(
-                                tint = ThemeColors.cardAction,
-                                imageVector = ThemeImages.delete,
-                                modifier = Modifier
-                                    .size(ThemeDimensions.icons.small)
-                                    .background(ThemeColors.material.error, CircleShape),
-                                contentDescription = null
-                            )
-                        }
+                                .size(ThemeDimensions.icons.small)
+                                .background(ThemeColors.material.error, CircleShape),
+                            contentDescription = null
+                        )
                     }
                 }
             }

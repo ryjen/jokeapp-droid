@@ -2,6 +2,9 @@
 
 a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 
+![Random Joke](docs/screenshots/random.png)
+![Favorites](docs/screenshots/favorites.png)
+
 ## analysis
 
 ### ui requirements
