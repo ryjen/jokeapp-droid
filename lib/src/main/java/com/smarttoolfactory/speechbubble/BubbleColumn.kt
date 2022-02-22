@@ -24,7 +24,7 @@ import kotlin.math.roundToInt
  * @param content combination of composables. Children composables are laid out as [Column] does.
  */
 @Composable
-fun BubbleColumn(
+internal fun BubbleColumn(
     modifier: Modifier = Modifier,
     bubbleModifier: Modifier = Modifier,
     bubbleState: BubbleState,

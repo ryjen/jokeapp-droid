@@ -10,13 +10,11 @@ class BubbleCornerRadius(
     var bottomRight: Dp = 0.dp,
 )
 
-
 enum class ArrowShape {
     TRIANGLE_RIGHT,
     TRIANGLE_ISOSCELES,
     CURVED
 }
-
 
 enum class ArrowAlignment {
     None,

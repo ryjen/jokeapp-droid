@@ -1,5 +1,7 @@
 package com.smarttoolfactory.speechbubble
 
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -83,8 +85,8 @@ fun DrawScope.drawShadow(
             }
 
         } else {
-            val dx = shadow.offsetX.toPx()* 0.2f
-            val dy = shadow.offsetY.toPx()* 0.7f
+            val dx = shadow.offsetX.toPx() * 0.2f
+            val dy = shadow.offsetY.toPx() * 0.7f
             translate(-dx, dy) {
                 drawPath(color = shadow.color.copy(shadow.alpha), path = path)
             }
@@ -92,62 +94,10 @@ fun DrawScope.drawShadow(
     }
 }
 
-
-/**
- * Creates a shadow instance.
- *
- * @param color Color of the shadow
- * @param alpha of the color of the shadow
- * @param useSoftwareLayer use software layer to draw shadow with blur
- * @param dX x offset of shadow blur
- * @param dY y offset of shadow blur
- * @param shadowRadius radius of shadow blur if useSoftwareLayer is set to true
- */
-fun BubbleShadow(
-    color: Color = ShadowColor,
-    alpha: Float = .7f,
-    useSoftwareLayer: Boolean = true,
-    dX: Dp = 1.dp,
-    dY: Dp = 1.dp,
-    shadowRadius: Dp = 1.dp,
-): BubbleShadow {
-    return BubbleShadow(
-        color,
-        alpha,
-        dX,
-        dY,
-        shadowRadius,
-        useSoftwareLayer
-    )
-}
-
-/**
- * Creates a shadow instance.
- *
- * @param color Color of the shadow
- * @param alpha of the color of the shadow
- * @param useSoftwareLayer use software layer to draw shadow with blur
- * @param elevation elevation of the badge with shadow. Sets dx, dy,
- * and shadowRadius if software layer is used
- */
-fun BubbleShadow(
-    color: Color = ShadowColor,
-    alpha: Float = .7f,
-    useSoftwareLayer: Boolean = true,
-    elevation: Dp = 1.dp
-): BubbleShadow {
-    return BubbleShadow(
-        color,
-        alpha,
-        elevation,
-        elevation,
-        elevation,
-        useSoftwareLayer
-    )
-}
-
-class BubbleShadow internal constructor(
-    val color: Color = ShadowColor,
+@Stable
+@Immutable
+data class BubbleShadow internal constructor(
+    val color: Color,
     val alpha: Float = .7f,
     val shadowRadius: Dp = 1.dp,
     val offsetY: Dp = 1.dp,

@@ -58,7 +58,8 @@ data class ColorTheme(
     val card: Color,
     val onCard: Color,
     val cardBorder: Color,
-    val speaker: Color
+    val speaker: Color,
+    val shadow: Color = blackLight
 )
 
 

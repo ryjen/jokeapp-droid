@@ -7,40 +7,37 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.ui.arch.Failure
 import com.github.ryjen.jokeapp.ui.components.DotsPulsing
 import com.github.ryjen.jokeapp.ui.theme.*
-import com.smarttoolfactory.speechbubble.*
+import com.smarttoolfactory.speechbubble.ArrowAlignment
+import com.smarttoolfactory.speechbubble.Bubble
+import com.smarttoolfactory.speechbubble.drawBubble
+import com.smarttoolfactory.speechbubble.rememberBubbleState
 
 @Composable
 fun RandomJokeScreen(viewModel: RandomJokeViewModel) {
 
     val state by viewModel.state.collectAsState()
 
-    state.error?.let {
-        RandomJokeErrorContent(it)
-    } ?: run {
-        state.joke?.let {
-            RandomJokeContent(it)
-        } ?: run {
-            LoadingContent()
-        }
-    }
+    RandomJokeContent(state, viewModel::onAction)
 }
 
 @Composable
-fun RandomJokeContent(joke: Joke) {
+fun RandomJokeContent(state: JokeState, onAction: (JokeActions) -> Unit = {}) {
     val scrollState = rememberScrollState()
+
     val bubbleState = rememberBubbleState(
         backgroundColor = ThemeColors.card,
         alignment = ArrowAlignment.BottomRight,
@@ -48,10 +45,11 @@ fun RandomJokeContent(joke: Joke) {
         arrowHeight = ThemeDimensions.bubbleArrow,
         arrowOffsetX = -ThemeDimensions.padding.large,
         cornerRadius = ThemeDimensions.padding.medium,
-        shadow = BubbleShadow(
+        shadow = Bubble.shadow(
+            color = ThemeColors.shadow,
             elevation = ThemeDimensions.elevations.card
         ),
-        padding = Padding(8.dp)
+        padding = Bubble.padding(ThemeDimensions.padding.small)
     )
 
     Box(
@@ -61,17 +59,31 @@ fun RandomJokeContent(joke: Joke) {
             .padding(ThemeDimensions.padding.large)
     ) {
         Column(
-            modifier = Modifier.verticalScroll(scrollState)
+            modifier = Modifier
+                .verticalScroll(scrollState)
                 .padding(ThemeDimensions.padding.small),
-            ) {
-            Text(
-                text = joke.content,
-                color = ThemeColors.onCard,
-                style = ThemeTypography.material.h4,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.drawBubble(bubbleState)
+        ) {
+            Surface(
+                color = Color.Transparent,
+                modifier = Modifier
+                    .drawBubble(bubbleState)
                     .padding(ThemeDimensions.padding.medium)
-            )
+            ) {
+                state.error?.let {
+                    Text(
+                        text = it.message(),
+                        style = ThemeTypography.bubbleSmall,
+                        color = ThemeColors.material.error
+                    )
+                }
+                state.joke?.let {
+                    Text(
+                        text = it.content,
+                        color = ThemeColors.onCard,
+                        style = ThemeTypography.bubbleLarge,
+                    )
+                } ?: DotsPulsing()
+            }
             Icon(
                 imageVector = ThemeImages.speaker,
                 tint = ThemeColors.speaker,
@@ -88,73 +100,43 @@ fun RandomJokeContent(joke: Joke) {
 }
 
 @Composable
-fun LoadingContent() {
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(ThemeDimensions.padding.large)
-            .wrapContentSize(Alignment.Center)
-    ) {
-        DotsPulsing()
-    }
-}
-
-@Composable
-fun RandomJokeErrorContent(err: Failure) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(ThemeDimensions.padding.large)
-            .wrapContentSize(Alignment.Center)
-    ) {
-        Box(
-            modifier = Modifier
-                .padding(ThemeDimensions.padding.medium)
-                .background(
-                    color = ThemeColors.material.error,
-                    shape = ThemeShapes.bubble
-                )
-        ) {
-            Text(
-                text = err.message(),
-                style = ThemeTypography.material.body1,
-                color = ThemeColors.material.onError
-            )
-        }
-    }
-}
-
-@Composable
 @Preview(
     showBackground = true,
     backgroundColor = previewBackground
 )
 fun RandomJokeScreenPreview() {
     RandomJokeContent(
-        Joke(
-            id = "1234",
-            content = "why did the chicken cross the road?"
+        JokeState(
+            joke = Joke(
+                id = "1234",
+                content = "why did the chicken cross the road?"
+            )
         )
     )
 }
 
+
 @Composable
 @Preview(
     showBackground = true,
     backgroundColor = previewBackground
 )
-fun LoadingPreview() {
-    LoadingContent()
+fun RandomJokeErrorPreview() {
+    RandomJokeContent(
+        JokeState(
+            error = Failure.Message("Could not cross the road")
+        )
+    )
 }
 
+
+@Composable
 @Preview(
     showBackground = true,
     backgroundColor = previewBackground
 )
-@Composable
-fun ErrorScreenPreview() {
-    MainTheme {
-        RandomJokeErrorContent(err = Failure.Message("Error Testing"))
-    }
+fun RandomJokeLoadingPreview() {
+    RandomJokeContent(
+        JokeState()
+    )
 }
