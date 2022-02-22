@@ -1,10 +1,10 @@
 package com.github.ryjen.jokeapp.test.ui.joke
 
 import com.github.ryjen.jokeapp.data.repository.joke.JokeRepository
-import com.github.ryjen.jokeapp.data.storage.randomJoke
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.test.module.fakeAppModules
-import com.github.ryjen.jokeapp.ui.jokes.random.RandomViewModel
+import com.github.ryjen.jokeapp.test.randomJoke
+import com.github.ryjen.jokeapp.ui.jokes.random.RandomJokeViewModel
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -24,7 +24,7 @@ class RandomViewModelTest : KoinTest {
         modules(fakeAppModules)
     }
 
-    private val viewModel: RandomViewModel by inject()
+    private val viewModel: RandomJokeViewModel by inject()
 
     private val repo: JokeRepository by inject()
 
@@ -55,10 +55,10 @@ class RandomViewModelTest : KoinTest {
     @Test
     fun testRefreshJoke() = runTest {
 
-        val previous = viewModel.currentJoke
+        val previous = viewModel.state.value.joke
 
         viewModel.refreshJoke()
 
-        assertThat(viewModel.currentJoke?.id).isNotEqualTo(previous?.id)
+        assertThat(viewModel.state.value.joke?.id).isNotEqualTo(previous?.id)
     }
 }

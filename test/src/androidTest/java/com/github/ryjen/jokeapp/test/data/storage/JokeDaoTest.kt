@@ -1,7 +1,7 @@
 package com.github.ryjen.jokeapp.test.data.storage
 
 import com.github.ryjen.jokeapp.data.model.Joke
-import com.github.ryjen.jokeapp.data.storage.JokeDao
+import com.github.ryjen.jokeapp.data.storage.JokeDatabase
 import com.github.ryjen.jokeapp.test.data.arch.module.fakeDatabaseModule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,7 +20,7 @@ class JokeDaoTest : KoinTest {
         modules(fakeDatabaseModule)
     }
 
-    private val jokeDao: JokeDao by inject()
+    private val db: JokeDatabase by inject()
 
     @Test
     fun testInsertJoke() = runTest {
@@ -28,8 +28,8 @@ class JokeDaoTest : KoinTest {
             id = "123",
             content = "testing 123",
         )
-        jokeDao.insertJokes(expected)
-        val joke = jokeDao.getJoke(expected.id)
+        db.asyncJokeDao().insertJokes(expected)
+        val joke = db.asyncJokeDao().getJoke(expected.id)
         assertThat(joke).isNotNull()
         assertThat(joke?.id).isEqualTo(expected.id)
         assertThat(joke?.created).isNotNull()
@@ -41,9 +41,9 @@ class JokeDaoTest : KoinTest {
             id = "123",
             content = "testing 123",
         )
-        jokeDao.insertJokes(expected)
-        jokeDao.deleteJokes(expected)
-        val joke = jokeDao.getJoke(expected.id)
+        db.asyncJokeDao().insertJokes(expected)
+        db.asyncJokeDao().deleteJokes(expected)
+        val joke = db.asyncJokeDao().getJoke(expected.id)
         assertThat(joke).isNull()
     }
 

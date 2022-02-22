@@ -18,6 +18,7 @@ dependencies {
 
     implementation(Dependencies.Fake)
     implementation(Dependencies.CoroutinesX.Core)
+    implementation(Dependencies.AppCompat)
 
     implementation(project(":domain"))
     implementation(project(":data"))
@@ -29,6 +30,7 @@ dependencies {
     testImplementation(Dependencies.Truth)
 
     androidTestImplementation(Dependencies.Fake)
+    androidTestImplementation(Dependencies.RoomX.Kotlin)
     androidTestImplementation(Dependencies.Koin.Android)
     androidTestImplementation(Dependencies.Koin.JUnit)
     androidTestImplementation(Dependencies.CoroutinesX.Test)
