@@ -2,8 +2,9 @@
 
 a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 
-<img src="docs/screenshots/random.png" height="150">
-<img src="docs/screenshots/favorites.png" height="150">
+| Random | Favorites |
+| --- | --- |
+| <img src="docs/screenshots/random.png" height="380"> | <img src="docs/screenshots/favorites.png" height="380"> |
 
 ## analysis
 
@@ -25,6 +26,7 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 - kotlin state flow and coroutines
 - navigation with per-screen app bars, notifications and viewmodel sharing
 - redux reducers for viewmodel state
+- jokes prefer network, and save to local cache
 - data IO is categorized: `asyncronous`, `syncronous`, `observable`, `local`, and `remote`
 
 ## implementation
@@ -61,7 +63,7 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 - [ ] home screen widget
 - [ ] multiplatform (pending kotlin multiplatform release)
 - [ ] splash screen and logo
-- [ ] speech bubbles
+- [x] speech bubbles
 - [ ] ML to know sentiment of joke and predict favorites
 - [ ] speech bubble characters based on category or sentiment
 - [ ] Text-to-speech, laugh track
