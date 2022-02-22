@@ -57,7 +57,8 @@ data class ColorTheme(
     val statusBar: Color,
     val card: Color,
     val onCard: Color,
-    val cardBorder: Color
+    val cardBorder: Color,
+    val speaker: Color
 )
 
 
@@ -90,7 +91,8 @@ internal val BlueThemeLight = ColorTheme(
 
     card = yellowLight,
     onCard = blackLight,
-    cardBorder = yellowPrimary
+    cardBorder = yellowPrimary,
+    speaker = yellowPrimary
 )
 
 internal val BlueThemeDark = ColorTheme(
@@ -122,7 +124,8 @@ internal val BlueThemeDark = ColorTheme(
 
     card = yellowDark,
     onCard = whiteDark,
-    cardBorder = yellowPrimary
+    cardBorder = yellowPrimary,
+    speaker = blueDark
 )
 
 internal fun getThemeColors(darkTheme: Boolean) = if (darkTheme) BlueThemeDark else BlueThemeLight

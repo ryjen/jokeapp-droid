@@ -90,6 +90,7 @@ class RandomJokeViewModel(
 
     private fun startRandomizingJokes() {
         // fetch a random jokes
+        store.dispatch(JokeActions.Refresh(null))
         getRandomJoke(Unit)
             .onEach {
                 when (it) {

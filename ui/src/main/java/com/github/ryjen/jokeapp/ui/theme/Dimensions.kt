@@ -27,7 +27,8 @@ data class DimensionsTheme(
     val touchable: Dp = 48.dp,
     val padding: Padding = Padding(),
     val elevations: Elevations = Elevations(),
-    val icons: Icons = Icons()
+    val icons: Icons = Icons(),
+    val bubbleArrow: Dp = 24.dp
 )
 
 private val DimensionsLight = DimensionsTheme()

@@ -10,7 +10,7 @@ data class JokeState(
 ) : ReduxState
 
 sealed class JokeActions : ReduxAction {
-    data class Refresh(val data: Joke) : JokeActions()
+    data class Refresh(val data: Joke?) : JokeActions()
     data class Error(val data: com.github.ryjen.jokeapp.ui.arch.Failure) : JokeActions()
     data class UnFavorite(val data: Joke) : JokeActions()
     data class Favorite(val data: Joke) : JokeActions()

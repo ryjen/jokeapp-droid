@@ -48,12 +48,12 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 
 ### TODO:
 
-- [ ] improve UX its quite horrible, think different
+- [x] improve UX its quite horrible, think different
 - [ ] abstract to clean-architecture template
 - [ ] generalize and add new remote sources, like quotes
 - [ ] export to photo for sharing
 - [ ] analytics
-- [ ] fix snackbar
+- [x] fix snackbar
 - [ ] allow user to add content
 - [ ] home screen widget
 - [ ] multiplatform (pending kotlin multiplatform release)

@@ -24,7 +24,8 @@ data class ImageTheme(
     val random: ImageVector,
     val more: ImageVector,
     val share: ImageVector,
-    val delete: ImageVector
+    val delete: ImageVector,
+    val speaker: ImageVector
 )
 
 internal val DefaultImages = ImageTheme(
@@ -32,10 +33,11 @@ internal val DefaultImages = ImageTheme(
     bookmarkRemove = FontAwesomeIcons.Solid.Bookmark,
     bookmarks = FontAwesomeIcons.Solid.Bookmark,
     refresh = FontAwesomeIcons.Solid.Sync,
-    random = FontAwesomeIcons.Solid.LaughSquint,
+    random = FontAwesomeIcons.Solid.Comment,
     more = Icons.Default.MoreVert,
     share = FontAwesomeIcons.Solid.ShareAlt,
-    delete = FontAwesomeIcons.Solid.TimesCircle
+    delete = FontAwesomeIcons.Solid.TimesCircle,
+    speaker = FontAwesomeIcons.Solid.LaughSquint
 )
 
 internal val LocalImages = staticCompositionLocalOf {

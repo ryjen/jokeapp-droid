@@ -84,12 +84,14 @@ object Dependencies {
     }
 
     object ComposeX {
-        const val Ui = "androidx.compose.ui:ui:1.0.5"
-        const val Foundation = "androidx.compose.foundation:foundation:1.0.5"
-        const val Material = "androidx.compose.material:material:1.0.5"
-        const val Animation = "androidx.compose.animation:animation:1.0.5"
-        const val Tooling = "androidx.compose.ui:ui-tooling:1.0.5"
-        const val Test = "androidx.compose.ui:ui-test-junit4:1.0.5"
+        private const val version = "1.1.0"
+        const val Ui = "androidx.compose.ui:ui:$version"
+        const val Graphics = "androidx.compose.ui:ui-graphics:$version"
+        const val Foundation = "androidx.compose.foundation:foundation-layout:$version"
+        const val Material = "androidx.compose.material:material:$version"
+        const val Animation = "androidx.compose.animation:animation:$version"
+        const val Tooling = "androidx.compose.ui:ui-tooling:$version"
+        const val Test = "androidx.compose.ui:ui-test-junit4:$version"
     }
 
     object Espresso {

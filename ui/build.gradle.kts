@@ -17,6 +17,7 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":lib"))
     implementation(Dependencies.AppCompat)
     implementation(Dependencies.ComposeX.Tooling)
     implementation(Dependencies.ComposeX.Foundation)
