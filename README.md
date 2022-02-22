@@ -2,8 +2,8 @@
 
 a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 
-![Random Joke](docs/screenshots/random.png)
-![Favorites](docs/screenshots/favorites.png)
+<img src="docs/screenshots/random.png" height="150">
+<img src="docs/screenshots/favorites.png" height="150">
 
 ## analysis
 
