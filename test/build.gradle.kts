@@ -28,6 +28,7 @@ dependencies {
 
     testImplementation(Dependencies.JUnit)
     testImplementation(Dependencies.Truth)
+    testImplementation(Dependencies.Mockk.Mockk)
 
     androidTestImplementation(Dependencies.Fake)
     androidTestImplementation(Dependencies.RoomX.Kotlin)

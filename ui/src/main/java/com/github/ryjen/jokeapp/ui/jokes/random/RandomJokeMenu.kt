@@ -12,7 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.ui.R
 import com.github.ryjen.jokeapp.ui.components.Share
 import com.github.ryjen.jokeapp.ui.theme.ThemeColors
@@ -22,6 +24,12 @@ import com.github.ryjen.jokeapp.ui.theme.ThemeImages
 @Composable
 fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
     val state by viewModel.state.collectAsState()
+
+    RandomJokeMenu(state, viewModel::dispatch)
+}
+
+@Composable
+fun RandomJokeMenu(state: RandomJokeState, onAction: (RandomJokeAction) -> Unit) {
     val context = LocalContext.current
 
     TopAppBar(
@@ -31,7 +39,7 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
         elevation = 0.dp,
         actions = {
             IconButton(onClick = {
-                viewModel.refreshJoke()
+                onAction(RandomJokeAction.RefreshClick)
             }) {
                 Icon(
                     imageVector = ThemeImages.refresh,
@@ -46,7 +54,7 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                     IconButton(
                         modifier = Modifier.testTag("remove"),
                         onClick = {
-                            viewModel.removeJokeFromFavorites(joke)
+                            onAction(RandomJokeAction.UnFavorite(joke))
                         }) {
                         Icon(
                             imageVector = ThemeImages.bookmarkRemove,
@@ -58,7 +66,7 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
                     IconButton(
                         modifier = Modifier.testTag("add"),
                         onClick = {
-                            viewModel.addJokeToFavorites(joke)
+                            onAction(RandomJokeAction.Favorite(joke))
                         }) {
                         Icon(
                             imageVector = ThemeImages.bookmarkAdd,
@@ -82,4 +90,17 @@ fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
             }
         }
     )
+}
+
+@Preview
+@Composable
+fun RandomMenuPreview() {
+    RandomJokeMenu(
+        RandomJokeState(
+            joke = Joke(
+                id = "123",
+                content = "this is a test"
+            )
+        )
+    ) {}
 }

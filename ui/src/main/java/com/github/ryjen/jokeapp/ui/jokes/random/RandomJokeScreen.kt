@@ -36,7 +36,7 @@ fun RandomJokeScreen(viewModel: RandomJokeViewModel) {
 }
 
 @Composable
-fun RandomJokeContent(state: JokeState) {
+fun RandomJokeContent(state: RandomJokeState) {
     val scrollState = rememberScrollState()
 
     val bubbleState = rememberBubbleState(
@@ -117,7 +117,7 @@ fun RandomJokeContent(state: JokeState) {
 )
 fun RandomJokeScreenPreview() {
     RandomJokeContent(
-        JokeState(
+        RandomJokeState(
             joke = Joke(
                 id = "1234",
                 content = LoremIpsum().values.joinToString("\n")
@@ -134,19 +134,8 @@ fun RandomJokeScreenPreview() {
 )
 fun RandomJokeErrorPreview() {
     RandomJokeContent(
-        JokeState(
+        RandomJokeState(
             error = Failure.Message("Could not cross the road")
         )
-    )
-}
-
-@Composable
-@Preview(
-    showBackground = true,
-    backgroundColor = previewBackground
-)
-fun RandomJokeLoadingPreview() {
-    RandomJokeContent(
-        JokeState()
     )
 }

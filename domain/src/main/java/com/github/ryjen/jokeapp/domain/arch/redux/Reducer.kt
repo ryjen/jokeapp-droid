@@ -1,13 +1,12 @@
 package com.github.ryjen.jokeapp.domain.arch.redux
 
+// how state is modified in the store
 typealias ReduxReducer<State, Action> = (State, Action) -> State
 
-fun <S> combineReducers(vararg values: ReduxReducer<S, *>):
-        ReduxReducer<S, ReduxAction> where S : ReduxState = { state, action ->
-
-    val reducers = values.filterIsInstance<ReduxReducer<S, ReduxAction>>()
-
-    reducers.fold(state) { next, reducer ->
+// combines reducers if needed. limited to the same type
+fun <S : ReduxState, A : ReduxAction> combineReducers(vararg values: ReduxReducer<S, A>):
+        ReduxReducer<S, A> = { state, action ->
+    values.fold(state) { next, reducer ->
         reducer(next, action)
     }
 }

@@ -1,18 +1,13 @@
 package com.github.ryjen.jokeapp.test.ui.joke
 
 import android.content.Intent
-import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.github.ryjen.jokeapp.MainActivity
 import com.github.ryjen.jokeapp.data.repository.joke.JokeRepository
-import com.github.ryjen.jokeapp.test.FakeJokeData
 import com.github.ryjen.jokeapp.test.module.fakeAppModules
 import com.github.ryjen.jokeapp.test.randomJoke
 import com.github.ryjen.jokeapp.ui.jokes.random.RandomJokeScreen

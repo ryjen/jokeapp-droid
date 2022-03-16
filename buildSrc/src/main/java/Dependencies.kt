@@ -8,13 +8,19 @@ object Versions {
     object ComposeX {
         const val Compiler = "1.0.5"
     }
+
+    object Kotlin {
+        const val version = "1.5.31"
+    }
 }
 
 object Dependencies {
+
     object Gradle {
-        const val Kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
+        const val Kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.Kotlin.version}"
         const val Android = "com.android.tools.build:gradle:7.1.0"
-        const val Serialization = "org.jetbrains.kotlin:kotlin-serialization:1.5.31"
+        const val Serialization =
+            "org.jetbrains.kotlin:kotlin-serialization:${Versions.Kotlin.version}"
     }
 
     const val AppCompat = "androidx.appcompat:appcompat:1.4.1"
@@ -26,14 +32,16 @@ object Dependencies {
     }
 
     object NavigationX {
-        const val Compose = "androidx.navigation:navigation-compose:2.4.0"
-        const val Test = "androidx.navigation:navigation-testing:2.4.0"
+        private const val version = "2.4.0"
+        const val Compose = "androidx.navigation:navigation-compose:$version"
+        const val Test = "androidx.navigation:navigation-testing:$version"
     }
 
     object RoomX {
-        const val Runtime = "androidx.room:room-runtime:2.4.1"
-        const val Kotlin = "androidx.room:room-ktx:2.4.1"
-        const val Compiler = "androidx.room:room-compiler:2.4.1"
+        private const val version = "2.4.1"
+        const val Runtime = "androidx.room:room-runtime:$version"
+        const val Kotlin = "androidx.room:room-ktx:$version"
+        const val Compiler = "androidx.room:room-compiler:$version"
     }
 
     object Koin {
@@ -70,10 +78,11 @@ object Dependencies {
     const val Timber = "com.jakewharton.timber:timber:5.0.1"
 
     object CoroutinesX {
+        private const val version = "1.6.0-native-mt"
         const val Android =
-            "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0-native-mt"
-        const val Core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt"
-        const val Test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0-native-mt"
+            "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
+        const val Core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+        const val Test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
     }
 
     object Accompanist {
@@ -95,30 +104,20 @@ object Dependencies {
     }
 
     object Espresso {
-        const val Contrib = "androidx.test.espresso:espresso-contrib:3.4.0"
-        const val Core = "androidx.test.espresso:espresso-core:3.4.0"
-        const val Intents = "androidx.test.espresso:espresso-intents:3.4.0"
-    }
-
-    object TestX {
-        const val JUnit = "androidx.test.ext:junit:1.1.3"
-        const val UIAutomator = "androidx.test.uiautomator:uiautomator:2.2.0"
-    }
-
-    object WorkX {
-        const val Runtime = "androidx.work:work-runtime-ktx:2.7.1"
-        const val Test = "androidx.work:work-testing:2.7.1"
+        private const val version = "3.4.0"
+        const val Contrib = "androidx.test.espresso:espresso-contrib:$version"
+        const val Core = "androidx.test.espresso:espresso-core:$version"
+        const val Intents = "androidx.test.espresso:espresso-intents:$version"
     }
 
     object Mockk {
-        private const val version = "1.12.2"
+        private const val version = "1.12.3"
+        const val Mockk = "io.mockk:mockk:$version"
         const val Android = "io.mockk:mockk-android:$version"
         const val Agent = "io.mockk:mockk-agent-jvm:$version"
-
     }
 
     const val Fake = "com.github.javafaker:javafaker:1.0.2"
-
 
     const val Truth = "com.google.truth:truth:1.1.3"
 

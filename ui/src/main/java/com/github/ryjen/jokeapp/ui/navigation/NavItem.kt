@@ -26,7 +26,7 @@ data class NavItem<T : ViewModel>(
     private val onMenu: @Composable (T) -> Unit,
     private val onScreen: @Composable (T) -> Unit,
 ) {
-    private val data = CachedComposable(onData)
+    private val data = LazyComposable(onData)
     val screen @Composable get() = onScreen(data())
     val menu @Composable get() = onMenu(data())
     val tab @Composable get() = onTab()
@@ -54,7 +54,7 @@ fun favoritesNavItem(): NavItem<FavoritesViewModel> {
     )
 }
 
-class CachedComposable<T : ViewModel>(
+class LazyComposable<T : ViewModel>(
     private val builder: @Composable () -> T
 ) {
     private var item: T? = null

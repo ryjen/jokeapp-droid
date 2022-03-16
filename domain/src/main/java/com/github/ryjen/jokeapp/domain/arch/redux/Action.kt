@@ -1,7 +1,5 @@
 package com.github.ryjen.jokeapp.domain.arch.redux
 
+// how to modify state in the store
 interface ReduxAction
 
-interface ReduxActionHandler<T> where T : ReduxAction {
-    fun onAction(action: T)
-}

@@ -1,60 +1,63 @@
 package com.github.ryjen.jokeapp.ui.jokes.favourites
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.ryjen.jokeapp.domain.arch.Outcome
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxActionHandler
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxReducer
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxStore
+import com.github.ryjen.jokeapp.domain.arch.redux.applyMiddleware
+import com.github.ryjen.jokeapp.domain.arch.redux.createAsyncThunk
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.domain.usecase.GetFavoriteJokes
 import com.github.ryjen.jokeapp.domain.usecase.RemoveFavoriteJoke
-import kotlinx.coroutines.launch
+import com.github.ryjen.jokeapp.ui.components.ViewModelReduxStore
 
 class FavoritesViewModel(
     private val getFavoriteJokes: GetFavoriteJokes,
     private val removeFavoriteJoke: RemoveFavoriteJoke
-) : ViewModel(), ReduxActionHandler<FavoritesActions> {
+) : ViewModelReduxStore<FavoritesState, FavoritesAction>() {
 
-    private val reducer: ReduxReducer<FavoritesState, FavoritesActions> = { state, action ->
+    override val initialState = FavoritesState()
+
+    override fun reducer(): ReduxReducer<FavoritesState, FavoritesAction> = { state, action ->
         when (action) {
-            is FavoritesActions.Update ->
+            is FavoritesAction.Update ->
                 state.copy(jokes = action.data)
-            is FavoritesActions.Remove -> {
-                removeJoke(action.data)
-                state
-            }
-            is FavoritesActions.Error -> {
+            is FavoritesAction.Remove -> state.copy(
+                jokes = state.jokes.minus(action.data)
+            )
+            is FavoritesAction.Error -> {
                 state.copy(error = action.data)
             }
+            else -> state
         }
     }
 
-    private val store = ReduxStore(FavoritesState(), reducer)
+    private val thunk = createAsyncThunk<FavoritesState, FavoritesAction> { _, action, _ ->
+        when (action) {
+            is FavoritesAction.Init -> initialize()
+            is FavoritesAction.Remove -> removeJoke(action.data)
+            else -> Unit
+        }
+    }
 
-    val state = store.stateAsStateFlow()
+    override fun middleware() = applyMiddleware(viewModelScope, thunk)
 
     init {
-        viewModelScope.launch {
-            getFavoriteJokes().collect {
-                when (it) {
-                    is Outcome.Success -> store.dispatch(FavoritesActions.Update(it.data))
-                    is Outcome.Failure -> store.dispatch(FavoritesActions.Error(it.error))
-                }
+        dispatch(FavoritesAction.Init)
+    }
+
+    private suspend fun initialize() {
+        getFavoriteJokes().collect {
+            when (it) {
+                is Outcome.Success -> dispatch(FavoritesAction.Update(it.data))
+                is Outcome.Failure -> dispatch(FavoritesAction.Error(it.error))
             }
         }
     }
 
-    override fun onAction(action: FavoritesActions) {
-        store.dispatch(action)
-    }
-
-    private fun removeJoke(joke: Joke) {
-        viewModelScope.launch {
-            when (val res = removeFavoriteJoke(joke)) {
-                is Outcome.Failure -> store.dispatch(FavoritesActions.Error(res.error))
-                is Outcome.Success -> store
-            }
+    private suspend fun removeJoke(joke: Joke) {
+        when (val res = removeFavoriteJoke(joke)) {
+            is Outcome.Failure -> dispatch(FavoritesAction.Error(res.error))
+            is Outcome.Success -> Unit
         }
     }
 }

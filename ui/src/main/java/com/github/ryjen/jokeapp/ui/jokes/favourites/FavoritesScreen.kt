@@ -16,11 +16,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.domain.model.Joke
-import com.github.ryjen.jokeapp.ui.R
 import com.github.ryjen.jokeapp.ui.components.PopUpDialog
 import com.github.ryjen.jokeapp.ui.components.Share
 import com.github.ryjen.jokeapp.ui.theme.*
@@ -30,11 +28,11 @@ fun FavoritesScreen(viewModel: FavoritesViewModel) {
 
     val state = viewModel.state.collectAsState()
 
-    FavoritesContent(state.value, viewModel::onAction)
+    FavoritesContent(state.value, viewModel::dispatch)
 }
 
 @Composable
-fun FavoritesContent(state: FavoritesState, onAction: (FavoritesActions) -> Unit) {
+fun FavoritesContent(state: FavoritesState, onAction: (FavoritesAction) -> Unit) {
     val (showDeleteConfirm, setDeleteConfirm) = remember { mutableStateOf<Joke?>(null) }
     val context = LocalContext.current
 
@@ -63,7 +61,8 @@ fun FavoritesContent(state: FavoritesState, onAction: (FavoritesActions) -> Unit
 
                 Row(
                     horizontalArrangement = Arrangement.End,
-                    modifier = Modifier.align(Alignment.TopEnd)
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
                         .padding(
                             start = 0.dp, top = ThemeDimensions.padding.small,
                             end = ThemeDimensions.padding.small, 0.dp
@@ -111,7 +110,7 @@ fun FavoritesContent(state: FavoritesState, onAction: (FavoritesActions) -> Unit
             title = "Remove Favorite",
             dismiss = { setDeleteConfirm(null) },
         ) {
-            onAction(FavoritesActions.Remove(joke))
+            onAction(FavoritesAction.Remove(joke))
         }
     }
 }

@@ -1,10 +1,6 @@
 package com.github.ryjen.jokeapp.test.ui.favorites
 
-import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.github.javafaker.Faker
 import com.github.ryjen.jokeapp.MainActivity
@@ -30,7 +26,6 @@ class FavoritesScreenTest : KoinTest {
     private val activityTestRule = ActivityScenarioRule(MainActivity::class.java)
 
     private val koinTestRule = KoinTestRule.create {
-        printLogger()
         modules(fakeAppModules)
     }
 

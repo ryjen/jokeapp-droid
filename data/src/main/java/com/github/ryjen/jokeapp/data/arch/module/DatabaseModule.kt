@@ -16,10 +16,6 @@ internal val localSourceModule = module {
     }
 
     factory {
-
-    }
-
-    factory {
         val db = get<JokeDatabase>()
         LocalDataSource(
             db.observableJokeDao(),
