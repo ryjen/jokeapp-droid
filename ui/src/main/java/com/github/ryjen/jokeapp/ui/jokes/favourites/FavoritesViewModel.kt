@@ -1,45 +1,32 @@
 package com.github.ryjen.jokeapp.ui.jokes.favourites
 
-import androidx.lifecycle.viewModelScope
 import com.github.ryjen.jokeapp.domain.arch.Outcome
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxReducer
-import com.github.ryjen.jokeapp.domain.arch.redux.applyMiddleware
-import com.github.ryjen.jokeapp.domain.arch.redux.createAsyncThunk
+import com.github.ryjen.jokeapp.domain.arch.redux.ReduxDispatcher
+import com.github.ryjen.jokeapp.domain.arch.redux.ReduxStore
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.domain.usecase.GetFavoriteJokes
 import com.github.ryjen.jokeapp.domain.usecase.RemoveFavoriteJoke
-import com.github.ryjen.jokeapp.ui.components.ViewModelReduxStore
+import com.github.ryjen.jokeapp.ui.components.ReduxViewModel
 
 class FavoritesViewModel(
     private val getFavoriteJokes: GetFavoriteJokes,
     private val removeFavoriteJoke: RemoveFavoriteJoke
-) : ViewModelReduxStore<FavoritesState, FavoritesAction>() {
+) : ReduxViewModel<FavoritesState, FavoritesAction>() {
 
-    override val initialState = FavoritesState()
+    override val store =
+        ReduxStore<FavoritesState, FavoritesAction>(FavoritesState()) + FavoritesReducer + this
 
-    override fun reducer(): ReduxReducer<FavoritesState, FavoritesAction> = { state, action ->
-        when (action) {
-            is FavoritesAction.Update ->
-                state.copy(jokes = action.data)
-            is FavoritesAction.Remove -> state.copy(
-                jokes = state.jokes.minus(action.data)
-            )
-            is FavoritesAction.Error -> {
-                state.copy(error = action.data)
-            }
-            else -> state
-        }
-    }
-
-    private val thunk = createAsyncThunk<FavoritesState, FavoritesAction> { _, action, _ ->
+    override suspend fun apply(
+        state: FavoritesState,
+        action: FavoritesAction,
+        dispatch: ReduxDispatcher<FavoritesAction>
+    ) {
         when (action) {
             is FavoritesAction.Init -> initialize()
             is FavoritesAction.Remove -> removeJoke(action.data)
             else -> Unit
         }
     }
-
-    override fun middleware() = applyMiddleware(viewModelScope, thunk)
 
     init {
         dispatch(FavoritesAction.Init)

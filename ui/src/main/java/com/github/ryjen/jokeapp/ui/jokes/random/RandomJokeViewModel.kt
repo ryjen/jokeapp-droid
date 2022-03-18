@@ -1,57 +1,41 @@
 package com.github.ryjen.jokeapp.ui.jokes.random
 
-import androidx.lifecycle.viewModelScope
 import com.github.ryjen.jokeapp.domain.arch.Outcome
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxReducer
-import com.github.ryjen.jokeapp.domain.arch.redux.applyMiddleware
-import com.github.ryjen.jokeapp.domain.arch.redux.createAsyncThunk
+import com.github.ryjen.jokeapp.domain.arch.redux.ReduxDispatcher
+import com.github.ryjen.jokeapp.domain.arch.redux.ReduxStore
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.domain.usecase.AddFavoriteJoke
 import com.github.ryjen.jokeapp.domain.usecase.GetRandomJoke
 import com.github.ryjen.jokeapp.domain.usecase.RemoveFavoriteJoke
 import com.github.ryjen.jokeapp.ui.R
-import com.github.ryjen.jokeapp.ui.components.ViewModelReduxStore
+import com.github.ryjen.jokeapp.ui.components.ReduxViewModel
 import com.github.ryjen.jokeapp.ui.navigation.Router
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.onEach
 
 class RandomJokeViewModel(
+    private val router: Router,
     private val getRandomJoke: GetRandomJoke,
     private val addFavoriteJoke: AddFavoriteJoke,
-    private val removeFavoriteJoke: RemoveFavoriteJoke,
-    private val router: Router
-) : ViewModelReduxStore<RandomJokeState, RandomJokeAction>() {
+    private val removeFavoriteJoke: RemoveFavoriteJoke
+) : ReduxViewModel<RandomJokeState, RandomJokeAction>() {
 
-    override val initialState = RandomJokeState()
+    override val store: ReduxStore<RandomJokeState, RandomJokeAction> =
+        ReduxStore<RandomJokeState, RandomJokeAction>(RandomJokeState()) + RandomJokeReducer + this
 
-    override fun reducer(): ReduxReducer<RandomJokeState, RandomJokeAction> = { state, action ->
-        when (action) {
-            is RandomJokeAction.Init -> state.copy(
-                joke = null
-            )
-            is RandomJokeAction.Refresh -> state.copy(
-                joke = action.data
-            )
-            is RandomJokeAction.Error -> state.copy(
-                error = action.data
-            )
-            is RandomJokeAction.UnFavorite -> state.copy(
-                joke = action.data.copy(isFavorite = false)
-            )
-            is RandomJokeAction.Favorite -> {
-                state.copy(
-                    joke = action.data.copy(isFavorite = true)
-                )
-            }
-            else -> state
-        }
+    init {
+        store.dispatch(RandomJokeAction.Init)
     }
 
-    private val thunk = createAsyncThunk<RandomJokeState, RandomJokeAction> { state, action, _ ->
+    override suspend fun apply(
+        state: RandomJokeState,
+        action: RandomJokeAction,
+        dispatch: ReduxDispatcher<RandomJokeAction>
+    ) {
         when (action) {
-            is RandomJokeAction.Init -> startRandomizingJokes()
-            is RandomJokeAction.RefreshClick -> refreshJoke()
+            is RandomJokeAction.Init -> startRandomizingJokes(dispatch)
+            is RandomJokeAction.RefreshClick -> refreshJoke(dispatch)
             is RandomJokeAction.Favorite -> state.joke?.let {
                 addJokeToFavorites(it)
             }
@@ -61,12 +45,6 @@ class RandomJokeViewModel(
                 }
             else -> Unit
         }
-    }
-
-    override fun middleware() = applyMiddleware(viewModelScope, thunk)
-
-    init {
-        dispatch(RandomJokeAction.Init)
     }
 
     // add the current data to favourites
@@ -88,7 +66,7 @@ class RandomJokeViewModel(
     }
 
     // fetch new random data
-    private suspend fun refreshJoke() {
+    private suspend fun refreshJoke(dispatch: ReduxDispatcher<RandomJokeAction>) {
         // fetch a random jokes
         getRandomJoke(Unit)
             .firstOrNull()?.let { res ->
@@ -99,7 +77,7 @@ class RandomJokeViewModel(
             }
     }
 
-    private suspend fun startRandomizingJokes() {
+    private suspend fun startRandomizingJokes(dispatch: ReduxDispatcher<RandomJokeAction>) {
         // fetch a random jokes
         getRandomJoke(Unit)
             .onEach {
