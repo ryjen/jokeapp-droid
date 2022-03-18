@@ -18,7 +18,7 @@ class RandomJokeViewModel(
     private val router: Router,
     private val getRandomJoke: GetRandomJoke,
     private val addFavoriteJoke: AddFavoriteJoke,
-    private val removeFavoriteJoke: RemoveFavoriteJoke
+    private val removeFavoriteJoke: RemoveFavoriteJoke,
 ) : ReduxViewModel<RandomJokeState, RandomJokeAction>() {
 
     override val store: ReduxStore<RandomJokeState, RandomJokeAction> =

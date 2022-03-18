@@ -1,9 +1,9 @@
-package com.github.ryjen.jokeapp.test.ui.favorites
+package com.github.ryjen.jokeapp.test.ui.jokes.favorites
 
 import com.github.ryjen.jokeapp.data.repository.joke.JokeRepository
 import com.github.ryjen.jokeapp.test.module.fakeAppModules
 import com.github.ryjen.jokeapp.test.randomJoke
-import com.github.ryjen.jokeapp.ui.jokes.favourites.FavoritesActions
+import com.github.ryjen.jokeapp.ui.jokes.favourites.FavoritesAction
 import com.github.ryjen.jokeapp.ui.jokes.favourites.FavoritesViewModel
 import junit.framework.TestCase.assertNull
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,7 +29,7 @@ class FavoritesViewModelTest : KoinTest {
     fun testRemoveJoke() = runTest {
         val joke = randomJoke()
         repo.addFavorite(joke)
-        viewModel.onAction(FavoritesActions.Remove(joke))
+        viewModel.dispatch(FavoritesAction.Remove(joke))
         val exists = repo.getJoke(joke.id)
         assertNull(exists)
     }
