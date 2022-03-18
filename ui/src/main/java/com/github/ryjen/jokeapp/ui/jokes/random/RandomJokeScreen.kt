@@ -11,7 +11,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -30,9 +29,9 @@ import com.smarttoolfactory.speechbubble.rememberBubbleState
 @Composable
 fun RandomJokeScreen(viewModel: RandomJokeViewModel) {
 
-    val state by viewModel.state.collectAsState()
+    val state = viewModel.state.collectAsState()
 
-    RandomJokeContent(state)
+    RandomJokeContent(state.value)
 }
 
 @Composable

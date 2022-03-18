@@ -1,7 +1,11 @@
-package com.github.ryjen.jokeapp.test.ui.joke
+package com.github.ryjen.jokeapp.test.ui.jokes
 
 import android.content.Intent
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
@@ -23,7 +27,7 @@ import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
 
-class JokeScreenTest : KoinTest {
+class RandomJokeScreenTest : KoinTest {
 
     private val activityTestRule = ActivityScenarioRule(MainActivity::class.java)
 

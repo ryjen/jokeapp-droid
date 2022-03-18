@@ -25,7 +25,7 @@ import com.github.ryjen.jokeapp.ui.theme.*
 
 @Composable
 fun FavoritesScreen(viewModel: FavoritesViewModel) {
-
+    
     val state = viewModel.state.collectAsState()
 
     FavoritesContent(state.value, viewModel::dispatch)
