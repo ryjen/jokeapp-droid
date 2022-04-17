@@ -13,7 +13,7 @@ fun randomJoke(): Joke {
     return Joke(id.toString(), content)
 }
 
-object FakeJokeData {
+class FakeJokeData {
 
     // fake data
     private val data = (1..15).fold(mutableListOf<Joke>()) { lst, _ ->
