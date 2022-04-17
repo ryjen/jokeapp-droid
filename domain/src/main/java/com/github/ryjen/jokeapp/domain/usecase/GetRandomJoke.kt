@@ -12,12 +12,11 @@ import kotlinx.coroutines.flow.flow
 class GetRandomJoke(
     dispatcher: DispatcherProvider,
     private val networkAvailable: GetNetworkAvailability,
-    private val repository: JokeRepository
-) : FlowUseCase<Unit, Joke>(dispatcher.default()) {
-
+    private val repository: JokeRepository,
     private val randomJokeDelayTime: Long = 60000L
+) : FlowUseCase<Long?, Joke>(dispatcher.default()) {
 
-    override fun execute(params: Unit): Flow<Outcome<Joke>> = flow {
+    override fun execute(params: Long?): Flow<Outcome<Joke>> = flow {
         while (true) {
             if (networkAvailable()) {
                 repository.remote.getRandomJoke()?.let {
@@ -29,8 +28,10 @@ class GetRandomJoke(
                     emit(Outcome.Success(it))
                 }
             }
-            delay(randomJokeDelayTime)
+            delay(params ?: randomJokeDelayTime)
         }
     }
+
+    operator fun invoke() = super.invoke(null)
 }
 

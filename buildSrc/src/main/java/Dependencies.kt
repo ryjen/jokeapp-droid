@@ -18,7 +18,7 @@ object Dependencies {
 
     object Gradle {
         const val Kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.Kotlin.version}"
-        const val Android = "com.android.tools.build:gradle:7.1.1"
+        const val Android = "com.android.tools.build:gradle:7.1.3"
         const val Serialization =
             "org.jetbrains.kotlin:kotlin-serialization:${Versions.Kotlin.version}"
     }

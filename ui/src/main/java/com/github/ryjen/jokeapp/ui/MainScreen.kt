@@ -5,8 +5,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.github.ryjen.jokeapp.ui.components.NavBottomBar
-import com.github.ryjen.jokeapp.ui.components.NavTopBar
 import com.github.ryjen.jokeapp.ui.components.NotificationHost
 import com.github.ryjen.jokeapp.ui.navigation.NavGraph
 import com.github.ryjen.jokeapp.ui.navigation.rememberRouter
@@ -23,16 +21,18 @@ fun MainScreen() {
 
             val router = rememberRouter(scaffold = scaffold)
 
+            val navItem = router.currentNavItem()
+
             Scaffold(
                 scaffoldState = scaffold,
                 snackbarHost = { NotificationHost(host = it, router) },
                 topBar = {
-                    NavTopBar(router = router)
+                    navItem?.header
                 },
                 backgroundColor = ThemeColors.material.background,
                 contentColor = ThemeColors.material.onBackground,
                 bottomBar = {
-                    NavBottomBar(router = router)
+                    navItem?.footer
                 }
             ) { innerPadding ->
                 NavGraph(

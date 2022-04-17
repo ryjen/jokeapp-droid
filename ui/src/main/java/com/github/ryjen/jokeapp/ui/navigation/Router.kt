@@ -16,11 +16,6 @@ import com.github.ryjen.jokeapp.ui.arch.Notification
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-object Routes {
-    const val RANDOM_JOKE = "jokes/random"
-    const val FAVORITE_JOKES = "jokes/favorites"
-}
-
 private val sharedNotifications = MutableStateFlow<Notification?>(null)
 
 @Composable
@@ -35,18 +30,25 @@ fun rememberRouter(
 class Router(
     private val context: Context,
     val navController: NavHostController,
-    private val snackBar: SnackbarHostState
+    private val snackBar: SnackbarHostState,
+    val defaultRoute: String = Routes.RANDOM_JOKE
 ) {
 
-    val navItems = mapOf(
-        Pair(Routes.RANDOM_JOKE, randomJokeNavItem(this)),
-        Pair(Routes.FAVORITE_JOKES, favoritesNavItem()),
-    )
+    val navItems: Map<String, NavItem<*>> by lazy {
+        routedNavItems.mapValues {
+            it.value(this)
+        }
+    }
+
+    val navTabs: Map<String, NavTab> = routedNavTabs
 
     @Composable
-    fun currentRoute(): String? {
+    fun currentNavItem() = navItems[currentRoute()]
+
+    @Composable
+    fun currentRoute(): String {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
-        return navBackStackEntry?.destination?.route
+        return navBackStackEntry?.destination?.route ?: defaultRoute
     }
 
     fun routeTo(value: String) {

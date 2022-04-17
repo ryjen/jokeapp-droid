@@ -9,11 +9,10 @@ import androidx.navigation.compose.composable
 fun NavGraph(
     router: Router,
     modifier: Modifier = Modifier,
-    startDestination: String = Routes.RANDOM_JOKE
 ) {
     NavHost(
         navController = router.navController,
-        startDestination = startDestination,
+        startDestination = router.defaultRoute,
         modifier = modifier
     ) {
         for (navItem in router.navItems) {

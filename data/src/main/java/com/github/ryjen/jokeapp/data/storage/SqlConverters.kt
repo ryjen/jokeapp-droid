@@ -4,7 +4,11 @@ import androidx.room.TypeConverter
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Converters {
+class SqlConverters(
+    locale: Locale = Locale.getDefault(),
+) {
+    private val fmt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", locale)
+
     @TypeConverter
     fun fromSQLDate(value: String?): Date? {
         return try {
@@ -19,9 +23,5 @@ class Converters {
     fun toSQLDate(value: Date?): String? {
         val d = value ?: Date()
         return fmt.format(d)
-    }
-
-    companion object {
-        val fmt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
     }
 }

@@ -9,7 +9,12 @@ import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.ui.R
 
 @Composable
-fun FavoritesMenu() {
+fun FavoritesHeader(viewModel: FavoritesViewModel) {
+    FavoritesHeaderContent()
+}
+
+@Composable
+fun FavoritesHeaderContent() {
     TopAppBar(
         title = {
             Text(text = stringResource(R.string.app_name))
@@ -23,5 +28,5 @@ fun FavoritesMenu() {
 @Preview
 @Composable
 fun FavoritesMenuPreview() {
-    FavoritesMenu()
+    FavoritesHeaderContent()
 }

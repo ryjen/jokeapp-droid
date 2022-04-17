@@ -1,69 +1,24 @@
 package com.github.ryjen.jokeapp.ui.navigation
 
-import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
-import com.github.ryjen.jokeapp.ui.R
-import com.github.ryjen.jokeapp.ui.jokes.favourites.FavoritesMenu
-import com.github.ryjen.jokeapp.ui.jokes.favourites.FavoritesScreen
-import com.github.ryjen.jokeapp.ui.jokes.favourites.FavoritesViewModel
-import com.github.ryjen.jokeapp.ui.jokes.random.RandomJokeMenu
-import com.github.ryjen.jokeapp.ui.jokes.random.RandomJokeScreen
-import com.github.ryjen.jokeapp.ui.jokes.random.RandomJokeViewModel
-import com.github.ryjen.jokeapp.ui.theme.ThemeImages
-import org.koin.androidx.compose.getViewModel
-import org.koin.core.parameter.parametersOf
+import com.github.ryjen.jokeapp.ui.components.LazyComposable
 
-data class Tab(
-    @StringRes val title: Int,
-    val icon: ImageVector
-)
+// build a nav item with a router
+typealias NavItemBuilder<ViewModel> = (router: Router) -> NavItem<ViewModel>
 
-data class NavItem<T : ViewModel>(
-    private val onTab: @Composable () -> Tab,
-    private val onData: @Composable () -> T,
-    private val onMenu: @Composable (T) -> Unit,
-    private val onScreen: @Composable (T) -> Unit,
+// a navigation item that represents the pieces of an entire screen
+data class NavItem<VM : ViewModel>(
+    private val onViewModel: @Composable () -> VM,
+    private val onHeader: @Composable (VM) -> Unit,
+    private val onScreen: @Composable (VM) -> Unit,
+    private val onFooter: @Composable (VM) -> Unit,
 ) {
-    private val data = LazyComposable(onData)
-    val screen @Composable get() = onScreen(data())
-    val menu @Composable get() = onMenu(data())
-    val tab @Composable get() = onTab()
+    private val viewModel = LazyComposable(onViewModel)
+
+    val screen @Composable get() = onScreen(viewModel())
+    val header @Composable get() = onHeader(viewModel())
+    val footer @Composable get() = onFooter(viewModel())
 }
 
-fun randomJokeNavItem(router: Router): NavItem<RandomJokeViewModel> {
-    return NavItem(
-        { Tab(R.string.action_random, ThemeImages.random) },
-        {
-            getViewModel {
-                parametersOf(router)
-            }
-        },
-        { viewModel -> RandomJokeMenu(viewModel) },
-        { viewModel -> RandomJokeScreen(viewModel) },
-    )
-}
 
-fun favoritesNavItem(): NavItem<FavoritesViewModel> {
-    return NavItem(
-        { Tab(R.string.action_favorites, ThemeImages.bookmarks) },
-        { getViewModel() },
-        { FavoritesMenu() },
-        { viewModel -> FavoritesScreen(viewModel) }
-    )
-}
-
-class LazyComposable<T : ViewModel>(
-    private val builder: @Composable () -> T
-) {
-    private var item: T? = null
-
-    @Composable
-    operator fun invoke(): T {
-        if (item == null) {
-            item = builder()
-        }
-        return item!!
-    }
-}

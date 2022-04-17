@@ -22,24 +22,30 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 
 - uncle bob's clean architecture in modular android
 - separation of data, domain and presentation layers
+- redux with reducers and middleware for viewmodel state
 - compose and material ui frameworks
 - kotlin state flow and coroutines
-- navigation with per-screen app bars, notifications and viewmodel sharing
-- redux reducers for viewmodel state
-- jokes prefer network, and save to local cache
-- data IO is categorized: `asyncronous`, `syncronous`, `observable`, `local`, and `remote`
+- navigation with routing and notifications
+- per-screen headers and footers
+- random joke prefers network, and save to local cache
+- categorized repository IO: `asyncronous`, `syncronous`, `observable`, `local`, and `remote`
 
 ## implementation
 
 ### project layout
 
-- **app**: the entry point to the application
+#### clean architecture
+
 - **domain**: business entities, interfaces and use cases between layers
 - **data**: implementation of categorized data storage and retrieval
 - **ui**: presentation of data and user interaction
+
+#### custom
+
+- **app**: the entry point to the application
 - **meta**: code related to programming languages, frameworks or algorithms
-- **test**: unit tests and instrumented tests
-- **buildSrc**: dependency definitions
+- **test**: all unit tests and instrumented tests
+- **vendor**: third party project files
 
 ### tests
 
@@ -53,14 +59,14 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 
 ### TODO:
 
-- [x] improve UX its quite horrible, think different
+- [x] improve stock UX
 - [ ] abstract to clean-architecture template
 - [ ] generalize and add new remote sources, like quotes
 - [ ] export to photo for sharing
 - [ ] analytics
 - [x] fix snackbar
 - [ ] allow user to add content
-- [ ] home screen widget
+- [ ] device home screen widget
 - [ ] multiplatform (pending kotlin multiplatform release)
 - [ ] splash screen and logo
 - [x] speech bubbles

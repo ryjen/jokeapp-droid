@@ -14,4 +14,8 @@
     <string name="action_random">Random</string>
     <string name="unable_to_add_favorite">Unable to add favorite.</string>
     <string name="unable_to_remove_favorite">Unable to remove favorite.</string>
+    <plurals name="joke_count">
+        <item quantity="one">%d joke</item>
+        <item quantity="other">%d jokes</item>
+    </plurals>
 </resources>
