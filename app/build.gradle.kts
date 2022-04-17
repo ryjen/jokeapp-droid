@@ -81,11 +81,7 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-
-    testOptions {
-        animationsDisabled = true
-    }
-
+    
     buildToolsVersion = "31.0.0"
 }
 

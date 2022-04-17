@@ -28,14 +28,14 @@ class RandomJokeViewModel(
         store.dispatch(RandomJokeAction.Init)
     }
 
-    override suspend fun apply(
+    override suspend fun applyMiddleware(
         state: RandomJokeState,
         action: RandomJokeAction,
         dispatch: ReduxDispatcher<RandomJokeAction>
     ) {
         when (action) {
-            is RandomJokeAction.Init -> startRandomizingJokes(dispatch)
-            is RandomJokeAction.RefreshClick -> refreshJoke(dispatch)
+            is RandomJokeAction.Init -> startRandomizingJokes()
+            is RandomJokeAction.RefreshClick -> refreshJoke()
             is RandomJokeAction.Favorite -> state.joke?.let {
                 addJokeToFavorites(it)
             }
@@ -65,25 +65,24 @@ class RandomJokeViewModel(
         }
     }
 
-    // fetch new random data
-    private suspend fun refreshJoke(dispatch: ReduxDispatcher<RandomJokeAction>) {
+    private suspend fun refreshJoke() {
         // fetch a random jokes
-        getRandomJoke(Unit)
-            .firstOrNull()?.let { res ->
-                when (res) {
-                    is Outcome.Success -> dispatch(RandomJokeAction.Refresh(res.data))
-                    is Outcome.Failure -> dispatch(RandomJokeAction.Error(res.error))
+        getRandomJoke()
+            .firstOrNull()?.let { outcome ->
+                when (outcome) {
+                    is Outcome.Success -> dispatch(RandomJokeAction.Refresh(outcome.data))
+                    is Outcome.Failure -> dispatch(RandomJokeAction.Error(outcome.error))
                 }
             }
     }
 
-    private suspend fun startRandomizingJokes(dispatch: ReduxDispatcher<RandomJokeAction>) {
+    private suspend fun startRandomizingJokes() {
         // fetch a random jokes
-        getRandomJoke(Unit)
-            .onEach {
-                when (it) {
-                    is Outcome.Success -> dispatch(RandomJokeAction.Refresh(it.data))
-                    is Outcome.Failure -> dispatch(RandomJokeAction.Error(it.error))
+        getRandomJoke()
+            .onEach { outcome ->
+                when (outcome) {
+                    is Outcome.Success -> dispatch(RandomJokeAction.Refresh(outcome.data))
+                    is Outcome.Failure -> dispatch(RandomJokeAction.Error(outcome.error))
                 }
             }.collect()
     }

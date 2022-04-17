@@ -12,6 +12,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
+
+    testOptions {
+        animationsDisabled = true
+    }
 }
 
 dependencies {
@@ -28,6 +32,7 @@ dependencies {
 
     testImplementation(Dependencies.JUnit)
     testImplementation(Dependencies.Truth)
+    testImplementation(Dependencies.Koin.JUnit)
     testImplementation(Dependencies.Mockk.Mockk)
 
     androidTestImplementation(Dependencies.Fake)

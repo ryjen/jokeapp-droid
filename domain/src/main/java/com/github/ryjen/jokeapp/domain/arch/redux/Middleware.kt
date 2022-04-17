@@ -5,7 +5,7 @@ typealias ReduxMiddleware<State, Action> = (State, Action, ReduxDispatcher<Actio
 
 // a thunk is a delayed sub routine in the middleware
 interface ReduxThunk<State, Action> {
-    suspend fun apply(
+    suspend fun applyMiddleware(
         state: State,
         action: Action,
         dispatch: ReduxDispatcher<Action>

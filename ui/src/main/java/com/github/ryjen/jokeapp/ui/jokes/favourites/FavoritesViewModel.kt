@@ -16,7 +16,7 @@ class FavoritesViewModel(
     override val store =
         ReduxStore<FavoritesState, FavoritesAction>(FavoritesState()) + FavoritesReducer + this
 
-    override suspend fun apply(
+    override suspend fun applyMiddleware(
         state: FavoritesState,
         action: FavoritesAction,
         dispatch: ReduxDispatcher<FavoritesAction>
@@ -33,17 +33,17 @@ class FavoritesViewModel(
     }
 
     private suspend fun initialize() {
-        getFavoriteJokes().collect {
-            when (it) {
-                is Outcome.Success -> dispatch(FavoritesAction.Update(it.data))
-                is Outcome.Failure -> dispatch(FavoritesAction.Error(it.error))
+        getFavoriteJokes().collect { outcome ->
+            when (outcome) {
+                is Outcome.Success -> dispatch(FavoritesAction.Update(outcome.data))
+                is Outcome.Failure -> dispatch(FavoritesAction.Error(outcome.error))
             }
         }
     }
 
     private suspend fun removeJoke(joke: Joke) {
-        when (val res = removeFavoriteJoke(joke)) {
-            is Outcome.Failure -> dispatch(FavoritesAction.Error(res.error))
+        when (val outcome = removeFavoriteJoke(joke)) {
+            is Outcome.Failure -> dispatch(FavoritesAction.Error(outcome.error))
             is Outcome.Success -> Unit
         }
     }

@@ -17,32 +17,35 @@ class ReduxReducerTest {
         object Test : Actions()
     }
 
-    class Dummy {
-        operator fun invoke(value: Int) = Unit
+    interface UseCase {
+        operator fun invoke(param: Int)
     }
+
 
     @Test
     fun `can combine two reducers`() {
-        val dummy = mockk<Dummy>()
+        val useCase = mockk<UseCase>()
 
-        every { dummy.invoke(any()) } returns Unit
+        every { useCase.invoke(any()) } returns Unit
 
         val reduceState: ReduxReducer<State, Actions> = { state, action ->
             when (action) {
                 Actions.Test -> state.copy(test = state.test + 1)
             }
         }
+
         val reduceEffect: ReduxReducer<State, Actions> = { state, action ->
             when (action) {
                 Actions.Test -> state.apply {
-                    dummy.invoke(test)
+                    useCase(test)
                 }
             }
         }
+        
         val reducer = combineReducers(reduceState, reduceEffect)
 
         reducer.invoke(State(test = 0), Actions.Test)
 
-        verify { dummy.invoke(1) }
+        verify { useCase.invoke(1) }
     }
 }

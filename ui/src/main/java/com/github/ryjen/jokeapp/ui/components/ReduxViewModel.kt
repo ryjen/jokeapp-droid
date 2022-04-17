@@ -21,7 +21,7 @@ abstract class ReduxViewModel<S : ReduxState, A : ReduxAction> : ViewModel(),
         dispatch: ReduxDispatcher<A>
     ) {
         viewModelScope.launch {
-            apply(state, action, dispatch)
+            applyMiddleware(state, action, dispatch)
         }
     }
 

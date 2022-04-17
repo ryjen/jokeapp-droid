@@ -22,14 +22,14 @@ import com.github.ryjen.jokeapp.ui.theme.ThemeDimensions
 import com.github.ryjen.jokeapp.ui.theme.ThemeImages
 
 @Composable
-fun RandomJokeMenu(viewModel: RandomJokeViewModel) {
+fun RandomJokeHeader(viewModel: RandomJokeViewModel) {
     val state by viewModel.state.collectAsState()
 
-    RandomJokeMenu(state, viewModel::dispatch)
+    RandomJokeHeaderContent(state, viewModel::dispatch)
 }
 
 @Composable
-fun RandomJokeMenu(state: RandomJokeState, onAction: (RandomJokeAction) -> Unit) {
+fun RandomJokeHeaderContent(state: RandomJokeState, onAction: (RandomJokeAction) -> Unit) {
     val context = LocalContext.current
 
     TopAppBar(
@@ -95,7 +95,7 @@ fun RandomJokeMenu(state: RandomJokeState, onAction: (RandomJokeAction) -> Unit)
 @Preview
 @Composable
 fun RandomMenuPreview() {
-    RandomJokeMenu(
+    RandomJokeHeaderContent(
         RandomJokeState(
             joke = Joke(
                 id = "123",

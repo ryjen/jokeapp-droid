@@ -15,30 +15,32 @@ import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
 import org.koin.androidx.compose.inject
 
-@Composable
-fun NavBottomBar(
-    router: Router
-) {
-    val getUserLocale: GetUserLocale by inject()
+/*
+  Use in footers to get bottom navigation
+ */
 
+@Composable
+fun TabBar(router: Router) {
     val currentRoute = router.currentRoute() ?: Routes.RANDOM_JOKE
+
+    val getUserLocale: GetUserLocale by inject()
 
     BottomNavigation(
         Modifier.navigationBarsHeight(additional = 56.dp),
         backgroundColor = ThemeColors.bottomBar,
         contentColor = ThemeColors.onBottomBar
     ) {
-        router.navItems.forEach { (route, nav) ->
+        router.navTabs.forEach { (route, tab) ->
             BottomNavigationItem(
                 icon = {
                     Icon(
-                        imageVector = nav.tab.icon,
+                        imageVector = tab.icon(),
                         modifier = Modifier.size(ThemeDimensions.icons.small),
                         contentDescription = null
                     )
                 },
                 label = {
-                    Text(stringResource(nav.tab.title).uppercase(getUserLocale()))
+                    Text(stringResource(tab.title).uppercase(getUserLocale()))
                 },
                 selected = currentRoute == route,
                 onClick = {
