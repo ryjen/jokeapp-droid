@@ -2,7 +2,6 @@ package com.github.ryjen.jokeapp.ui.navigation
 
 import android.content.Context
 import androidx.annotation.StringRes
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.rememberScaffoldState
@@ -19,7 +18,6 @@ import kotlinx.coroutines.flow.asStateFlow
 
 private val sharedNotifications = MutableStateFlow<Notification?>(null)
 
-@ExperimentalAnimationApi
 @Composable
 fun rememberRouter(
     context: Context = LocalContext.current,

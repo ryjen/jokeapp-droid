@@ -27,6 +27,11 @@ object Dependencies {
             "org.jetbrains.kotlin:kotlin-serialization:${Versions.Kotlin.version}"
     }
 
+    object Kotlin {
+        private const val version = "1.6.21"
+        const val Test = "org.jetbrains.kotlin:kotlin-test-junit:$version"
+    }
+
     const val AppCompat = "androidx.appcompat:appcompat:1.4.1"
 
     object AndroidX {
@@ -49,7 +54,7 @@ object Dependencies {
     }
 
     object Koin {
-        private const val version = "3.2.0"
+        private const val version = "3.1.6"
         const val Android = "io.insert-koin:koin-android:$version"
 
         const val Compat = "io.insert-koin:koin-android-compat:$version"
@@ -57,6 +62,7 @@ object Dependencies {
         const val Ktor = "io.insert-koin:koin-ktor:$version"
 
         const val Test = "io.insert-koin:koin-test:$version"
+        const val JvmTest = "io.insert-koin:koin-test-jvm:$version"
         const val JUnit = "io.insert-koin:koin-test-junit4:$version"
 
     }

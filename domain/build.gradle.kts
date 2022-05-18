@@ -21,4 +21,7 @@ dependencies {
     implementation(Dependencies.CoroutinesX.Android)
     implementation(Dependencies.CoroutinesX.Core)
     implementation(Dependencies.Timber)
+
+    testImplementation(Dependencies.JUnit)
+    testImplementation(Dependencies.Mockk.Mockk)
 }

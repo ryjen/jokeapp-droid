@@ -34,6 +34,8 @@ dependencies {
     testImplementation(Dependencies.JUnit)
     testImplementation(Dependencies.Truth)
     testImplementation(Dependencies.Koin.JUnit)
+    testImplementation(Dependencies.Koin.Test)
+    testImplementation(Dependencies.Koin.JvmTest)
     testImplementation(Dependencies.Mockk.Mockk)
 
     androidTestImplementation(Dependencies.Fake)

@@ -1,9 +1,5 @@
-package com.github.ryjen.jokeapp.test.domain.arch.redux
+package com.github.ryjen.jokeapp.domain.arch.redux
 
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxAction
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxReducer
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxState
-import com.github.ryjen.jokeapp.domain.arch.redux.combineReducers
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -20,8 +16,7 @@ class ReduxReducerTest {
     interface UseCase {
         operator fun invoke(param: Int)
     }
-
-
+    
     @Test
     fun `can combine two reducers`() {
         val useCase = mockk<UseCase>()
@@ -41,7 +36,7 @@ class ReduxReducerTest {
                 }
             }
         }
-        
+
         val reducer = combineReducers(reduceState, reduceEffect)
 
         reducer.invoke(State(test = 0), Actions.Test)

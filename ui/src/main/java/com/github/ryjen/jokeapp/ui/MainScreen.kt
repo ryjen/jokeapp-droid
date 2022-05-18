@@ -1,6 +1,5 @@
 package com.github.ryjen.jokeapp.ui
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
@@ -13,7 +12,6 @@ import com.github.ryjen.jokeapp.ui.theme.MainTheme
 import com.github.ryjen.jokeapp.ui.theme.ThemeColors
 import com.google.accompanist.insets.ProvideWindowInsets
 
-@ExperimentalAnimationApi
 @Composable
 fun MainScreen() {
     ProvideWindowInsets {

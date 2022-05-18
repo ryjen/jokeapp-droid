@@ -16,6 +16,7 @@ android {
 
 dependencies {
 
+    testImplementation("junit:junit:4.12")
     kapt(Dependencies.RoomX.Compiler)
 
     implementation(project(":domain"))
@@ -34,4 +35,7 @@ dependencies {
     implementation(Dependencies.RoomX.Runtime)
     implementation(Dependencies.RoomX.Kotlin)
     implementation(Dependencies.Timber)
+
+    testImplementation(Dependencies.JUnit)
+    testImplementation(Dependencies.Kotlin.Test)
 }
