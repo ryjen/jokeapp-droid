@@ -1,4 +1,4 @@
-package com.github.ryjen.jokeapp.meta.arch.module
+package com.github.ryjen.jokeapp.data.arch.module
 
 import com.github.ryjen.jokeapp.data.api.JokeService
 import com.github.ryjen.jokeapp.data.api.createJokeClient

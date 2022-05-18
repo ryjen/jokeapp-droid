@@ -2,7 +2,6 @@ plugins {
     id("com.android.library")
     id("kotlin-parcelize")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -11,6 +10,7 @@ android {
     defaultConfig {
         minSdk = Versions.Sdk.Min
     }
+    namespace = "com.github.ryjen.jokeapp.domain"
 }
 
 dependencies {
@@ -21,5 +21,7 @@ dependencies {
     implementation(Dependencies.CoroutinesX.Android)
     implementation(Dependencies.CoroutinesX.Core)
     implementation(Dependencies.Timber)
-    implementation(Dependencies.Serialization.Json)
+
+    testImplementation(Dependencies.JUnit)
+    testImplementation(Dependencies.Mockk.Mockk)
 }

@@ -16,6 +16,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.ComposeX.Compiler
     }
+    namespace = "com.smarttoolfactory.speechbubble"
 }
 
 dependencies {

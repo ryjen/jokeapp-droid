@@ -9,10 +9,14 @@ android {
     defaultConfig {
         minSdk = Versions.Sdk.Min
     }
+    namespace = "com.github.ryjen.jokeapp.meta"
 }
 
 dependencies {
     implementation(Dependencies.Koin.Android)
     implementation(Dependencies.CoroutinesX.Android)
     implementation(Dependencies.CoroutinesX.Core)
+
+    testImplementation(Dependencies.JUnit)
+    testImplementation(Dependencies.Truth)
 }

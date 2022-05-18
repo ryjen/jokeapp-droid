@@ -17,7 +17,7 @@ fun NavGraph(
     ) {
         for (navItem in router.navItems) {
             composable(
-                route = navItem.key,
+                route = navItem.key
             ) {
                 navItem.value.screen
             }

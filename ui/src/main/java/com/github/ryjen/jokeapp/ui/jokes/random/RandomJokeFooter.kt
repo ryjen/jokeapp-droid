@@ -1,5 +1,6 @@
 package com.github.ryjen.jokeapp.ui.jokes.random
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.ryjen.jokeapp.ui.components.TabBar
@@ -16,6 +17,7 @@ fun RandomJokeFooterContent(router: Router) {
     TabBar(router)
 }
 
+@ExperimentalAnimationApi
 @Composable
 @Preview
 fun RandomJokeFooterPreview() {

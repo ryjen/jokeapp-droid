@@ -43,8 +43,8 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 #### custom
 
 - **app**: the entry point to the application
-- **meta**: code related to programming languages, frameworks or algorithms
-- **test**: all unit tests and instrumented tests
+- **meta**: code unspecific to app related to programming languages, frameworks or algorithms
+- **test**: test data and instrumented tests
 - **vendor**: third party project files
 
 ### tests

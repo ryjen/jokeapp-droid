@@ -2,22 +2,15 @@ package com.github.ryjen.jokeapp.data.api
 
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
-import io.ktor.client.features.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.features.logging.*
+import io.ktor.client.plugins.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
 fun createJokeClient(): HttpClient {
-
-    val json = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-        encodeDefaults = false
-    }
-
     return HttpClient(Android) {
         // Logging
         install(Logging) {
@@ -25,9 +18,14 @@ fun createJokeClient(): HttpClient {
             logger = Logger.DEFAULT
         }
         // JSON
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(json)
-            //or serializer = KotlinxSerializer()
+        install(ContentNegotiation) {
+            json(
+                Json {
+                    ignoreUnknownKeys = true
+                    isLenient = true
+                    encodeDefaults = false
+                }
+            )
         }
         // Timeout
         install(HttpTimeout) {
@@ -37,9 +35,6 @@ fun createJokeClient(): HttpClient {
         }
         // Apply to all requests
         defaultRequest {
-            if (method != HttpMethod.Get) {
-                contentType(ContentType.Application.Json)
-            }
             accept(ContentType.Application.Json)
         }
     }

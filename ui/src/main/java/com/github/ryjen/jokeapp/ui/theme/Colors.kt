@@ -36,7 +36,11 @@ private val blackLighter = Color(0xff5b5b5b)
 private val blackDark = Color(0xff000000)
 
 const val previewBackground = 0xffF2F3F0
+
 private val card = Color(0xffFFEED6)
+private val card2 = Color(0xffE0D8B6)
+private val card3 = Color(0xffDEC6A4)
+private val card4 = Color(0xffD6B689)
 
 @Immutable
 data class ColorTheme(
@@ -67,8 +71,8 @@ internal val BlueThemeLight = ColorTheme(
         primaryVariant = purpleLight,
         onPrimary = whiteLight,
 
-        secondary = yellowLight,
-        secondaryVariant = greenLight,
+        secondary = card,
+        secondaryVariant = card3,
         onSecondary = whiteLight,
 
         background = whiteLight,
@@ -102,8 +106,8 @@ internal val BlueThemeDark = ColorTheme(
         primaryVariant = purpleDark,
         onPrimary = blackDark,
 
-        secondary = yellowDark,
-        secondaryVariant = greenDark,
+        secondary = card,
+        secondaryVariant = card3,
         onSecondary = blackDark,
 
         background = blackDark,

@@ -1,5 +1,6 @@
 package com.github.ryjen.jokeapp.ui.jokes.favourites
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -43,6 +44,7 @@ fun FavoritesFooterContent(router: Router, state: FavoritesState) {
     }
 }
 
+@ExperimentalAnimationApi
 @Composable
 @Preview
 fun FavoritesFooterPreview() {

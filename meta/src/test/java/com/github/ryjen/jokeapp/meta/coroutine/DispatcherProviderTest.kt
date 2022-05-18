@@ -1,6 +1,5 @@
-package com.github.ryjen.jokeapp.test
+package com.github.ryjen.jokeapp.meta.coroutine
 
-import com.github.ryjen.jokeapp.meta.coroutine.DispatcherProvider
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asCoroutineDispatcher
