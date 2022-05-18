@@ -1,6 +1,5 @@
 package com.github.ryjen.jokeapp.ui.jokes.favourites
 
-import com.github.ryjen.jokeapp.domain.arch.Outcome
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxDispatcher
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxStore
 import com.github.ryjen.jokeapp.domain.model.Joke
@@ -34,17 +33,18 @@ class FavoritesViewModel(
 
     private suspend fun initialize() {
         getFavoriteJokes().collect { outcome ->
-            when (outcome) {
-                is Outcome.Success -> dispatch(FavoritesAction.Update(outcome.data))
-                is Outcome.Failure -> dispatch(FavoritesAction.Error(outcome.error))
+            outcome.onSuccess {
+                dispatch(FavoritesAction.Update(it))
+            }.onFailure {
+                dispatch(FavoritesAction.Error(it))
             }
         }
     }
 
     private suspend fun removeJoke(joke: Joke) {
-        when (val outcome = removeFavoriteJoke(joke)) {
-            is Outcome.Failure -> dispatch(FavoritesAction.Error(outcome.error))
-            is Outcome.Success -> Unit
-        }
+        removeFavoriteJoke(joke)
+            .onFailure {
+                dispatch(FavoritesAction.Error(it))
+            }
     }
 }

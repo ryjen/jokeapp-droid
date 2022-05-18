@@ -16,6 +16,7 @@ android {
     testOptions {
         animationsDisabled = true
     }
+    namespace = "com.github.ryjen.jokeapp.test"
 }
 
 dependencies {

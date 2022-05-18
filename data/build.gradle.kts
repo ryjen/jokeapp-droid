@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.serialization")
     kotlin("kapt")
 }
 
@@ -10,6 +11,7 @@ android {
     defaultConfig {
         minSdk = Versions.Sdk.Min
     }
+    namespace = "com.github.ryjen.jokeapp.data"
 }
 
 dependencies {
@@ -22,6 +24,8 @@ dependencies {
 
     implementation(Dependencies.Ktor.Android)
     implementation(Dependencies.Ktor.Client)
+    implementation(Dependencies.Ktor.Content)
+    implementation(Dependencies.Ktor.Json)
     implementation(Dependencies.Ktor.Logging)
     implementation(Dependencies.Ktor.Serialize)
     implementation(Dependencies.Ktor.Logback)

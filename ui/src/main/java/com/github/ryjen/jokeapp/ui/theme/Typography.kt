@@ -120,7 +120,7 @@ data class TypographyTheme(
     ),
     val bubbleSmall: TextStyle = typography.body1.copy(
         textAlign = TextAlign.Center,
-        fontSize = 20.sp,
+        fontSize = 18.sp,
     ),
     val bubbleLarge: TextStyle = typography.h4.copy(
         textAlign = TextAlign.Center,

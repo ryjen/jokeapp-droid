@@ -1,6 +1,6 @@
 package com.github.ryjen.jokeapp.data.repository.joke
 
-import com.github.ryjen.jokeapp.data.model.Joke
+import com.github.ryjen.jokeapp.data.mapping.JokeMapper
 import com.github.ryjen.jokeapp.domain.repository.joke.io.AsyncJokeRepository
 import com.github.ryjen.jokeapp.domain.repository.joke.io.ObservableJokeRepository
 import com.github.ryjen.jokeapp.domain.repository.joke.io.SyncJokeRepository
@@ -9,14 +9,13 @@ import com.github.ryjen.jokeapp.domain.repository.joke.source.RemoteJokeReposito
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
-import com.github.ryjen.jokeapp.domain.mapping.JokeMapper as DomainMapper
 import com.github.ryjen.jokeapp.domain.model.Joke as DomainJoke
 import com.github.ryjen.jokeapp.domain.repository.joke.JokeRepository as DomainRepository
 
 class JokeRepository(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
-    private val jokeMapper: DomainMapper<Joke> = com.github.ryjen.jokeapp.data.mapping.JokeMapper
+    private val mapper: JokeMapper = JokeMapper
 ) : DomainRepository, AsyncJokeRepository {
 
     // asynchronous io only
@@ -26,14 +25,14 @@ class JokeRepository(
     override val observable = object : ObservableJokeRepository {
         override fun getFavoriteJokes(): Flow<List<DomainJoke>> =
             localDataSource.observable.getFavoriteJokes().map { list ->
-                list.map { joke -> jokeMapper(joke) }
+                list.map { joke -> mapper(joke) }
             }
     }
 
     // synchronous io only
     override val sync = object : SyncJokeRepository {
         override fun getJoke(jokeId: String): DomainJoke? =
-            localDataSource.sync.getJoke(jokeId)?.let { jokeMapper(it) }
+            localDataSource.sync.getJoke(jokeId)?.let { mapper(it) }
     }
 
     // network only calls only
@@ -45,13 +44,13 @@ class JokeRepository(
     // local only calls only
     override val local: LocalJokeRepository = object : LocalJokeRepository {
         override suspend fun addFavorite(joke: DomainJoke) =
-            localDataSource.updateFavorite(jokeMapper(joke))
+            localDataSource.updateFavorite(mapper(joke))
 
         override suspend fun removeFavorite(joke: DomainJoke) =
-            localDataSource.async.deleteJokes(jokeMapper(joke))
+            localDataSource.async.deleteJokes(mapper(joke))
 
         override suspend fun cacheJoke(joke: DomainJoke) =
-            localDataSource.async.insertJokes(jokeMapper(joke))
+            localDataSource.async.insertJokes(mapper(joke))
     }
 
     // random joke attempts remote and defaults to local cache

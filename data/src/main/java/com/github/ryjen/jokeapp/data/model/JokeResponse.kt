@@ -1,13 +1,10 @@
-package com.github.ryjen.jokeapp.domain.model
+package com.github.ryjen.jokeapp.data.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
-@Parcelize
 @Serializable
 data class JokeResponse(
     val id: String,
     val joke: String,
     val status: Int
-) : Parcelable
+)

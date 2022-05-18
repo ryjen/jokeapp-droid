@@ -15,7 +15,8 @@ abstract class ReduxViewModel<S : ReduxState, A : ReduxAction> : ViewModel(),
         store.stateAsStateFlow()
     }
 
-    override fun invoke(
+    // the view model is middleware, so it can intercept actions
+    override operator fun invoke(
         state: S,
         action: A,
         dispatch: ReduxDispatcher<A>

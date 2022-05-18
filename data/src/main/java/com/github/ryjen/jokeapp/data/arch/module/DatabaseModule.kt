@@ -1,15 +1,12 @@
 package com.github.ryjen.jokeapp.data.arch.module
 
 import androidx.room.Room
-import com.github.ryjen.jokeapp.data.mapping.JokeMapper
-import com.github.ryjen.jokeapp.data.model.Joke
 import com.github.ryjen.jokeapp.data.repository.joke.JokeRepository
 import com.github.ryjen.jokeapp.data.repository.joke.LocalDataSource
 import com.github.ryjen.jokeapp.data.repository.joke.RemoteDataSource
 import com.github.ryjen.jokeapp.data.storage.JokeDatabase
 import com.github.ryjen.jokeapp.data.storage.JokeDatabaseName
 import org.koin.dsl.module
-import com.github.ryjen.jokeapp.domain.mapping.JokeMapper as DomainJokeMapper
 import com.github.ryjen.jokeapp.domain.repository.joke.JokeRepository as DomainJokeRepository
 
 internal val localSourceModule = module {
@@ -32,9 +29,7 @@ internal val localSourceModule = module {
         RemoteDataSource(get())
     }
 
-    single<DomainJokeMapper<Joke>> { JokeMapper }
-
     factory<DomainJokeRepository> {
-        JokeRepository(get(), get(), get())
+        JokeRepository(get(), get())
     }
 }

@@ -6,11 +6,15 @@ object Versions {
     }
 
     object ComposeX {
-        const val Compiler = "1.0.5"
+        const val Compiler = "1.1.1"
     }
 
     object Kotlin {
-        const val version = "1.5.31"
+        const val version = "1.6.10"
+    }
+
+    object Gradle {
+        const val version = "7.2.0"
     }
 }
 
@@ -18,7 +22,7 @@ object Dependencies {
 
     object Gradle {
         const val Kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.Kotlin.version}"
-        const val Android = "com.android.tools.build:gradle:7.1.3"
+        const val Android = "com.android.tools.build:gradle:${Versions.Gradle.version}"
         const val Serialization =
             "org.jetbrains.kotlin:kotlin-serialization:${Versions.Kotlin.version}"
     }
@@ -32,20 +36,20 @@ object Dependencies {
     }
 
     object NavigationX {
-        private const val version = "2.4.0"
+        private const val version = "2.4.2"
         const val Compose = "androidx.navigation:navigation-compose:$version"
         const val Test = "androidx.navigation:navigation-testing:$version"
     }
 
     object RoomX {
-        private const val version = "2.4.1"
+        private const val version = "2.4.2"
         const val Runtime = "androidx.room:room-runtime:$version"
         const val Kotlin = "androidx.room:room-ktx:$version"
         const val Compiler = "androidx.room:room-compiler:$version"
     }
 
     object Koin {
-        private const val version = "3.1.5"
+        private const val version = "3.2.0"
         const val Android = "io.insert-koin:koin-android:$version"
 
         const val Compat = "io.insert-koin:koin-android-compat:$version"
@@ -58,13 +62,14 @@ object Dependencies {
     }
 
     object Ktor {
-        private const val version = "1.5.0"
-
+        private const val version = "2.0.1"
+        const val Content = "io.ktor:ktor-client-content-negotiation:$version"
         const val Android = "io.ktor:ktor-client-android:$version"
         const val Serialize = "io.ktor:ktor-client-serialization:$version"
+        const val Json = "io.ktor:ktor-serialization-kotlinx-json:$version"
         const val Logging = "io.ktor:ktor-client-logging:$version"
-        const val Client = "io.ktor:ktor-client-core:1.6.7"
-        const val Logback = "ch.qos.logback:logback-classic:1.2.10"
+        const val Client = "io.ktor:ktor-client-core:$version"
+        const val Logback = "ch.qos.logback:logback-classic:1.2.11"
         const val test = "io.ktor:ktor-server-test-host:$version"
 
     }
@@ -73,12 +78,12 @@ object Dependencies {
         const val Json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
     }
 
-    const val Material = "com.google.android.material:material:1.5.0"
+    const val Material = "com.google.android.material:material:1.7.0"
 
     const val Timber = "com.jakewharton.timber:timber:5.0.1"
 
     object CoroutinesX {
-        private const val version = "1.6.0-native-mt"
+        private const val version = "1.6.1-native-mt"
         const val Android =
             "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         const val Core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
@@ -90,10 +95,11 @@ object Dependencies {
         const val Insets = "com.google.accompanist:accompanist-insets:$version"
         const val Placeholder = "com.google.accompanist:accompanist-placeholder:$version"
         const val SystemUI = "com.google.accompanist:accompanist-systemuicontroller:$version"
+        const val Animation = "com.google.accompanist:accompanist-navigation-animation:$version"
     }
 
     object ComposeX {
-        private const val version = "1.1.0"
+        private const val version = "1.1.1"
         const val Ui = "androidx.compose.ui:ui:$version"
         const val Graphics = "androidx.compose.ui:ui-graphics:$version"
         const val Foundation = "androidx.compose.foundation:foundation-layout:$version"

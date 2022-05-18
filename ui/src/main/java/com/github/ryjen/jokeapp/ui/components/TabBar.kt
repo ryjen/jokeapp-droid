@@ -8,7 +8,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.domain.usecase.GetUserLocale
 import com.github.ryjen.jokeapp.ui.navigation.Router
-import com.github.ryjen.jokeapp.ui.navigation.Routes
 import com.github.ryjen.jokeapp.ui.theme.ThemeColors
 import com.github.ryjen.jokeapp.ui.theme.ThemeDimensions
 import com.google.accompanist.insets.navigationBarsHeight
@@ -21,7 +20,7 @@ import org.koin.androidx.compose.inject
 
 @Composable
 fun TabBar(router: Router) {
-    val currentRoute = router.currentRoute() ?: Routes.RANDOM_JOKE
+    val currentRoute = router.currentRoute()
 
     val getUserLocale: GetUserLocale by inject()
 

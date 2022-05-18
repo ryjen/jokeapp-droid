@@ -9,10 +9,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,10 +22,10 @@ import com.github.ryjen.jokeapp.ui.theme.*
 
 @Composable
 fun FavoritesScreen(viewModel: FavoritesViewModel) {
-    
-    val state = viewModel.state.collectAsState()
 
-    FavoritesContent(state.value, viewModel::dispatch)
+    val state by viewModel.state.collectAsState()
+
+    FavoritesContent(state, viewModel::dispatch)
 }
 
 @Composable
@@ -92,11 +89,11 @@ fun FavoritesContent(state: FavoritesState, onAction: (FavoritesAction) -> Unit)
                             setDeleteConfirm(joke)
                         }) {
                         Icon(
-                            tint = ThemeColors.cardAction,
+                            tint = ThemeColors.material.error,
                             imageVector = ThemeImages.delete,
                             modifier = Modifier
                                 .size(ThemeDimensions.icons.small)
-                                .background(ThemeColors.material.error, CircleShape),
+                                .background(ThemeColors.material.onError, CircleShape),
                             contentDescription = null
                         )
                     }

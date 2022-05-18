@@ -10,11 +10,11 @@ internal val useCaseModule = module {
 
     factory { GetUserLocale() }
 
-    factory { GetRandomJoke(get(), get(), get()) }
+    factory { GetRandomJoke(get(), get()) }
 
-    factory { GetFavoriteJokes(get(), get()) }
+    factory { GetFavoriteJokes(get()) }
 
-    factory { AddFavoriteJoke(get(), get()) }
+    factory { AddFavoriteJoke(get()) }
 
-    factory { RemoveFavoriteJoke(get(), get()) }
+    factory { RemoveFavoriteJoke(get()) }
 }

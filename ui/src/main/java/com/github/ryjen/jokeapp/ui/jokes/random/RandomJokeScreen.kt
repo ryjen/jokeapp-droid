@@ -11,8 +11,10 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
@@ -28,10 +30,9 @@ import com.smarttoolfactory.speechbubble.rememberBubbleState
 
 @Composable
 fun RandomJokeScreen(viewModel: RandomJokeViewModel) {
+    val state by viewModel.state.collectAsState()
 
-    val state = viewModel.state.collectAsState()
-
-    RandomJokeContent(state.value)
+    RandomJokeContent(state)
 }
 
 @Composable
@@ -66,31 +67,32 @@ fun RandomJokeContent(state: RandomJokeState) {
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .weight(1f)
+                    .fillMaxWidth()
                     .drawBubble(bubbleState)
                     .padding(ThemeDimensions.padding.medium)
             ) {
                 Crossfade(targetState = state) { state ->
+                    when {
 
-                    state.error?.let {
-                        Text(
-                            text = it.message(),
-                            modifier = Modifier
-                                .verticalScroll(scrollState)
-                                .padding(ThemeDimensions.padding.medium),
-                            style = ThemeTypography.bubbleSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = ThemeColors.material.error
-                        )
-                    } ?: run {
-                        state.joke?.let {
+                        state.error != null ->
+                            Text(
+                                text = state.error.message(),
+                                modifier = Modifier
+                                    .verticalScroll(scrollState)
+                                    .padding(ThemeDimensions.padding.medium),
+                                style = ThemeTypography.bubbleSmall,
+                                fontWeight = FontWeight.Bold,
+                                color = ThemeColors.material.error
+                            )
+                        state.joke != null ->
                             Text(
                                 modifier = Modifier
                                     .verticalScroll(scrollState),
-                                text = it.content,
+                                text = state.joke.content,
                                 color = ThemeColors.onCard,
                                 style = ThemeTypography.bubbleLarge,
                             )
-                        } ?: DotsPulsing(modifier = Modifier.padding(ThemeDimensions.padding.large))
+                        else -> DotsPulsing(modifier = Modifier.padding(ThemeDimensions.padding.large))
                     }
                 }
             }
@@ -100,6 +102,7 @@ fun RandomJokeContent(state: RandomJokeState) {
                 modifier = Modifier
                     .padding(top = ThemeDimensions.padding.large)
                     .size(ThemeDimensions.icons.large)
+                    .shadow(ThemeDimensions.elevations.card)
                     .background(ThemeColors.onCard, CircleShape)
                     .border(1.dp, ThemeColors.onCard, CircleShape)
                     .align(Alignment.End),

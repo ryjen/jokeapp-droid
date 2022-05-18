@@ -17,6 +17,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.ComposeX.Compiler
     }
+    namespace = "com.github.ryjen.jokeapp.ui"
 }
 
 dependencies {

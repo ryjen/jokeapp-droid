@@ -11,5 +11,18 @@ sealed class Outcome<out O> {
             is Failure -> "Error[exception=$error]"
         }
     }
+
+    suspend fun <T> onSuccess(block: suspend (O) -> T) = when (this) {
+        is Success -> Success(block(data))
+        is Failure -> this
+    }
+
+    suspend fun onFailure(block: suspend (Throwable) -> Unit): Outcome<O> = when (this) {
+        is Success -> this
+        is Failure -> {
+            block(error)
+            this
+        }
+    }
 }
 

@@ -8,11 +8,12 @@ import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.ui.arch.Notification
 import com.github.ryjen.jokeapp.ui.arch.NotificationAction
 import com.github.ryjen.jokeapp.ui.theme.ThemeColors
+import com.github.ryjen.jokeapp.ui.theme.ThemeDimensions
 
 @Composable
 fun Notification.background(): Color =
@@ -39,13 +40,14 @@ fun NotificationPopup(
     defaultAction: () -> Unit
 ) {
     Snackbar(
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier.padding(ThemeDimensions.padding.medium),
         content = {
             Text(
                 text = notification.message,
                 color = notification.foreground()
             )
         },
+        shape = RectangleShape,
         backgroundColor = notification.background(),
         action = {
             notification.action?.let { (label, onAction) ->

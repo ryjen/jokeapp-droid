@@ -83,6 +83,7 @@ android {
     }
     
     buildToolsVersion = "31.0.0"
+    namespace = "com.github.ryjen.jokeapp"
 }
 
 dependencies {

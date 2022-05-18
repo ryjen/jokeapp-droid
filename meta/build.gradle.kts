@@ -9,6 +9,7 @@ android {
     defaultConfig {
         minSdk = Versions.Sdk.Min
     }
+    namespace = "com.github.ryjen.jokeapp.meta"
 }
 
 dependencies {
