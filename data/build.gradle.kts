@@ -2,7 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization")
-    kotlin("kapt")
+    kotlin("multiplatform")
 }
 
 android {
@@ -14,16 +14,33 @@ android {
     namespace = "com.github.ryjen.jokeapp.data"
 }
 
+kotlin {
+    android {
+        namespace = "com.github.ryjen.jokeapp.data"
+    }
+
+    sourceSets {
+        val androidMain by getting {
+            dependencies {
+                //kapt(Dependencies.RoomX.Compiler)
+
+                implementation(Dependencies.RoomX.Runtime)
+                implementation(Dependencies.RoomX.Kotlin)
+
+                implementation(Dependencies.Koin.Android)
+
+                implementation(Dependencies.Ktor.Android)
+            }
+        }
+    }
+}
+
 dependencies {
 
-    testImplementation("junit:junit:4.12")
-    kapt(Dependencies.RoomX.Compiler)
+    testImplementation("junit:junit:4.13.2")
 
     implementation(project(":domain"))
 
-    implementation(Dependencies.Koin.Android)
-
-    implementation(Dependencies.Ktor.Android)
     implementation(Dependencies.Ktor.Client)
     implementation(Dependencies.Ktor.Content)
     implementation(Dependencies.Ktor.Json)
@@ -32,8 +49,6 @@ dependencies {
     implementation(Dependencies.Ktor.Logback)
     implementation(Dependencies.Serialization.Json)
 
-    implementation(Dependencies.RoomX.Runtime)
-    implementation(Dependencies.RoomX.Kotlin)
     implementation(Dependencies.Timber)
 
     testImplementation(Dependencies.JUnit)

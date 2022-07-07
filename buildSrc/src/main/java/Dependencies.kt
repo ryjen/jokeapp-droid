@@ -14,7 +14,7 @@ object Versions {
     }
 
     object Gradle {
-        const val version = "7.2.0"
+        const val version = "7.2.1"
     }
 }
 
