@@ -14,7 +14,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
@@ -32,11 +31,11 @@ import com.smarttoolfactory.speechbubble.rememberBubbleState
 fun RandomJokeScreen(viewModel: RandomJokeViewModel) {
     val state by viewModel.state.collectAsState()
 
-    RandomJokeContent(state)
+    RandomJokeContent(state, viewModel::dispatch)
 }
 
 @Composable
-fun RandomJokeContent(state: RandomJokeState) {
+fun RandomJokeContent(state: RandomJokeState, onAction: (RandomJokeAction) -> Unit) {
     val scrollState = rememberScrollState()
 
     val bubbleState = rememberBubbleState(
@@ -102,7 +101,6 @@ fun RandomJokeContent(state: RandomJokeState) {
                 modifier = Modifier
                     .padding(top = ThemeDimensions.padding.large)
                     .size(ThemeDimensions.icons.large)
-                    .shadow(ThemeDimensions.elevations.card)
                     .background(ThemeColors.onCard, CircleShape)
                     .border(1.dp, ThemeColors.onCard, CircleShape)
                     .align(Alignment.End),
@@ -125,7 +123,7 @@ fun RandomJokeScreenPreview() {
                 content = LoremIpsum().values.joinToString("\n")
             )
         )
-    )
+    ) {}
 }
 
 
@@ -139,5 +137,5 @@ fun RandomJokeErrorPreview() {
         RandomJokeState(
             error = Failure.Message("Could not cross the road")
         )
-    )
+    ) {}
 }

@@ -19,12 +19,12 @@ class GetRandomJoke(
     private fun execute(duration: Long) = flow {
         while (true) {
             if (networkAvailable()) {
-                repository.remote.getRandomJoke()?.let {
-                    repository.local.cacheJoke(it)
+                repository.getRandomJoke()?.let {
+                    repository.cacheJoke(it)
                     emit(Outcome.Success(it))
                 }
             } else {
-                repository.async.getRandomJoke()?.let {
+                repository.getRandomJoke()?.let {
                     emit(Outcome.Success(it))
                 }
             }

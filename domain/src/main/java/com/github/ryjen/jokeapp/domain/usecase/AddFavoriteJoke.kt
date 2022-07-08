@@ -8,6 +8,6 @@ class AddFavoriteJoke(
     private val repository: JokeRepository
 ) {
     suspend operator fun invoke(joke: Joke) = dispatchUseCase {
-        repository.async.addFavorite(joke)
+        repository.addFavorite(joke)
     }
 }

@@ -28,7 +28,7 @@ class AddFavoriteJokeTest : KoinTest {
     fun canAddFavoriteJoke() = runTest {
         val joke = randomJoke()
         addFavJoke(joke)
-        val actual = repository.sync.getJoke(joke.id)
+        val actual = repository.getJoke(joke.id)
         assertThat(actual).isNotNull()
     }
 }

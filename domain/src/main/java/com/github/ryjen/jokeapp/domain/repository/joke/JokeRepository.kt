@@ -1,15 +1,24 @@
 package com.github.ryjen.jokeapp.domain.repository.joke
 
-import com.github.ryjen.jokeapp.domain.repository.joke.io.AsyncJokeRepository
-import com.github.ryjen.jokeapp.domain.repository.joke.io.ObservableJokeRepository
-import com.github.ryjen.jokeapp.domain.repository.joke.io.SyncJokeRepository
-import com.github.ryjen.jokeapp.domain.repository.joke.source.LocalJokeRepository
-import com.github.ryjen.jokeapp.domain.repository.joke.source.RemoteJokeRepository
+import com.github.ryjen.jokeapp.domain.model.Joke
+import kotlinx.coroutines.flow.Flow
 
 interface JokeRepository {
-    val sync: SyncJokeRepository
-    val async: AsyncJokeRepository
-    val observable: ObservableJokeRepository
-    val remote: RemoteJokeRepository
-    val local: LocalJokeRepository
+    // Observable data
+
+    fun getFavoriteJokes(): Flow<List<Joke>>
+
+    // Local data
+
+    suspend fun getJoke(id: String): Joke?
+
+    suspend fun getRandomJoke(): Joke?
+
+    // Remote data
+
+    suspend fun addFavorite(joke: Joke)
+
+    suspend fun removeFavorite(joke: Joke)
+
+    suspend fun cacheJoke(joke: Joke)
 }
