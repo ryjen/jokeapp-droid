@@ -1,16 +1,16 @@
 package com.github.ryjen.jokeapp.ui.jokes.favourites
 
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxDispatcher
+import com.github.ryjen.jokeapp.domain.arch.redux.ScopedReduxEffect
 import com.github.ryjen.jokeapp.domain.facades.JokeFacade
 import com.github.ryjen.jokeapp.domain.model.Joke
-import com.github.ryjen.jokeapp.ui.arch.redux.ViewEffect
 import kotlinx.coroutines.CoroutineScope
 
-class FavoriteJokesEffects(
+class FavoritesEffects(
     scope: CoroutineScope,
     private val facade: JokeFacade,
     dispatcher: ReduxDispatcher<FavoritesAction>
-) : ViewEffect<FavoritesState, FavoritesAction>(scope),
+) : ScopedReduxEffect<FavoritesState, FavoritesAction>(scope),
     ReduxDispatcher<FavoritesAction> by dispatcher {
 
     override suspend fun effects(

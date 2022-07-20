@@ -21,7 +21,6 @@ class JokeFacade(
 
     suspend fun removeFavorite(joke: Joke) = removeFavoriteJoke(joke)
 
-
     suspend fun addFavorite(joke: Joke) = addFavoriteJoke(joke)
 
     suspend fun random() = getRandomJoke().firstOrNull()

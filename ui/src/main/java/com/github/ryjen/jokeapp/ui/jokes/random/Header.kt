@@ -94,7 +94,7 @@ fun RandomJokeHeaderContent(state: RandomJokeViewState, onAction: (RandomJokeAct
 
 @Preview
 @Composable
-fun RandomMenuPreview() {
+fun RandomJokeHeaderPreview() {
     RandomJokeHeaderContent(
         RandomJokeViewState(
             joke = Joke(

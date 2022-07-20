@@ -8,7 +8,7 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 
 ## analysis
 
-### ui requirements
+### requirements
 
 - random joke in big font
 - action button to add/remove favourites
@@ -20,19 +20,19 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 
 ### architecture
 
-- uncle bob's clean architecture in modular android
-- separation of data, domain and presentation layers
-- redux with reducers and middleware for viewmodel state
+- uncle bob's clean architecture in modular android, separation of data, domain and presentation layers
+- composable architecture: redux with reducers and effects for viewmodel state
 - compose and material ui frameworks
 - kotlin state flow and coroutines
 - navigation with routing and notifications
 - per-screen headers and footers
 - random joke prefers network, and save to local cache
-- categorized repository IO: `asyncronous`, `syncronous`, `observable`, `local`, and `remote`
 
 ## implementation
 
 ### project layout
+
+To reduce conflicts and complexity while increasing cohesion and loose coupling.
 
 #### clean architecture
 
@@ -59,20 +59,22 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 
 ### TODO:
 
-- [x] improve stock UX
-- [ ] abstract to clean-architecture template
-- [ ] generalize and add new remote sources, like quotes
-- [ ] export to photo for sharing
-- [ ] analytics
-- [x] fix snackbar
-- [ ] allow user to add content
-- [ ] device home screen widget
-- [ ] multiplatform (pending kotlin multiplatform release)
-- [ ] splash screen and logo
 - [x] speech bubbles
+- [x] fix snackbar
+- [ ] improve UX (scrolling, snackbar)
 - [ ] ML to know sentiment of joke and predict favorites
 - [ ] speech bubble characters based on category or sentiment
+- [ ] multiplatform (pending kotlin multiplatform release)
+   - [x] switch from room to sqldelite
+- [ ] abstract to project template
+- [ ] generalize content use case, and add new remote sources, like quotes
+- [ ] export to text-over-photo for sharing
+- [ ] analytics
+- [ ] allow user to add content
+- [ ] theme switcher
+- [ ] device home screen widget
+- [ ] splash screen and logo
 - [ ] Text-to-speech, laugh track
 - [ ] Animations
-- [ ] monetize
+- [ ] Monetize user customizations
 - [ ] security analysis

@@ -3,7 +3,7 @@ package com.github.ryjen.jokeapp.ui.jokes.random
 import androidx.lifecycle.viewModelScope
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxStore
 import com.github.ryjen.jokeapp.domain.facades.JokeFacade
-import com.github.ryjen.jokeapp.ui.arch.redux.ReduxViewModel
+import com.github.ryjen.jokeapp.ui.arch.ReduxViewModel
 import com.github.ryjen.jokeapp.ui.navigation.Router
 
 class RandomJokeViewModel(
@@ -13,7 +13,7 @@ class RandomJokeViewModel(
     ReduxViewModel<RandomJokeState, RandomJokeViewState, RandomJokeAction>() {
 
     override val store =
-        ReduxStore<RandomJokeState, RandomJokeAction>(RandomJokeState()) + RandomJokeReducer + RandomJokeEffects(
+        ReduxStore<RandomJokeState, RandomJokeAction>(RandomJokeState()) + ::randomJokeReducer + RandomJokeEffects(
             viewModelScope, router, facade, this
         )
 

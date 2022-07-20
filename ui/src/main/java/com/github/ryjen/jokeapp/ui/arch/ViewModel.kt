@@ -1,4 +1,4 @@
-package com.github.ryjen.jokeapp.ui.arch.redux
+package com.github.ryjen.jokeapp.ui.arch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,7 +6,6 @@ import com.github.ryjen.jokeapp.domain.arch.redux.ReduxAction
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxDispatcher
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxState
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxStore
-import com.github.ryjen.jokeapp.ui.arch.ViewState
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map

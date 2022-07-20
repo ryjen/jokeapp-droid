@@ -1,10 +1,10 @@
 package com.github.ryjen.jokeapp.ui.jokes.random
 
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxDispatcher
+import com.github.ryjen.jokeapp.domain.arch.redux.ScopedReduxEffect
 import com.github.ryjen.jokeapp.domain.facades.JokeFacade
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.ui.R
-import com.github.ryjen.jokeapp.ui.arch.redux.ViewEffect
 import com.github.ryjen.jokeapp.ui.navigation.Router
 import kotlinx.coroutines.CoroutineScope
 
@@ -14,7 +14,7 @@ class RandomJokeEffects(
     private val router: Router,
     private val facade: JokeFacade,
     dispatcher: ReduxDispatcher<RandomJokeAction>
-) : ViewEffect<RandomJokeState, RandomJokeAction>(scope),
+) : ScopedReduxEffect<RandomJokeState, RandomJokeAction>(scope),
     ReduxDispatcher<RandomJokeAction> by dispatcher {
 
     override suspend fun effects(
@@ -32,7 +32,6 @@ class RandomJokeEffects(
             else -> Unit
         }
     }
-
 
     private suspend fun add(joke: Joke) = facade.addFavorite(joke).onSuccess {
         router.showSuccess(R.string.favorite_added)
