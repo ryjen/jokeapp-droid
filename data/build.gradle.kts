@@ -2,7 +2,13 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization")
-    kotlin("kapt")
+    id("com.squareup.sqldelight")
+}
+
+sqldelight {
+    database("JokeDatabase") {
+        packageName = "com.github.ryjen.jokeapp.data.storage"
+    }
 }
 
 android {
@@ -17,11 +23,13 @@ android {
 dependencies {
 
     testImplementation(Dependencies.JUnit)
-    kapt(Dependencies.RoomX.Compiler)
 
     implementation(project(":domain"))
 
     implementation(Dependencies.Koin.Android)
+
+    implementation(Dependencies.SqlDelight.Android)
+    implementation(Dependencies.SqlDelight.Coroutines)
 
     implementation(Dependencies.Ktor.Android)
     implementation(Dependencies.Ktor.Client)
@@ -32,8 +40,6 @@ dependencies {
     implementation(Dependencies.Ktor.Logback)
     implementation(Dependencies.Serialization.Json)
 
-    implementation(Dependencies.RoomX.Runtime)
-    implementation(Dependencies.RoomX.Kotlin)
     implementation(Dependencies.Timber)
 
     testImplementation(Dependencies.JUnit)

@@ -31,11 +31,11 @@ import com.smarttoolfactory.speechbubble.rememberBubbleState
 fun RandomJokeScreen(viewModel: RandomJokeViewModel) {
     val state by viewModel.state().collectAsState()
 
-    RandomJokeContent(state)
+    RandomJokeContent(state, viewModel::dispatch)
 }
 
 @Composable
-fun RandomJokeContent(state: RandomJokeViewState) {
+fun RandomJokeContent(state: RandomJokeViewState, onAction: (RandomJokeAction) -> Unit) {
     val scrollState = rememberScrollState()
 
     val bubbleState = rememberBubbleState(
@@ -123,7 +123,7 @@ fun RandomJokeScreenPreview() {
                 content = LoremIpsum().values.joinToString("\n")
             )
         )
-    )
+    ) {}
 }
 
 
@@ -137,5 +137,5 @@ fun RandomJokeErrorPreview() {
         RandomJokeViewState(
             error = Failure.Message("Could not cross the road")
         )
-    )
+    ) {}
 }

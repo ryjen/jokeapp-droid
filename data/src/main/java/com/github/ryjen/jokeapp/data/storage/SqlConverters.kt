@@ -1,27 +1,24 @@
 package com.github.ryjen.jokeapp.data.storage
 
-import androidx.room.TypeConverter
+import com.squareup.sqldelight.ColumnAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SqlConverters(
-    locale: Locale = Locale.getDefault(),
-) {
+fun datesAdapter(
+    locale: Locale = Locale.getDefault()
+) = object : ColumnAdapter<Date, String> {
+
     private val fmt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", locale)
 
-    @TypeConverter
-    fun fromSQLDate(value: String?): Date? {
+    override fun decode(databaseValue: String): Date {
         return try {
-            val d = value ?: return null
-            fmt.parse(d)
+            fmt.parse(databaseValue) ?: Date()
         } catch (e: Exception) {
-            null
+            Date()
         }
     }
 
-    @TypeConverter
-    fun toSQLDate(value: Date?): String? {
-        val d = value ?: Date()
-        return fmt.format(d)
+    override fun encode(value: Date): String {
+        return fmt.format(value)
     }
 }

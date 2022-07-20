@@ -1,17 +1,31 @@
 package com.github.ryjen.jokeapp.data.repository.joke
 
-import com.github.ryjen.jokeapp.data.model.Joke
-import com.github.ryjen.jokeapp.data.storage.AsyncJokeDao
-import com.github.ryjen.jokeapp.data.storage.ObservableJokeDao
-import com.github.ryjen.jokeapp.data.storage.SyncJokeDao
+import com.github.ryjen.jokeapp.data.storage.Joke
+import com.github.ryjen.jokeapp.data.storage.JokeDatabase
+import com.squareup.sqldelight.runtime.coroutines.asFlow
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class LocalDataSource(
-    val observable: ObservableJokeDao,
-    val async: AsyncJokeDao,
-    val sync: SyncJokeDao
+    private val db: JokeDatabase
 ) {
+    fun getJoke(id: String) = db.jokeQueries.get(id).executeAsOneOrNull()
 
-    suspend fun updateFavorite(joke: Joke) {
-        async.insertJokes(joke.copy(isFavorite = true))
-    }
+    fun getFavoriteJokes(): Flow<List<Joke>> =
+        db.jokeQueries.favorites().asFlow().map { it.executeAsList() }
+
+    fun deleteJoke(joke: Joke) = db.jokeQueries.delete(joke.key)
+
+    fun updateFavorite(key: String, value: Boolean = true) =
+        db.jokeQueries.updateFavorite(value, key)
+
+    fun insertJoke(joke: Joke) =
+        db.jokeQueries.insert(
+            joke.key,
+            joke.content,
+            joke.created,
+            joke.isFavorite
+        )
+
+    fun getRandomJoke() = db.jokeQueries.random().executeAsOneOrNull()
 }
