@@ -1,6 +1,7 @@
 package com.github.ryjen.jokeapp.ui.jokes.random
 
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxDispatcher
+import com.github.ryjen.jokeapp.domain.facades.JokeFacade
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.ui.R
 import com.github.ryjen.jokeapp.ui.arch.redux.ViewEffect
@@ -11,7 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 class RandomJokeEffects(
     scope: CoroutineScope,
     private val router: Router,
-    private val facade: RandomJokeFacade,
+    private val facade: JokeFacade,
     dispatcher: ReduxDispatcher<RandomJokeAction>
 ) : ViewEffect<RandomJokeState, RandomJokeAction>(scope),
     ReduxDispatcher<RandomJokeAction> by dispatcher {
@@ -33,14 +34,14 @@ class RandomJokeEffects(
     }
 
 
-    private suspend fun add(joke: Joke) = facade.add(joke).onSuccess {
+    private suspend fun add(joke: Joke) = facade.addFavorite(joke).onSuccess {
         router.showSuccess(R.string.favorite_added)
     }.onFailure {
         router.showDanger(R.string.unable_to_add_favorite)
     }
 
-    suspend fun remove(joke: Joke) {
-        facade.remove(joke).onSuccess {
+    private suspend fun remove(joke: Joke) {
+        facade.removeFavorite(joke).onSuccess {
             router.showInfo(R.string.favorite_removed)
         }.onFailure {
             router.showDanger(R.string.unable_to_remove_favorite)
@@ -48,7 +49,7 @@ class RandomJokeEffects(
     }
 
     private suspend fun refresh() {
-        facade.refresh()?.let { outcome ->
+        facade.random()?.let { outcome ->
             outcome.onSuccess {
                 dispatch(RandomJokeAction.Refresh(it))
             }.onFailure {

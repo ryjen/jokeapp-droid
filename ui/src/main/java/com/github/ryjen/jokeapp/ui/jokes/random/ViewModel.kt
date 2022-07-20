@@ -2,12 +2,13 @@ package com.github.ryjen.jokeapp.ui.jokes.random
 
 import androidx.lifecycle.viewModelScope
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxStore
+import com.github.ryjen.jokeapp.domain.facades.JokeFacade
 import com.github.ryjen.jokeapp.ui.arch.redux.ReduxViewModel
 import com.github.ryjen.jokeapp.ui.navigation.Router
 
 class RandomJokeViewModel(
     router: Router,
-    facade: RandomJokeFacade
+    facade: JokeFacade
 ) :
     ReduxViewModel<RandomJokeState, RandomJokeViewState, RandomJokeAction>() {
 

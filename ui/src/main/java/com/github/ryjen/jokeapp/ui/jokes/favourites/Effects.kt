@@ -1,13 +1,14 @@
 package com.github.ryjen.jokeapp.ui.jokes.favourites
 
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxDispatcher
+import com.github.ryjen.jokeapp.domain.facades.JokeFacade
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.ui.arch.redux.ViewEffect
 import kotlinx.coroutines.CoroutineScope
 
 class FavoriteJokesEffects(
     scope: CoroutineScope,
-    private val facade: FavoriteJokesFacade,
+    private val facade: JokeFacade,
     dispatcher: ReduxDispatcher<FavoritesAction>
 ) : ViewEffect<FavoritesState, FavoritesAction>(scope),
     ReduxDispatcher<FavoritesAction> by dispatcher {
@@ -25,7 +26,7 @@ class FavoriteJokesEffects(
     }
 
     private suspend fun initialize() {
-        facade.initialize { outcome ->
+        facade.favorites { outcome ->
             outcome.onSuccess {
                 dispatch(FavoritesAction.Update(it))
             }.onFailure {
@@ -35,10 +36,9 @@ class FavoriteJokesEffects(
     }
 
     private suspend fun removeJoke(joke: Joke) {
-        facade.removeJoke(joke)
+        facade.removeFavorite(joke)
             .onFailure {
                 dispatch(FavoritesAction.Error(it))
             }
     }
-
 }
