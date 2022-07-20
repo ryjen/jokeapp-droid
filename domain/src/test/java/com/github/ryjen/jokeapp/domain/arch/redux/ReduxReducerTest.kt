@@ -23,13 +23,13 @@ class ReduxReducerTest {
 
         every { useCase.invoke(any()) } returns Unit
 
-        val reduceState: ReduxReducer<State, Actions> = { state, action ->
+        val reduceState: ReduxReducer<State, Actions> = ReduxReducer { state, action ->
             when (action) {
                 Actions.Test -> state.copy(test = state.test + 1)
             }
         }
 
-        val reduceEffect: ReduxReducer<State, Actions> = { state, action ->
+        val reduceEffect: ReduxReducer<State, Actions> = ReduxReducer { state, action ->
             when (action) {
                 Actions.Test -> state.apply {
                     useCase(test)
@@ -39,7 +39,7 @@ class ReduxReducerTest {
 
         val reducer = combineReducers(reduceState, reduceEffect)
 
-        reducer.invoke(State(test = 0), Actions.Test)
+        reducer.apply(State(test = 0), Actions.Test)
 
         verify { useCase.invoke(1) }
     }
