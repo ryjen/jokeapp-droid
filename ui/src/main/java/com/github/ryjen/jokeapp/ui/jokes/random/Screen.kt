@@ -14,7 +14,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
@@ -102,7 +101,6 @@ fun RandomJokeContent(state: RandomJokeViewState) {
                 modifier = Modifier
                     .padding(top = ThemeDimensions.padding.large)
                     .size(ThemeDimensions.icons.large)
-                    .shadow(ThemeDimensions.elevations.card)
                     .background(ThemeColors.onCard, CircleShape)
                     .border(1.dp, ThemeColors.onCard, CircleShape)
                     .align(Alignment.End),
