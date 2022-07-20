@@ -23,13 +23,13 @@ import com.github.ryjen.jokeapp.ui.theme.ThemeImages
 
 @Composable
 fun RandomJokeHeader(viewModel: RandomJokeViewModel) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state().collectAsState()
 
     RandomJokeHeaderContent(state, viewModel::dispatch)
 }
 
 @Composable
-fun RandomJokeHeaderContent(state: RandomJokeState, onAction: (RandomJokeAction) -> Unit) {
+fun RandomJokeHeaderContent(state: RandomJokeViewState, onAction: (RandomJokeAction) -> Unit) {
     val context = LocalContext.current
 
     TopAppBar(
@@ -94,9 +94,9 @@ fun RandomJokeHeaderContent(state: RandomJokeState, onAction: (RandomJokeAction)
 
 @Preview
 @Composable
-fun RandomMenuPreview() {
+fun RandomJokeHeaderPreview() {
     RandomJokeHeaderContent(
-        RandomJokeState(
+        RandomJokeViewState(
             joke = Joke(
                 id = "123",
                 content = "this is a test"

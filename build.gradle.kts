@@ -9,5 +9,6 @@ buildscript {
         classpath(Dependencies.Gradle.Android)
         classpath(Dependencies.Gradle.Kotlin)
         classpath(Dependencies.Gradle.Serialization)
+        classpath(Dependencies.Gradle.SqlDelight)
     }
 }

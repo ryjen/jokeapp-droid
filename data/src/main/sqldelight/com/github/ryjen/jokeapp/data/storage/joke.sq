@@ -1,0 +1,34 @@
+import java.lang.Boolean;
+import java.util.Date;
+
+CREATE TABLE joke (
+  id INTEGER PRIMARY KEY,
+  key TEXT NOT NULL,
+  content TEXT NOT NULL,
+  created TEXT AS Date DEFAULT CURRENT_TIME,
+  isFavorite INTEGER AS Boolean NOT NULL DEFAULT 0
+);
+
+CREATE INDEX joke_key ON joke(key);
+
+random:
+SELECT * FROM joke ORDER BY RANDOM() LIMIT 1;
+
+get:
+SELECT * FROM joke WHERE key = :key OR id = :key LIMIT 1;
+
+list:
+SELECT * FROM joke ORDER BY created;
+
+favorites:
+SELECT * FROM joke WHERE isFavorite = 1 ORDER BY created;
+
+updateFavorite:
+UPDATE joke SET isFavorite = :isFavorite WHERE key = :key OR id = :key LIMIT 1;
+
+insert:
+INSERT INTO joke(key, content, created, isFavorite) VALUES(?, ?, ?, ?);
+
+delete:
+DELETE FROM joke WHERE key = :key OR id = :key LIMIT 1;
+

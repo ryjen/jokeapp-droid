@@ -3,6 +3,13 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization")
     kotlin("multiplatform")
+    id("com.squareup.sqldelight")
+}
+
+sqldelight {
+    database("JokeDatabase") {
+        packageName = "com.github.ryjen.jokeapp.data.storage"
+    }
 }
 
 android {
@@ -37,10 +44,16 @@ kotlin {
 
 dependencies {
 
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(Dependencies.JUnit)
 
     implementation(project(":domain"))
 
+    implementation(Dependencies.Koin.Android)
+
+    implementation(Dependencies.SqlDelight.Android)
+    implementation(Dependencies.SqlDelight.Coroutines)
+
+    implementation(Dependencies.Ktor.Android)
     implementation(Dependencies.Ktor.Client)
     implementation(Dependencies.Ktor.Content)
     implementation(Dependencies.Ktor.Json)

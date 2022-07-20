@@ -25,6 +25,7 @@ object Dependencies {
         const val Android = "com.android.tools.build:gradle:${Versions.Gradle.version}"
         const val Serialization =
             "org.jetbrains.kotlin:kotlin-serialization:${Versions.Kotlin.version}"
+        const val SqlDelight = "com.squareup.sqldelight:gradle-plugin:1.5.3"
     }
 
     object Kotlin {
@@ -46,13 +47,6 @@ object Dependencies {
         const val Test = "androidx.navigation:navigation-testing:$version"
     }
 
-    object RoomX {
-        private const val version = "2.4.2"
-        const val Runtime = "androidx.room:room-runtime:$version"
-        const val Kotlin = "androidx.room:room-ktx:$version"
-        const val Compiler = "androidx.room:room-compiler:$version"
-    }
-
     object Koin {
         private const val version = "3.1.6"
         const val Android = "io.insert-koin:koin-android:$version"
@@ -64,7 +58,6 @@ object Dependencies {
         const val Test = "io.insert-koin:koin-test:$version"
         const val JvmTest = "io.insert-koin:koin-test-jvm:$version"
         const val JUnit = "io.insert-koin:koin-test-junit4:$version"
-
     }
 
     object Ktor {
@@ -78,6 +71,12 @@ object Dependencies {
         const val Logback = "ch.qos.logback:logback-classic:1.2.11"
         const val test = "io.ktor:ktor-server-test-host:$version"
 
+    }
+
+    object SqlDelight {
+        const val Android = "com.squareup.sqldelight:android-driver:1.5.3"
+        const val Test = "com.squareup.sqldelight:sqlite-driver:1.5.3"
+        const val Coroutines = "com.squareup.sqldelight:coroutines-extensions-jvm:1.5.3"
     }
 
     object Serialization {

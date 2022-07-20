@@ -39,7 +39,6 @@ dependencies {
     testImplementation(Dependencies.Mockk.Mockk)
 
     androidTestImplementation(Dependencies.Fake)
-    androidTestImplementation(Dependencies.RoomX.Kotlin)
     androidTestImplementation(Dependencies.Koin.Android)
     androidTestImplementation(Dependencies.Koin.JUnit)
     androidTestImplementation(Dependencies.CoroutinesX.Test)
@@ -47,4 +46,5 @@ dependencies {
     androidTestImplementation(Dependencies.ComposeX.Test)
     androidTestImplementation(Dependencies.Espresso.Intents)
     androidTestImplementation(Dependencies.Truth)
+    androidTestImplementation(Dependencies.SqlDelight.Test)
 }

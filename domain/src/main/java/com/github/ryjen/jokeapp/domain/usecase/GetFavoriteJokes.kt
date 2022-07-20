@@ -11,7 +11,7 @@ class GetFavoriteJokes(
     private val repo: JokeRepository,
 ) {
     suspend operator fun invoke() = flowUseCase {
-        repo.observable.getFavoriteJokes()
+        repo.getFavoriteJokes()
             .distinctUntilChanged()
             .catch { e ->
                 Outcome.Failure(e)

@@ -50,7 +50,7 @@ val routedNavItems = mapOf<String, NavItemBuilder<*>>(
             onViewModel = { getViewModel() },
             onFooter = { viewModel -> FavoritesFooter(router, viewModel) },
             onScreen = { viewModel -> FavoritesScreen(viewModel) },
-            onHeader = { viewModel -> FavoritesHeader(viewModel) },
+            onHeader = { FavoritesHeader() },
         )
     }
 )
