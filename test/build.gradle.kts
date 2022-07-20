@@ -46,4 +46,5 @@ dependencies {
     androidTestImplementation(Dependencies.ComposeX.Test)
     androidTestImplementation(Dependencies.Espresso.Intents)
     androidTestImplementation(Dependencies.Truth)
+    androidTestImplementation(Dependencies.SqlDelight.Test)
 }

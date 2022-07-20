@@ -67,7 +67,7 @@ class JokeRepositoryTest : KoinTest {
 
     @Test
     fun testGetFavouriteJokes() = runTest {
-        val jokes = repo.observable.getFavoriteJokes().toList()
+        val jokes = repo.getFavoriteJokes().toList()
         assertThat(jokes.isEmpty()).isFalse()
     }
 
@@ -82,7 +82,7 @@ class JokeRepositoryTest : KoinTest {
     fun testGetJokeNegative() = runTest {
         val r = mockk<JokeRepository>(relaxed = true)
         r.getJoke("arst1234")
-        coVerify(exactly = 1) { r.async.getJoke(any()) }
-        coVerify(exactly = 1) { r.remote.getJoke(any()) }
+        coVerify(exactly = 1) { r.getJoke(any()) }
+        coVerify(exactly = 1) { r.getJoke(any()) }
     }
 }
