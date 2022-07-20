@@ -16,7 +16,7 @@ class ReduxReducerTest {
     interface UseCase {
         operator fun invoke(param: Int)
     }
-    
+
     @Test
     fun `can combine two reducers`() {
         val useCase = mockk<UseCase>()

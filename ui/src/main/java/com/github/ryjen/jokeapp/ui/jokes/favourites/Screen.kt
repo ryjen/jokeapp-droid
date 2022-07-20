@@ -23,13 +23,13 @@ import com.github.ryjen.jokeapp.ui.theme.*
 @Composable
 fun FavoritesScreen(viewModel: FavoritesViewModel) {
 
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state().collectAsState()
 
     FavoritesContent(state, viewModel::dispatch)
 }
 
 @Composable
-fun FavoritesContent(state: FavoritesState, onAction: (FavoritesAction) -> Unit) {
+fun FavoritesContent(state: FavoritesViewState, onAction: (FavoritesAction) -> Unit) {
     val (showDeleteConfirm, setDeleteConfirm) = remember { mutableStateOf<Joke?>(null) }
     val context = LocalContext.current
 
@@ -118,7 +118,7 @@ fun FavoritesContent(state: FavoritesState, onAction: (FavoritesAction) -> Unit)
 )
 @Composable
 fun FavoritesPreview() {
-    FavoritesContent(state = FavoritesState(
+    FavoritesContent(state = FavoritesViewState(
         jokes = listOf(
             Joke(id = "123", content = "why did the chicken cross the road"),
             Joke(id = "234", content = "why did the orange stop in the middle of the road")

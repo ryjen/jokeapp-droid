@@ -32,7 +32,7 @@ suspend fun <Out> dispatchUseCase(
 /**
  * Executes business logic in its execute method and keep posting updates to the result as
  * [Outcome<R>].
- * Handling an exception (emit [Outcome.Failure] to the result) is the subclasses's responsibility.
+ * Handling an exception (emit [Outcome.Failure] to the result) is the subclasses responsibility.
  */
 suspend fun <Out> flowUseCase(
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.Default,

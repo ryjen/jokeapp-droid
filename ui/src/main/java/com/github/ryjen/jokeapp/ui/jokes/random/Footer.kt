@@ -9,11 +9,6 @@ import com.github.ryjen.jokeapp.ui.navigation.rememberRouter
 
 @Composable
 fun RandomJokeFooter(router: Router) {
-    RandomJokeFooterContent(router)
-}
-
-@Composable
-fun RandomJokeFooterContent(router: Router) {
     TabBar(router)
 }
 
@@ -21,5 +16,5 @@ fun RandomJokeFooterContent(router: Router) {
 @Composable
 @Preview
 fun RandomJokeFooterPreview() {
-    RandomJokeFooterContent(router = rememberRouter())
+    RandomJokeFooter(router = rememberRouter())
 }

@@ -14,7 +14,7 @@ object JokeMapper {
     operator fun invoke(input: DomainJoke) = with(input) {
         Joke(id = id, content = content, created = created, isFavorite = isFavorite)
     }
-    
+
     operator fun invoke(input: JokeResponse) = with(input) {
         DomainJoke(
             id = id,

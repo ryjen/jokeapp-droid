@@ -30,13 +30,13 @@ import com.smarttoolfactory.speechbubble.rememberBubbleState
 
 @Composable
 fun RandomJokeScreen(viewModel: RandomJokeViewModel) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state().collectAsState()
 
     RandomJokeContent(state)
 }
 
 @Composable
-fun RandomJokeContent(state: RandomJokeState) {
+fun RandomJokeContent(state: RandomJokeViewState) {
     val scrollState = rememberScrollState()
 
     val bubbleState = rememberBubbleState(
@@ -119,7 +119,7 @@ fun RandomJokeContent(state: RandomJokeState) {
 )
 fun RandomJokeScreenPreview() {
     RandomJokeContent(
-        RandomJokeState(
+        RandomJokeViewState(
             joke = Joke(
                 id = "1234",
                 content = LoremIpsum().values.joinToString("\n")
@@ -136,7 +136,7 @@ fun RandomJokeScreenPreview() {
 )
 fun RandomJokeErrorPreview() {
     RandomJokeContent(
-        RandomJokeState(
+        RandomJokeViewState(
             error = Failure.Message("Could not cross the road")
         )
     )

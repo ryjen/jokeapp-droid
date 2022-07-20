@@ -16,7 +16,7 @@ android {
 
 dependencies {
 
-    testImplementation("junit:junit:4.12")
+    testImplementation(Dependencies.JUnit)
     kapt(Dependencies.RoomX.Compiler)
 
     implementation(project(":domain"))

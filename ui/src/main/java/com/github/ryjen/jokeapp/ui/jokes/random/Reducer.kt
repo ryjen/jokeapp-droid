@@ -1,9 +1,9 @@
 package com.github.ryjen.jokeapp.ui.jokes.random
 
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxReducer
+import com.github.ryjen.jokeapp.ui.arch.redux.ViewReducer
 
-object RandomJokeReducer : ReduxReducer<RandomJokeState, RandomJokeAction> {
-    override fun invoke(state: RandomJokeState, action: RandomJokeAction) =
+object RandomJokeReducer : ViewReducer<RandomJokeState, RandomJokeViewState, RandomJokeAction> {
+    override fun reduce(state: RandomJokeState, action: RandomJokeAction) =
         when (action) {
             is RandomJokeAction.Init -> state.copy(
                 joke = null
