@@ -6,10 +6,11 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 internal val viewModelModule = module {
+
     viewModel {
-        FavoritesViewModel(get(), get())
+        FavoritesViewModel(get())
     }
     viewModel { params ->
-        RandomJokeViewModel(params.get(), get(), get(), get())
+        RandomJokeViewModel(params.get(), get())
     }
 }

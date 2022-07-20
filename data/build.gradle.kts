@@ -22,7 +22,7 @@ android {
 
 dependencies {
 
-    testImplementation("junit:junit:4.12")
+    testImplementation(Dependencies.JUnit)
 
     implementation(project(":domain"))
 

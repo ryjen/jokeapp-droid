@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 import com.github.ryjen.jokeapp.ui.R
 
 @Composable
-fun FavoritesHeader(viewModel: FavoritesViewModel) {
+fun FavoritesHeader() {
     FavoritesHeaderContent()
 }
 

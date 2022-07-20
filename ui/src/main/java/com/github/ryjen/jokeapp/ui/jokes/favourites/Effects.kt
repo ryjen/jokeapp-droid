@@ -1,24 +1,22 @@
 package com.github.ryjen.jokeapp.ui.jokes.favourites
 
 import com.github.ryjen.jokeapp.domain.arch.redux.ReduxDispatcher
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxStore
+import com.github.ryjen.jokeapp.domain.facades.JokeFacade
 import com.github.ryjen.jokeapp.domain.model.Joke
-import com.github.ryjen.jokeapp.domain.usecase.GetFavoriteJokes
-import com.github.ryjen.jokeapp.domain.usecase.RemoveFavoriteJoke
-import com.github.ryjen.jokeapp.ui.components.ReduxViewModel
+import com.github.ryjen.jokeapp.ui.arch.redux.ViewEffect
+import kotlinx.coroutines.CoroutineScope
 
-class FavoritesViewModel(
-    private val getFavoriteJokes: GetFavoriteJokes,
-    private val removeFavoriteJoke: RemoveFavoriteJoke
-) : ReduxViewModel<FavoritesState, FavoritesAction>() {
+class FavoriteJokesEffects(
+    scope: CoroutineScope,
+    private val facade: JokeFacade,
+    dispatcher: ReduxDispatcher<FavoritesAction>
+) : ViewEffect<FavoritesState, FavoritesAction>(scope),
+    ReduxDispatcher<FavoritesAction> by dispatcher {
 
-    override val store =
-        ReduxStore<FavoritesState, FavoritesAction>(FavoritesState()) + FavoritesReducer + this
-
-    override suspend fun applyMiddleware(
+    override suspend fun effects(
         state: FavoritesState,
         action: FavoritesAction,
-        dispatch: ReduxDispatcher<FavoritesAction>
+        dispatcher: ReduxDispatcher<FavoritesAction>
     ) {
         when (action) {
             is FavoritesAction.Init -> initialize()
@@ -27,12 +25,8 @@ class FavoritesViewModel(
         }
     }
 
-    init {
-        dispatch(FavoritesAction.Init)
-    }
-
     private suspend fun initialize() {
-        getFavoriteJokes().collect { outcome ->
+        facade.favorites { outcome ->
             outcome.onSuccess {
                 dispatch(FavoritesAction.Update(it))
             }.onFailure {
@@ -42,7 +36,7 @@ class FavoritesViewModel(
     }
 
     private suspend fun removeJoke(joke: Joke) {
-        removeFavoriteJoke(joke)
+        facade.removeFavorite(joke)
             .onFailure {
                 dispatch(FavoritesAction.Error(it))
             }

@@ -19,13 +19,13 @@ import com.github.ryjen.jokeapp.ui.theme.LocalDimensions
 
 @Composable
 fun FavoritesFooter(router: Router, viewModel: FavoritesViewModel) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state().collectAsState()
 
     FavoritesFooterContent(router, state)
 }
 
 @Composable
-fun FavoritesFooterContent(router: Router, state: FavoritesState) {
+fun FavoritesFooterContent(router: Router, state: FavoritesViewState) {
     val res = LocalContext.current.resources
 
     Column {
@@ -50,7 +50,7 @@ fun FavoritesFooterContent(router: Router, state: FavoritesState) {
 fun FavoritesFooterPreview() {
     FavoritesFooterContent(
         router = rememberRouter(),
-        state = FavoritesState(
+        state = FavoritesViewState(
             jokes = listOf(
                 Joke("123", "arst"),
                 Joke("123", "arst")
