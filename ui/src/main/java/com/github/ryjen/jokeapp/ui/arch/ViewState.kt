@@ -1,3 +1,5 @@
 package com.github.ryjen.jokeapp.ui.arch
 
-interface ViewState
+import com.github.ryjen.jokeapp.domain.arch.redux.ReduxState
+
+typealias ViewState = ReduxState

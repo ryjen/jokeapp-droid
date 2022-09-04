@@ -1,40 +1,59 @@
 package com.github.ryjen.jokeapp.domain.arch.redux
 
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-class ReduxStore<S, A>(
+interface ReduxStore<S : ReduxState, A : ReduxAction> : ReduxDispatcher<A> {
+
+    val reduxScope: CoroutineScope
+
+    // add reducers
+    fun addReducer(reducer: ReduxReducer<S, A>): ReduxStore<S, A>
+    operator fun plus(reducer: ReduxReducer<S, A>) = addReducer(reducer)
+
+    // add effects
+    fun addEffect(effect: ReduxEffect<S, A>): ReduxStore<S, A>
+    operator fun plus(effect: ReduxEffect<S, A>) = addEffect(effect)
+
+    // get state
+    fun stateAsStateFlow(): StateFlow<S>
+}
+
+open class FlowReduxStore<S : ReduxState, A : ReduxAction>(
     initialState: S,
-) : ReduxDispatcher<A> where S : ReduxState, A : ReduxAction {
+    override val reduxScope: CoroutineScope
+) : ReduxStore<S, A> {
+
     private val state = MutableStateFlow(initialState)
 
     private val reducers = mutableListOf<ReduxReducer<S, A>>()
     private val effects = mutableListOf<ReduxEffect<S, A>>()
 
-    fun addReducer(reducer: ReduxReducer<S, A>): ReduxStore<S, A> {
+    override fun addReducer(reducer: ReduxReducer<S, A>): ReduxStore<S, A> {
         reducers.add(reducer)
         return this
     }
 
-    operator fun plus(reducer: ReduxReducer<S, A>) = addReducer(reducer)
-
-    fun addEffect(effect: ReduxEffect<S, A>): ReduxStore<S, A> {
+    override fun addEffect(effect: ReduxEffect<S, A>): ReduxStore<S, A> {
         effects.add(effect)
         return this
     }
 
-    operator fun plus(effect: ReduxEffect<S, A>) = addEffect(effect)
-
     override fun dispatch(action: A) {
         state.update {
-            reducers.fold(it) { next, reducer -> reducer.apply(next, action) }
+            reducers.fold(it) { next, reducer -> reducer.reduce(next, action) }
         }
 
         effects.forEach { effect ->
-            effect.apply(state.value, action, this)
+            reduxScope.launch {
+                effect.applyEffect(state.value, action, ::dispatch)
+            }
         }
     }
 
-    fun stateAsStateFlow() = state.asStateFlow()
+    override fun stateAsStateFlow() = state.asStateFlow()
 }
