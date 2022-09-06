@@ -20,13 +20,15 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 
 ### architecture
 
-- uncle bob's clean architecture in modular android, separation of data, domain and presentation layers
-- composable architecture: redux with reducers and effects for viewmodel state
+- uncle bob's clean architecture in modular android, separation of data, domain and presentation
+  layers with use cases
+- composable architecture: redux with reducers and effects for state
+- android architecture: viewModels control redux effects and mapping data state to UI state.
 - compose and material ui frameworks
-- kotlin state flow and coroutines
+- kotlin state flow and coroutines: all async state and effects are tied to viewModel scope
 - navigation with routing and notifications
 - per-screen headers and footers
-- random joke prefers network, and save to local cache
+- data repositories prefer network, and save to local cache
 
 ## implementation
 
@@ -34,13 +36,13 @@ a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 
 To reduce conflicts and complexity while increasing cohesion and loose coupling.
 
-#### clean architecture
+#### clean architecture modules
 
 - **domain**: business entities, interfaces and use cases between layers
-- **data**: implementation of categorized data storage and retrieval
+- **data**: implementation of repositories, data storage and mapping to domain
 - **ui**: presentation of data and user interaction
 
-#### custom
+#### custom modules
 
 - **app**: the entry point to the application
 - **meta**: code unspecific to app related to programming languages, frameworks or algorithms
@@ -60,12 +62,11 @@ To reduce conflicts and complexity while increasing cohesion and loose coupling.
 ### TODO:
 
 - [x] speech bubbles
-- [x] fix snackbar
 - [ ] improve UX (scrolling, snackbar)
 - [ ] ML to know sentiment of joke and predict favorites
 - [ ] speech bubble characters based on category or sentiment
 - [ ] multiplatform (pending kotlin multiplatform release)
-   - [x] switch from room to sqldelite
+    - [x] switch from room to sqldelite
 - [ ] abstract to project template
 - [ ] generalize content use case, and add new remote sources, like quotes
 - [ ] export to text-over-photo for sharing
