@@ -39,7 +39,7 @@ class ReduxReducerTest {
 
         val reducer = combineReducers(reduceState, reduceEffect)
 
-        reducer.apply(State(test = 0), Actions.Test)
+        reducer.reduce(State(test = 0), Actions.Test)
 
         verify { useCase.invoke(1) }
     }
