@@ -1,15 +1,13 @@
 package com.github.ryjen.jokeapp.ui.jokes.random
 
-import com.github.ryjen.jokeapp.domain.arch.redux.FlowReduxStore
+import com.github.ryjen.jokeapp.domain.arch.redux.ScopedReduxFlowStore
 import kotlinx.coroutines.CoroutineScope
 
 class RandomJokeStore(
     override val reduxScope: CoroutineScope
-) :
-    FlowReduxStore<RandomJokeState, RandomJokeAction>(
-        RandomJokeState(), reduxScope
-    ) {
-
+) : ScopedReduxFlowStore<RandomJokeState, RandomJokeAction>(
+    reduxScope, RandomJokeState()
+) {
     init {
         addReducer(::randomJokeReducer)
     }

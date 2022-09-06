@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 
 interface ReduxStore<S : ReduxState, A : ReduxAction> : ReduxDispatcher<A> {
 
+    // scope for the store
     val reduxScope: CoroutineScope
 
     // add reducers
@@ -18,14 +19,11 @@ interface ReduxStore<S : ReduxState, A : ReduxAction> : ReduxDispatcher<A> {
     // add effects
     fun addEffect(effect: ReduxEffect<S, A>): ReduxStore<S, A>
     operator fun plus(effect: ReduxEffect<S, A>) = addEffect(effect)
-
-    // get state
-    fun stateAsStateFlow(): StateFlow<S>
 }
 
-open class FlowReduxStore<S : ReduxState, A : ReduxAction>(
+open class ScopedReduxFlowStore<S : ReduxState, A : ReduxAction>(
+    override val reduxScope: CoroutineScope,
     initialState: S,
-    override val reduxScope: CoroutineScope
 ) : ReduxStore<S, A> {
 
     private val state = MutableStateFlow(initialState)
@@ -55,5 +53,5 @@ open class FlowReduxStore<S : ReduxState, A : ReduxAction>(
         }
     }
 
-    override fun stateAsStateFlow() = state.asStateFlow()
+    fun stateAsStateFlow(): StateFlow<S> = state.asStateFlow()
 }

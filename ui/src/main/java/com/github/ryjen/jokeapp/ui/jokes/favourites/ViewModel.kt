@@ -16,6 +16,7 @@ class FavoritesViewModel(
     override val store = FavoritesStore(viewModelScope)
 
     init {
+        // viewModel adds the effects
         store.addEffect(this).dispatch(FavoritesAction.Init)
     }
 

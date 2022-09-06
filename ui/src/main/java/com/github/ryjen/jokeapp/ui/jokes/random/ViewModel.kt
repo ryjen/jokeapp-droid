@@ -20,6 +20,7 @@ class RandomJokeViewModel(
     override val store = RandomJokeStore(viewModelScope)
 
     init {
+        // viewModel adds the effects to the store
         store.addEffect(this).dispatch(RandomJokeAction.Init)
     }
 
