@@ -2,32 +2,35 @@ package com.github.ryjen.jokeapp.ui.jokes.favourites
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxDispatcher
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxEffect
 import com.github.ryjen.jokeapp.domain.facades.JokeFacade
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.ui.arch.ReduxViewModel
+import com.micrantha.kredux.ReduxAction
+import com.micrantha.kredux.ReduxDispatcher
+import com.micrantha.kredux.ReduxEffect
+import com.micrantha.kredux.coroutines.store.mappedFlowStoreOf
 
 class FavoritesViewModel(
     private val facade: JokeFacade
 ) : ViewModel(), ReduxViewModel<FavoritesState, FavoritesViewState, FavoritesAction>,
-    ReduxEffect<FavoritesState, FavoritesAction> {
+    ReduxEffect<FavoritesState> {
 
-    override val store = FavoritesStore(viewModelScope)
+    override val store =
+        mappedFlowStoreOf(scoped = { viewModelScope },
+            initialState = FavoritesState(),
+            transform = {
+                FavoritesViewState(it)
+            })
 
     init {
         // viewModel adds the effects
         store.addEffect(this).dispatch(FavoritesAction.Init)
     }
 
-    override fun mapViewState(state: FavoritesState) = FavoritesViewState(
-        jokes = state.jokes
-    )
-
     override suspend fun applyEffect(
         state: FavoritesState,
-        action: FavoritesAction,
-        dispatcher: ReduxDispatcher<FavoritesAction>
+        action: ReduxAction,
+        dispatcher: ReduxDispatcher
     ) {
         when (action) {
             is FavoritesAction.Init -> initialize()

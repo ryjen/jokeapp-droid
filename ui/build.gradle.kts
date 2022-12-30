@@ -33,6 +33,8 @@ dependencies {
     implementation(Dependencies.Koin.Compat)
     implementation(Dependencies.Koin.Compose)
 
+    implementation(Dependencies.Kredux)
+
     implementation(Dependencies.Accompanist.Placeholder)
     implementation(Dependencies.Accompanist.Insets)
     implementation(Dependencies.Accompanist.SystemUI)

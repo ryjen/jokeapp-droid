@@ -1,8 +1,8 @@
 package com.github.ryjen.jokeapp.ui.jokes.favourites
 
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxAction
 import com.github.ryjen.jokeapp.domain.model.Joke
 import com.github.ryjen.jokeapp.ui.arch.Failure
+import com.micrantha.kredux.ReduxAction
 
 sealed class FavoritesAction : ReduxAction {
     data class Update(val data: List<Joke>) : FavoritesAction()

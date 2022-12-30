@@ -13,4 +13,6 @@ data class FavoritesState(
 data class FavoritesViewState(
     val jokes: List<Joke> = listOf(),
     val error: Failure? = null
-) : ViewState
+) : ViewState {
+    constructor(state: FavoritesState) : this(jokes = state.jokes, error = state.error)
+}

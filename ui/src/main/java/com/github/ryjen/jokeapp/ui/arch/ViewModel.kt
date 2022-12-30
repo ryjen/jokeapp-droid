@@ -1,29 +1,20 @@
 package com.github.ryjen.jokeapp.ui.arch
 
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxAction
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxDispatcher
-import com.github.ryjen.jokeapp.domain.arch.redux.ReduxState
-import com.github.ryjen.jokeapp.domain.arch.redux.ScopedReduxFlowStore
-import kotlinx.coroutines.flow.SharingStarted
+import com.micrantha.kredux.ReduxAction
+import com.micrantha.kredux.ReduxDispatcher
+import com.micrantha.kredux.coroutines.state.ReduxFlowState
+import com.micrantha.kredux.store.ReduxStatefulStore
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 
-interface ReduxViewModel<State : ReduxState, VState : ViewState, Action : ReduxAction> :
-    ReduxDispatcher<Action> {
+interface ReduxViewModel<State, VState, Action : ReduxAction> :
+    ReduxDispatcher {
 
-    val store: ScopedReduxFlowStore<State, Action>
+    val store: ReduxStatefulStore<State, ReduxFlowState<State>, ReduxFlowState<VState>>
 
     fun state(): StateFlow<VState> =
-        store.stateAsStateFlow().asViewState()
+        store.state()
 
-    private fun StateFlow<State>.asViewState() = map(::mapViewState).stateIn(
-        store.reduxScope, SharingStarted.Eagerly, mapViewState(this.value)
-    )
-
-    fun mapViewState(state: State): VState
-
-    override fun dispatch(action: Action) {
+    override fun dispatch(action: ReduxAction) {
         store.dispatch(action)
     }
 }

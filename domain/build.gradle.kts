@@ -15,11 +15,13 @@ android {
 
 dependencies {
     implementation(project(":meta"))
+
     implementation(Dependencies.Koin.Android)
     implementation(Dependencies.Koin.Compat)
 
     implementation(Dependencies.CoroutinesX.Android)
     implementation(Dependencies.CoroutinesX.Core)
+    
     implementation(Dependencies.Timber)
 
     testImplementation(Dependencies.JUnit)

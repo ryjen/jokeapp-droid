@@ -128,6 +128,8 @@ object Dependencies {
         const val Agent = "io.mockk:mockk-agent-jvm:$version"
     }
 
+    const val Kredux = "com.micrantha.kredux:kredux:0.1.1-SNAPSHOT"
+
     const val Fake = "com.github.javafaker:javafaker:1.0.2"
 
     const val Truth = "com.google.truth:truth:1.1.3"
