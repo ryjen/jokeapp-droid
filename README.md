@@ -2,6 +2,8 @@
 
 a small app to request a joke from [iCanHazDadJoke](https://icanhazdadjoke.com)
 
+Archived: focused on [skouter](https://github.com/hackelia-micratha/skouter) as the next evolution.
+
 | Random                                               | Favorites                                               |
 | ---------------------------------------------------- | ------------------------------------------------------- |
 | <img src="docs/screenshots/random.png" height="380"> | <img src="docs/screenshots/favorites.png" height="380"> |
